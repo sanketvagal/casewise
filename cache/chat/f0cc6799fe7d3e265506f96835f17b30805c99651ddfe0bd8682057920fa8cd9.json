@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human. (also matched: urgent_clinician) Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article."
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nWrong pharmacy\n\nThe prescription I sent this morning went to the wrong pharmacy. I need this fixed immediately."
+   }
+  ]
+ },
+ "value": {
+  "text": "Hi\u202f[Customer Name],\n\nThank you for letting us know about the prescription that was sent to the wrong pharmacy. I\u2019m sorry for the inconvenience this has caused.\n\nI\u2019ve escalated this issue to a member of our support team who specializes in prescription and e\u2011prescribing matters. They are reviewing the details and will work to resolve the situation as quickly as possible.\n\nWe\u2019ll keep you updated as soon as we have more information. If you have any additional details you\u2019d like to share in the meantime, please feel free to reply to this message.\n\nThank you for your patience.",
+  "input_tokens": 223,
+  "output_tokens": 205
+ }
+}

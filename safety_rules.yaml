@@ -1,0 +1,131 @@
+# Safety rules: tickets that must always reach a human.
+#
+# These are checked before any model is asked anything. If a rule matches, the ticket
+# is escalated and nothing later in triage can turn it into an auto-reply.
+#
+# How a rule matches
+#   phrases          The rule matches when the ticket's subject or body contains any of
+#                    these. Case is ignored. A phrase matches whole words only, so
+#                    "dose" does not match "closed". End a phrase with * to match any
+#                    word that starts with it: "prescri*" matches "prescription" and
+#                    "prescribing".
+#   requester_roles  Optional. When present, the rule only applies to tickets from
+#                    these roles (physician, front desk, biller, practice admin).
+#
+# Other fields
+#   id               Stable identifier. It appears in the escalation reason and in
+#                    traces, so do not rename a rule once it is in use.
+#   description      One sentence shown to the agent who receives the escalation.
+#   next_step        What that agent should do first.
+#
+# Rules are checked top to bottom. When several match, the first one is the headline
+# reason and the others are listed after it.
+
+rules:
+  - id: patient_data_exposure
+    description: Patient-data access or exposure always goes to a human.
+    phrases:
+      - another patient's
+      - other patient's
+      - other patients'
+      - wrong patient
+      - wrong patient's
+      - patient record*
+      - patient data
+      - patient information
+      - chart
+      - charts
+      - phi
+      - hipaa
+      - breach*
+      - unauthori*
+      - data leak*
+      - leaked
+      - exposed
+      - privacy
+    next_step: >-
+      Do not discuss patient details in the ticket. Find out who could see what and
+      since when, then follow the privacy-incident procedure if data was exposed.
+
+  - id: prescription_error
+    description: Prescriptions and e-prescribing problems always go to a human.
+    phrases:
+      - prescri*
+      - e-prescri*
+      - eprescri*
+      - rx
+      - refill*
+      - medication*
+      - dose
+      - dosage
+      - wrong pharmacy
+    next_step: >-
+      Treat as clinically urgent. Confirm with the prescriber which prescription is
+      affected and what was actually sent before changing anything.
+
+  - id: billing_dispute
+    description: Billing disputes always go to a human.
+    phrases:
+      - refund*
+      - charged twice
+      - billed twice
+      - double charged
+      - double-charged
+      - double billed
+      - double-billed
+      - overcharg*
+      - dispute*
+      - chargeback*
+      - incorrect charge*
+      - wrong charge*
+      - wrong amount
+    next_step: >-
+      Pull the practice's invoices and payment history, confirm the disputed amount,
+      and hand to billing operations if a refund or credit is needed.
+
+  - id: suspected_outage
+    description: Suspected outages always go to a human.
+    phrases:
+      - outage*
+      - is down
+      - are down
+      - went down
+      - system down
+      - site down
+      - down for everyone
+      - nobody can
+      - no one can
+      - none of us can
+      - everyone is locked out
+      - whole practice
+      - entire practice
+      - not loading
+      - won't load
+      - 500 error
+      - error 500
+      - unavailable
+      - crash*
+    next_step: >-
+      Check the status page and recent incidents. If other practices report the same
+      thing, link this ticket to the incident and tell the customer it is being worked on.
+
+  - id: urgent_clinician
+    description: An upset or urgent clinician always goes to a human.
+    requester_roles:
+      - physician
+    phrases:
+      - urgent*
+      - immediately
+      - asap
+      - right now
+      - emergency
+      - unacceptable
+      - furious
+      - outraged
+      - fed up
+      - patient is waiting
+      - patients are waiting
+      - patient safety
+    next_step: >-
+      Reply within the urgent-response target. Acknowledge the urgency first, then
+      work the underlying problem.

@@ -78,6 +78,7 @@ def test_cli_reads_settings_from_a_dotenv_file_in_the_working_directory(
         "CASEWISE_GATEWAY_MODE=replay\n"
         f"CASEWISE_CACHE_DIR={tmp_path / 'empty-cache'}\n"
         f"CASEWISE_KB_DIR={kb_dir}\n"
+        f"CASEWISE_RULES_PATH={Settings().rules_path.resolve()}\n"
         f"CASEWISE_TRACE_DIR={tmp_path / 'traces'}\n"
     )
     monkeypatch.chdir(tmp_path)
@@ -102,6 +103,7 @@ def test_cli_explains_a_missing_api_key_instead_of_crashing(tmp_path, monkeypatc
     monkeypatch.setenv("CASEWISE_CACHE_DIR", str(settings.cache_dir))
     monkeypatch.setenv("CASEWISE_TRACE_DIR", str(settings.trace_dir))
     monkeypatch.setenv("CASEWISE_KB_DIR", str(Settings().kb_dir.resolve()))
+    monkeypatch.setenv("CASEWISE_RULES_PATH", str(Settings().rules_path.resolve()))
     monkeypatch.chdir(tmp_path)  # no .env here
 
     exit_code = main(["triage", "--subject", "Locked out", "--body", "Reset password?"])
