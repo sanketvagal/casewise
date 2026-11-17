@@ -1,0 +1,91 @@
+"""The real gateway: a configured chat provider plus Sentence Transformers embeddings.
+
+Provider SDKs and model weights are imported and loaded on first use, so building a
+gateway is free and tests never pay for them. Install them with ``uv sync --extra live``.
+"""
+
+from __future__ import annotations
+
+from collections.abc import Callable, Sequence
+from typing import Any
+
+from casewise.cache import CachedGateway
+from casewise.config import Settings
+from casewise.gateway import ChatResult, Message, ModelGateway
+
+
+class LiveDependencyMissing(RuntimeError):
+    """A live provider's package is not installed."""
+
+
+def _missing(package: str) -> LiveDependencyMissing:
+    return LiveDependencyMissing(
+        f"Live model calls need the '{package}' package. Install the live providers with "
+        "`uv sync --extra live`, or set CASEWISE_GATEWAY_MODE=replay to use the cache only."
+    )
+
+
+ChatFn = Callable[[str, Sequence[Message]], ChatResult]
+
+
+def _groq_chat() -> ChatFn:
+    try:
+        from groq import Groq
+    except ImportError as error:
+        raise _missing("groq") from error
+
+    client = Groq()  # reads GROQ_API_KEY
+
+    def chat(model: str, messages: Sequence[Message]) -> ChatResult:
+        response = client.chat.completions.create(
+            model=model, messages=[dict(m) for m in messages], temperature=0
+        )
+        return ChatResult(
+            text=response.choices[0].message.content or "",
+            input_tokens=response.usage.prompt_tokens,
+            output_tokens=response.usage.completion_tokens,
+        )
+
+    return chat
+
+
+CHAT_PROVIDERS: dict[str, Callable[[], ChatFn]] = {"groq": _groq_chat}
+"""Chat providers by configuration name. Each factory builds its client when first called."""
+
+
+class LiveGateway:
+    def __init__(self, provider: str) -> None:
+        if provider not in CHAT_PROVIDERS:
+            known = ", ".join(sorted(CHAT_PROVIDERS))
+            raise ValueError(f"Unknown provider {provider!r}. Known providers: {known}")
+        self._provider = provider
+        self._chat: ChatFn | None = None
+        self._embedders: dict[str, Any] = {}
+
+    def chat(self, model: str, messages: Sequence[Message]) -> ChatResult:
+        if self._chat is None:
+            self._chat = CHAT_PROVIDERS[self._provider]()
+        return self._chat(model, messages)
+
+    def embed(self, model: str, texts: Sequence[str]) -> list[list[float]]:
+        if model not in self._embedders:
+            try:
+                from sentence_transformers import SentenceTransformer
+            except ImportError as error:
+                raise _missing("sentence-transformers") from error
+
+            self._embedders[model] = SentenceTransformer(model)
+        return self._embedders[model].encode(list(texts), normalize_embeddings=True).tolist()
+
+
+def build_gateway(settings: Settings) -> ModelGateway:
+    """Build the gateway the configuration asks for (see ``Settings.gateway_mode``)."""
+    if settings.gateway_mode == "replay":
+        return CachedGateway(settings.cache_dir)
+    if settings.gateway_mode == "record":
+        return CachedGateway(settings.cache_dir, provider=LiveGateway(settings.provider))
+    if settings.gateway_mode == "live":
+        return LiveGateway(settings.provider)
+    raise ValueError(
+        f"Unknown gateway mode {settings.gateway_mode!r}. Use one of: live, record, replay"
+    )

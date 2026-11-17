@@ -6,14 +6,23 @@
 
 **Status:** ready-for-agent
 
-- [ ] Git repository initialized; Python project managed with uv; ruff and pytest configured
-- [ ] GitHub Actions workflow runs lint and tests on every push
-- [ ] A model gateway interface covers chat completions and embeddings, with three implementations: real (Groq Llama for chat, Sentence Transformers for embeddings), cached replay (on-disk, keyed by model and prompt), and a scripted fake for tests
-- [ ] The default provider is chosen by configuration
-- [ ] Knowledge-base articles are embedded into a vector store (ChromaDB)
-- [ ] `casewise triage` accepts a single ticket (subject, body, metadata) and returns either an auto-reply that cites its article or an escalation
-- [ ] A best match beyond the cosine-distance threshold escalates
-- [ ] Each run writes a JSONL trace with one record per step (input, output, latency, tokens, decision)
-- [ ] Tests drive triage through its public entry point with the scripted fake gateway: one case for a close match that auto-replies, one for a weak match that escalates, and one checking the trace
-- [ ] A cached-replay run returns the same result as the live run it was recorded from
-- [ ] ADR written for the model gateway as the single substitution seam, and for the provider and cache design
+- [x] Git repository initialized; Python project managed with uv; ruff and pytest configured
+- [x] GitHub Actions workflow runs lint and tests on every push
+- [x] A model gateway interface covers chat completions and embeddings, with three implementations: real (Groq Llama for chat, Sentence Transformers for embeddings), cached replay (on-disk, keyed by model and prompt), and a scripted fake for tests
+- [x] The default provider is chosen by configuration
+- [x] Knowledge-base articles are embedded into a vector store (ChromaDB)
+- [x] `casewise triage` accepts a single ticket (subject, body, metadata) and returns either an auto-reply that cites its article or an escalation
+- [x] A best match beyond the cosine-distance threshold escalates
+- [x] Each run writes a JSONL trace with one record per step (input, output, latency, tokens, decision)
+- [x] Tests drive triage through its public entry point with the scripted fake gateway: one case for a close match that auto-replies, one for a weak match that escalates, and one checking the trace
+- [x] A cached-replay run returns the same result as the live run it was recorded from
+- [x] ADR written for the model gateway as the single substitution seam, and for the provider and cache design
+
+## Comments
+
+**2026-11-17 (agent):** Implemented test-first. Notes for whoever picks up 02 and 03:
+
+- The cached-replay criterion is covered by a test where the scripted fake stands in for the live provider behind `CachedGateway`. No real Groq call has been made yet (no `GROQ_API_KEY` was available), so the Groq chat path in `LiveGateway` and the default model name `llama-3.3-70b-versatile` are unverified. The real Sentence Transformers embedder was run against the three articles.
+- The live providers are an optional extra (`uv sync --extra live`) so CI and replay don't install torch.
+- `distance_threshold` defaults to 0.5 as a placeholder. With `all-MiniLM-L6-v2`, on-topic sample tickets landed at 0.32-0.46 and off-topic ones at 0.75-0.79.
+- Triage is a plain function for now; the LangGraph state graph arrives with 03.
