@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You classify support tickets for a clinical practice-management product. Choose the one intent that best describes what the ticket asks for, from this list:\n- download-invoice: Download a monthly subscription invoice\n- reschedule-appointment: Reschedule a patient appointment\n- reset-password: Reset a staff member's password\n- other: anything none of the above covers\nSet confidence to your probability, from 0 to 1, that the intent is right.\n\nReply with only a JSON object and no other text.\nOutput: intent.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"What the ticket asks for. Labels are the knowledge-base article ids plus\\n``other``, until the topic taxonomy replaces them (see :func:`intent_labels`).\", \"properties\": {\"confidence\": {\"maximum\": 1, \"minimum\": 0, \"title\": \"Confidence\", \"type\": \"number\"}, \"intent\": {\"title\": \"Intent\", \"type\": \"string\"}}, \"required\": [\"intent\", \"confidence\"], \"title\": \"intent\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Can't log in\n\nI forgot my password and can't sign in this morning. How do I reset it?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"intent\": \"reset-password\",\n  \"confidence\": 0.99\n}",
+  "input_tokens": 321,
+  "output_tokens": 65
+ }
+}

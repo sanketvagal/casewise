@@ -4,6 +4,7 @@ import json
 
 import pytest
 
+import replies as say
 from casewise import CachedGateway, ScriptedGateway, Settings, Ticket, build_gateway, triage
 from casewise.cli import main
 
@@ -11,7 +12,11 @@ from casewise.cli import main
 def test_cli_triages_a_ticket_from_the_cache_and_prints_the_result(tmp_path, monkeypatch, capsys):
     settings = Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache")
     provider = ScriptedGateway(
-        chat_replies=["Use Forgot password."],
+        chat_replies={
+            "intent": say.intent("reset-password"),
+            "grounding": say.grounded(),
+            "draft": say.draft("Use Forgot password.", "reset-password"),
+        },
         embeddings={"password": [1.0, 0.0]},
         default_embedding=[0.0, 1.0],
     )

@@ -2,6 +2,7 @@
 
 import pytest
 
+import replies as say
 from casewise import ScriptedGateway, Settings, Ticket, triage
 
 EMBEDDINGS = {
@@ -41,7 +42,12 @@ def settings(tmp_path):
 
 def gateway() -> ScriptedGateway:
     return ScriptedGateway(
-        chat_replies=["Thanks for flagging this, we are looking into it."],
+        chat_replies={
+            "intent": say.intent("reschedule-appointment"),
+            "grounding": say.grounded(),
+            "draft": say.draft("Open Schedule and choose Reschedule.", "reschedule-appointment"),
+            "review_draft": say.review_draft("Thanks for flagging this, we are looking into it."),
+        },
         embeddings=EMBEDDINGS,
         default_embedding=[0.0, 0.0, 0.0, 1.0],
     )
@@ -60,7 +66,7 @@ def test_every_escalation_includes_a_complete_handoff_packet(settings, trigger):
     assert "FOR HUMAN REVIEW" in packet.suggested_draft
     assert "Thanks for flagging this, we are looking into it." in packet.suggested_draft
     assert packet.next_step.strip()
-    assert packet.detected_intent is None  # no intent step exists yet
+    assert packet.detected_intent == "reschedule-appointment"
 
 
 def test_handoff_lists_the_closest_articles_best_first(settings):

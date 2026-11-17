@@ -2,6 +2,7 @@
 
 import pytest
 
+import replies as say
 from casewise import ScriptedGateway, Settings, Ticket, triage
 
 # Any ticket mentioning an appointment embeds right on top of the reschedule article,
@@ -19,8 +20,14 @@ def settings(tmp_path):
 
 
 def willing_gateway() -> ScriptedGateway:
+    """A model that would auto-reply from the reschedule article at every step."""
     return ScriptedGateway(
-        chat_replies=["Open Schedule and choose Reschedule."],
+        chat_replies={
+            "intent": say.intent("reschedule-appointment", confidence=0.99),
+            "grounding": say.grounded(),
+            "draft": say.draft("Open Schedule and choose Reschedule.", "reschedule-appointment"),
+            "review_draft": say.review_draft("A colleague is looking into this."),
+        },
         embeddings=EMBEDDINGS,
         default_embedding=[0.0, 0.0, 0.0, 1.0],
     )
@@ -96,6 +103,9 @@ def test_rule_fires_on_a_representative_ticket(settings, rule_id, role, body):
 
 @pytest.mark.parametrize(("rule_id", "role", "body"), NEAR_MISSES)
 def test_rule_stays_silent_on_a_near_miss(settings, rule_id, role, body):
+    # Only the rules are under test here. Near misses that match the password or invoice
+    # article may still escalate on a later check, since the scripted draft cites the
+    # reschedule article; what matters is that no safety rule is the reason.
     ticket = Ticket(subject="Help needed", body=body, requester_role=role)
 
     result = triage(ticket, gateway=willing_gateway(), settings=settings)

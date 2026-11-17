@@ -2,6 +2,7 @@
 
 import pytest
 
+import replies as say
 from casewise import CachedGateway, CacheMiss, ScriptedGateway, Settings, Ticket, triage
 
 TOPIC_VECTORS = {"password": [1.0, 0.0, 0.0], "appointment": [0.0, 1.0, 0.0]}
@@ -17,7 +18,11 @@ def settings(tmp_path):
 def record_run(settings):
     """Stand-in for a live run: the scripted fake plays the provider behind the cache."""
     provider = ScriptedGateway(
-        chat_replies=["Use Forgot password."],
+        chat_replies={
+            "intent": say.intent("reset-password"),
+            "grounding": say.grounded(),
+            "draft": say.draft("Use Forgot password.", "reset-password"),
+        },
         embeddings=TOPIC_VECTORS,
         default_embedding=[0.0, 0.0, 1.0],
     )

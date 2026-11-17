@@ -18,7 +18,7 @@ A model asked "is this safe to auto-reply?" will sometimes say yes when it shoul
 
 **Model steps are one-directional.** Every later check, today the retrieval threshold and from issue 03 the intent and grounding steps, can turn a would-be auto-reply into an escalation. None can turn an escalation into an auto-reply. An auto-reply needs every check to pass; an escalation needs only one to fail.
 
-**The model still helps after an escalation, without deciding anything.** Retrieval and one chat call run to fill the handoff packet: the top articles and a suggested draft. The draft is prefixed `[FOR HUMAN REVIEW: ...]` and lives only in `handoff.suggested_draft`. `reply` and `cited_article` stay empty on every escalation.
+**The model still helps after an escalation, without deciding anything.** Intent classification, retrieval and one more chat call run to fill the handoff packet: the detected intent, the top articles and a suggested draft. Intent output that fails validation leaves `detected_intent` empty and does not change the reason. The draft is prefixed `[FOR HUMAN REVIEW: ...]` and lives only in `handoff.suggested_draft`. `reply` and `cited_article` stay empty on every escalation.
 
 ## Consequences
 
@@ -26,5 +26,6 @@ A model asked "is this safe to auto-reply?" will sometimes say yes when it shoul
 - Phrase matching is blunt. It over-escalates ("chart" in a harmless how-to question) and misses phrasings nobody listed. Over-escalation costs deflection, which is the accepted trade. Misses are caught only if a later model check also escalates, so the rules file needs tuning against the weeks 1-2 tickets.
 - Rule ids appear in escalation reasons, traces and, later, evaluation results. Renaming one breaks comparisons across runs.
 - Rules are checked in file order and the first match is the headline reason, so order in the file is meaningful.
-- Every escalation now costs one chat call for the suggested draft. With the call cache this is paid once per ticket.
+- Every escalation costs two chat calls, intent and the suggested draft (from issue 03). With the call cache this is paid once per ticket.
+- From issue 03 the graph enforces this structurally: the escalation in the graph state keeps its first value, so no later node can clear it (ADR 4).
 - The rule about clinicians uses `requester_role`, so a ticket with no role cannot trigger it. Ticket metadata quality matters for safety.

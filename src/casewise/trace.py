@@ -27,7 +27,12 @@ class Step:
 
 
 class Trace:
+    """A run's trace file. Every record also carries the run's ``intent`` and
+    ``grounding`` verdict as known when the step finished (``None`` until set)."""
+
     def __init__(self, trace_dir: Path) -> None:
+        self.intent: dict[str, Any] | None = None
+        self.grounding: dict[str, Any] | None = None
         self.run_id = uuid.uuid4().hex
         self.path = Path(trace_dir) / f"{self.run_id}.jsonl"
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -45,6 +50,8 @@ class Trace:
             "latency_ms": round(latency_ms, 3),
             "tokens": {"input": step.input_tokens, "output": step.output_tokens},
             "decision": step.decision,
+            "intent": self.intent,
+            "grounding": self.grounding,
         }
         with self.path.open("a", encoding="utf-8") as file:
             file.write(json.dumps(record) + "\n")
