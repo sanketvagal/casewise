@@ -1,6 +1,6 @@
 # 08: Ablations + model comparison
 
-**What to build:** Two tables showing that each design choice earns its place. An ablation table re-runs the evaluation with the safety rules, grounding check or retrieval threshold turned off in turn. A model comparison table runs triage on Groq Llama vs Gemini and reports accuracy, cost per ticket and latency.
+**What to build:** Two tables showing that each design choice earns its place. An ablation table re-runs the evaluation with the safety rules, grounding check or retrieval threshold turned off in turn. A model comparison table runs triage on gpt-oss-120b (served by Groq) vs Gemini and reports accuracy, cost per ticket and latency.
 
 **Blocked by:** 06
 

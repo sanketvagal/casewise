@@ -172,6 +172,7 @@ source = { editable = "." }
 dependencies = [
     { name = "chromadb" },
     { name = "pydantic" },
+    { name = "python-dotenv" },
 ]
 
 [package.optional-dependencies]
@@ -191,6 +192,7 @@ requires-dist = [
     { name = "chromadb", specifier = ">=1.5.9" },
     { name = "groq", marker = "extra == 'live'", specifier = ">=1.7.0" },
     { name = "pydantic", specifier = ">=2.14.3" },
+    { name = "python-dotenv", specifier = ">=1.2.4" },
     { name = "sentence-transformers", marker = "extra == 'live'", specifier = ">=6.3.0" },
 ]
 provides-extras = ["live"]

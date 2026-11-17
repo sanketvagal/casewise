@@ -11,7 +11,7 @@ from pathlib import Path
 class Settings:
     provider: str = "groq"
     """Chat provider used by the live gateway."""
-    chat_model: str = "llama-3.3-70b-versatile"
+    chat_model: str = "openai/gpt-oss-120b"
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     gateway_mode: str = "record"
     """``live`` (no cache), ``record`` (cache, calling the provider on a miss) or

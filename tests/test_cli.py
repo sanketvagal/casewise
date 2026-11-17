@@ -66,3 +66,45 @@ def test_an_unknown_provider_is_rejected_by_name():
 def test_an_unknown_gateway_mode_is_rejected():
     with pytest.raises(ValueError, match="live, record, replay"):
         build_gateway(Settings(gateway_mode="sometimes"))
+
+
+def test_cli_reads_settings_from_a_dotenv_file_in_the_working_directory(
+    tmp_path, monkeypatch, capsys
+):
+    for name in ("CASEWISE_GATEWAY_MODE", "CASEWISE_CACHE_DIR", "CASEWISE_KB_DIR"):
+        monkeypatch.delenv(name, raising=False)
+    kb_dir = Settings().kb_dir.resolve()
+    (tmp_path / ".env").write_text(
+        "CASEWISE_GATEWAY_MODE=replay\n"
+        f"CASEWISE_CACHE_DIR={tmp_path / 'empty-cache'}\n"
+        f"CASEWISE_KB_DIR={kb_dir}\n"
+        f"CASEWISE_TRACE_DIR={tmp_path / 'traces'}\n"
+    )
+    monkeypatch.chdir(tmp_path)
+
+    exit_code = main(["triage", "--subject", "Fax", "--body", "Can you send faxes?"])
+
+    # Only the .env asks for replay mode, so a cache-miss refusal proves it was read.
+    assert exit_code == 1
+    assert "No cached" in capsys.readouterr().err
+
+
+def test_cli_explains_a_missing_api_key_instead_of_crashing(tmp_path, monkeypatch, capsys):
+    pytest.importorskip("groq")
+    settings = Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache")
+    # Embeddings are already cached, so the first live call is the chat completion.
+    embed_only = ScriptedGateway(embeddings={"password": [1.0, 0.0]}, default_embedding=[0.0, 1.0])
+    recording = CachedGateway(settings.cache_dir, provider=embed_only)
+    with pytest.raises(AssertionError):
+        triage(Ticket(subject="Locked out", body="Reset password?"), gateway=recording,
+               settings=settings)  # fmt: skip
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    monkeypatch.setenv("CASEWISE_CACHE_DIR", str(settings.cache_dir))
+    monkeypatch.setenv("CASEWISE_TRACE_DIR", str(settings.trace_dir))
+    monkeypatch.setenv("CASEWISE_KB_DIR", str(Settings().kb_dir.resolve()))
+    monkeypatch.chdir(tmp_path)  # no .env here
+
+    exit_code = main(["triage", "--subject", "Locked out", "--body", "Reset password?"])
+
+    assert exit_code == 1
+    assert "GROQ_API_KEY" in capsys.readouterr().err

@@ -13,7 +13,7 @@ uv run ruff check .
 
 # Live triage needs the real providers and a Groq key
 uv sync --extra live
-export GROQ_API_KEY=...
+cp .env.example .env    # then put your key in it (.env is gitignored)
 uv run casewise triage --subject "Can't log in" --body "How do I reset my password?"
 ```
 

@@ -10,7 +10,7 @@ ADR 1 puts every model call behind `ModelGateway`. This ADR records how the real
 
 ## Decision
 
-**Provider selection.** `LiveGateway` looks its chat provider up by name in a registry (`CHAT_PROVIDERS`), and the name comes from configuration: `Settings.provider`, overridable with `CASEWISE_PROVIDER`. The default is `groq`. Model names are configuration too (`CASEWISE_CHAT_MODEL`, `CASEWISE_EMBEDDING_MODEL`). Embeddings always run locally with Sentence Transformers. Adding a provider (Gemini is planned) means adding one registry entry.
+**Provider selection.** `LiveGateway` looks its chat provider up by name in a registry (`CHAT_PROVIDERS`), and the name comes from configuration: `Settings.provider`, overridable with `CASEWISE_PROVIDER`. The default is `groq`. Model names are configuration too (`CASEWISE_CHAT_MODEL`, `CASEWISE_EMBEDDING_MODEL`). The default chat model is `openai/gpt-oss-120b`: the plan was a Llama model on Groq, but Groq shut down `llama-3.3-70b-versatile` for free and developer tiers on 2026-08-16 and named this model as the replacement. Embeddings always run locally with Sentence Transformers. Adding a provider (Gemini is planned) means adding one registry entry.
 
 Provider SDKs and model weights are imported on first use and installed as an optional extra (`uv sync --extra live`). Tests, CI and cached replay never install or load them.
 
@@ -32,4 +32,5 @@ Chat calls run at temperature 0. Sampling settings are fixed in code, not part o
 - Any change to a prompt or model name is a cache miss. That is the intended behavior (a changed prompt is a new experiment) but it means prompt edits need a recording run with an API key before CI can replay them.
 - One file per call is easy to diff and inspect, and merges cleanly, at the cost of many small files. If the full evaluation makes this unwieldy, the storage can change behind `CachedGateway` without touching callers.
 - Because sampling settings are not in the key, changing them in code requires clearing the cache by hand. If they ever become configurable they must join the key.
+- Hosted models get retired. Once a model is shut down its cached runs still replay, but they can no longer be re-recorded, so a prompt change after that point forces a move to a new model and a new baseline.
 - Stale entries are never evicted. Clearing the cache is a manual step.

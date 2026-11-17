@@ -8,7 +8,7 @@
 
 - [x] Git repository initialized; Python project managed with uv; ruff and pytest configured
 - [x] GitHub Actions workflow runs lint and tests on every push
-- [x] A model gateway interface covers chat completions and embeddings, with three implementations: real (Groq Llama for chat, Sentence Transformers for embeddings), cached replay (on-disk, keyed by model and prompt), and a scripted fake for tests
+- [x] A model gateway interface covers chat completions and embeddings, with three implementations: real (`openai/gpt-oss-120b` on Groq for chat, Sentence Transformers for embeddings), cached replay (on-disk, keyed by model and prompt), and a scripted fake for tests
 - [x] The default provider is chosen by configuration
 - [x] Knowledge-base articles are embedded into a vector store (ChromaDB)
 - [x] `casewise triage` accepts a single ticket (subject, body, metadata) and returns either an auto-reply that cites its article or an escalation
@@ -26,3 +26,7 @@
 - The live providers are an optional extra (`uv sync --extra live`) so CI and replay don't install torch.
 - `distance_threshold` defaults to 0.5 as a placeholder. With `all-MiniLM-L6-v2`, on-topic sample tickets landed at 0.32-0.46 and off-topic ones at 0.75-0.79.
 - Triage is a plain function for now; the LangGraph state graph arrives with 03.
+
+**2026-11-17 (agent), later:** A live run with a real key got a 404 from Groq for `llama-3.3-70b-versatile`. Groq's deprecations page lists it as shut down on 2026-08-16 for free and developer tiers, with no Llama replacement; it recommends `openai/gpt-oss-120b`. The default `chat_model` is now `openai/gpt-oss-120b`, and the spec and issue 08 were updated to match.
+
+**2026-11-17 (agent), verified:** A live run on `openai/gpt-oss-120b` auto-replied to a password-reset ticket and cited `reset-password`; an off-topic fax ticket escalated at distance 0.794. Replaying the recorded run with no API key (`CASEWISE_GATEWAY_MODE=replay`) returned the identical result. That recorded run is committed under `cache/`. The CLI now reads a `.env` from the working directory.

@@ -7,9 +7,11 @@ import sys
 from collections.abc import Sequence
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from casewise.cache import CacheMiss
 from casewise.config import Settings
-from casewise.live import LiveDependencyMissing, build_gateway
+from casewise.live import LiveUnavailable, build_gateway
 from casewise.triage import Ticket, triage
 
 
@@ -43,10 +45,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     else:
         parser.error("triage needs --ticket-file, or both --subject and --body")
 
+    # A .env in the working directory supplies API keys and CASEWISE_* settings.
+    # Variables already set in the environment win.
+    load_dotenv(Path.cwd() / ".env")
     settings = Settings.from_env()
     try:
         result = triage(ticket, gateway=build_gateway(settings), settings=settings)
-    except (CacheMiss, LiveDependencyMissing) as problem:
+    except (CacheMiss, LiveUnavailable) as problem:
         print(f"casewise: {problem}", file=sys.stderr)
         return 1
     print(result.model_dump_json(indent=2))

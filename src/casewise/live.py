@@ -6,6 +6,7 @@ gateway is free and tests never pay for them. Install them with ``uv sync --extr
 
 from __future__ import annotations
 
+import os
 from collections.abc import Callable, Sequence
 from typing import Any
 
@@ -14,12 +15,12 @@ from casewise.config import Settings
 from casewise.gateway import ChatResult, Message, ModelGateway
 
 
-class LiveDependencyMissing(RuntimeError):
-    """A live provider's package is not installed."""
+class LiveUnavailable(RuntimeError):
+    """A live provider cannot be used: its package or its API key is missing."""
 
 
-def _missing(package: str) -> LiveDependencyMissing:
-    return LiveDependencyMissing(
+def _missing(package: str) -> LiveUnavailable:
+    return LiveUnavailable(
         f"Live model calls need the '{package}' package. Install the live providers with "
         "`uv sync --extra live`, or set CASEWISE_GATEWAY_MODE=replay to use the cache only."
     )
@@ -34,6 +35,11 @@ def _groq_chat() -> ChatFn:
     except ImportError as error:
         raise _missing("groq") from error
 
+    if not os.environ.get("GROQ_API_KEY"):
+        raise LiveUnavailable(
+            "Live chat calls to Groq need GROQ_API_KEY. Export it or put it in a .env file "
+            "in the directory you run casewise from."
+        )
     client = Groq()  # reads GROQ_API_KEY
 
     def chat(model: str, messages: Sequence[Message]) -> ChatResult:
