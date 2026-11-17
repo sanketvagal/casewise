@@ -54,8 +54,8 @@ def test_close_match_auto_replies_and_cites_its_article(settings):
     assert "Reset a staff member's password" in result.reply
 
 
-def test_weak_match_escalates_without_drafting_a_reply(settings):
-    gateway = fake_gateway()  # no chat reply scripted: an escalation must not need one
+def test_weak_match_escalates(settings):
+    gateway = fake_gateway("Thanks, a colleague will pick this up.")
 
     result = triage(FAX_TICKET, gateway=gateway, settings=settings)
 
@@ -75,13 +75,19 @@ def test_auto_reply_run_writes_one_trace_record_per_step(settings):
     result = triage(PASSWORD_TICKET, gateway=gateway, settings=settings)
 
     records = read_trace(result)
-    assert [r["step"] for r in records] == ["retrieve", "threshold_check", "draft_reply"]
+    assert [r["step"] for r in records] == [
+        "safety_rules",
+        "retrieve",
+        "threshold_check",
+        "draft_reply",
+    ]
     for record in records:
         assert record["run_id"] == result.run_id
         assert record["input"] and record["output"]
         assert record["latency_ms"] >= 0
         assert set(record["tokens"]) == {"input", "output"}
-    retrieve, threshold, draft = records
+    rules, retrieve, threshold, draft = records
+    assert rules["decision"] == "pass"
     assert retrieve["output"]["matches"][0]["article_id"] == "reset-password"
     assert threshold["decision"] == "pass"
     assert draft["decision"] == "auto_reply"
@@ -90,9 +96,39 @@ def test_auto_reply_run_writes_one_trace_record_per_step(settings):
 
 
 def test_escalated_run_traces_the_failed_threshold_check(settings):
-    result = triage(FAX_TICKET, gateway=fake_gateway(), settings=settings)
+    gateway = fake_gateway("Thanks, a colleague will pick this up.")
+
+    result = triage(FAX_TICKET, gateway=gateway, settings=settings)
 
     records = read_trace(result)
-    assert [r["step"] for r in records] == ["retrieve", "threshold_check"]
+    assert [r["step"] for r in records] == [
+        "safety_rules",
+        "retrieve",
+        "threshold_check",
+        "draft_for_review",
+    ]
+    threshold, handoff = records[2:]
+    assert threshold["decision"] == "escalate"
+    assert threshold["output"]["reason"] == result.escalation_reason
+    assert handoff["decision"] == "escalate"
+    assert handoff["output"]["handoff"]["suggested_draft"] == result.handoff.suggested_draft
+    assert handoff["tokens"]["output"] == 7  # the fake counts words in its scripted reply
+
+
+def test_rule_escalation_traces_the_rule_and_skips_the_model_decision_steps(settings):
+    ticket = Ticket(
+        subject="Billing",
+        body="We were charged twice for our appointment reminders add-on.",
+        requester_role="biller",
+    )
+    gateway = fake_gateway("Thanks, a colleague will pick this up.")
+
+    result = triage(ticket, gateway=gateway, settings=settings)
+
+    records = read_trace(result)
+    assert [r["step"] for r in records] == ["safety_rules", "retrieve", "draft_for_review"]
+    rules = records[0]
+    assert rules["decision"] == "escalate"
+    assert rules["output"]["fired"] == [{"rule_id": "billing_dispute", "phrase": "charged twice"}]
     assert records[-1]["decision"] == "escalate"
-    assert records[-1]["output"]["reason"] == result.escalation_reason
+    assert records[-1]["output"]["handoff"]["reason"] == result.escalation_reason

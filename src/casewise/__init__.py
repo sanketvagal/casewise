@@ -4,12 +4,13 @@ from casewise.cache import CachedGateway, CacheMiss
 from casewise.config import Settings
 from casewise.gateway import ChatResult, ModelGateway, ScriptedGateway
 from casewise.live import LiveGateway, build_gateway
-from casewise.triage import Ticket, TriageResult, triage
+from casewise.triage import HandoffPacket, Ticket, TriageResult, triage
 
 __all__ = [
     "CacheMiss",
     "CachedGateway",
     "ChatResult",
+    "HandoffPacket",
     "LiveGateway",
     "ModelGateway",
     "ScriptedGateway",

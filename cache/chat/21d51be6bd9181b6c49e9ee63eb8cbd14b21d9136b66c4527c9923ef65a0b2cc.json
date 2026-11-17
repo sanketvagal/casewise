@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: retrieval_threshold: best match 'download-invoice' is at cosine distance 0.794, beyond the threshold of 0.5 Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article."
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nFax integration\n\nCan the system send referral letters by fax to a specialist?"
+   }
+  ]
+ },
+ "value": {
+  "text": "Hi\u202f[Customer Name],\n\nThank you for reaching out with your question about sending referral letters by fax. I\u2019ve passed this along to a member of our support team, and they\u2019ll be reviewing the details.\n\nWe\u2019ll be in touch as soon as we have more information.\n\nBest regards,  \n[Your Name]  \nCustomer Support \u2013 [Product Name]",
+  "input_tokens": 215,
+  "output_tokens": 160
+ }
+}
