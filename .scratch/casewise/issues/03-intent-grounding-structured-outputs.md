@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [x] Triage runs as a LangGraph state graph: safety rules (or a placeholder for them) → intent → retrieval → threshold → grounding → draft or escalate
 - [x] Every LLM step returns a validated Pydantic model (intent with confidence, grounding verdict with reason, draft with cited article)

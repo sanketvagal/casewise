@@ -4,7 +4,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [x] Git repository initialized; Python project managed with uv; ruff and pytest configured
 - [x] GitHub Actions workflow runs lint and tests on every push
