@@ -19,4 +19,6 @@ uv run casewise triage --subject "Can't log in" --body "How do I reset my passwo
 
 Tickets that match a rule in `safety_rules.yaml` always escalate to a human, before any model is consulted. Every escalation comes with a handoff packet: the reason, the closest articles, a suggested draft marked for human review, and a next step.
 
+Otherwise a ticket auto-replies only when two checks pass: the closest article is within a cosine-distance threshold, and a grounding check confirms that article actually answers the ticket. Every model step returns validated JSON; output that keeps failing validation escalates. See `docs/adr/0004-*`.
+
 Configuration is by environment variable; see `src/casewise/config.py`.

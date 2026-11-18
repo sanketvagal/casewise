@@ -24,7 +24,7 @@ Provider SDKs and model weights are imported on first use and installed as an op
 
 The key is the model plus the prompt: for chat, the model name and the full message list; for embeddings, the model name and one text. Each entry is a JSON file named by the SHA-256 of its key, holding both key and value, under `cache/chat/` or `cache/embed/`. Embeddings are cached per text rather than per batch, so the knowledge base is embedded once however the calls are grouped.
 
-Chat calls run at temperature 0. Sampling settings are fixed in code, not part of the key.
+Chat calls run at temperature 0. Sampling settings are fixed in code, not part of the key. For Groq reasoning models the reasoning effort is fixed too (`medium`, with returned reasoning text turned off; see ADR 4).
 
 ## Consequences
 

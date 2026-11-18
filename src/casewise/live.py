@@ -28,6 +28,12 @@ def _missing(package: str) -> LiveUnavailable:
 
 ChatFn = Callable[[str, Sequence[Message]], ChatResult]
 
+GROQ_REASONING_EFFORT = "medium"
+"""Reasoning effort for Groq reasoning models (gpt-oss accepts low, medium or high).
+Fixed in code and not part of the cache key (ADR 2): changing it means clearing the
+cache by hand. "medium" is Groq's documented default, pinned so a change of default on
+Groq's side cannot silently change recorded behavior."""
+
 
 def _groq_chat() -> ChatFn:
     try:
@@ -44,7 +50,13 @@ def _groq_chat() -> ChatFn:
 
     def chat(model: str, messages: Sequence[Message]) -> ChatResult:
         response = client.chat.completions.create(
-            model=model, messages=[dict(m) for m in messages], temperature=0
+            model=model,
+            messages=[dict(m) for m in messages],
+            temperature=0,
+            # The answer is in message.content either way; this keeps the reasoning
+            # text out of the response. gpt-oss rejects reasoning_format, so it is unset.
+            reasoning_effort=GROQ_REASONING_EFFORT,
+            include_reasoning=False,
         )
         return ChatResult(
             text=response.choices[0].message.content or "",
