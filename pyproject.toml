@@ -17,6 +17,7 @@ casewise = "casewise.cli:main"
 
 [project.optional-dependencies]
 live = [
+    "google-genai>=3.4.0",
     "groq>=1.7.0",
     "sentence-transformers>=6.3.0",
 ]

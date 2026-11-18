@@ -28,7 +28,7 @@ If (1) or (2) fails, the reply is incorrect and the judge is not called. If the 
 
 **Intent macro-F1** runs over every ticket, rule-escalated ones included, and averages over the classes present in the gold labels. Invalid intent output counts as a wrong prediction.
 
-**The judge** sees the ticket, the reply and the **labeled** answering article, never the article retrieval picked. It returns a structured `correct`/`incorrect` verdict with a reason. It marks a reply correct only if the reply answers the ticket's question, agrees with the article and adds no claims the article doesn't support. It runs on a different model family from triage: Gemini Flash-Lite through its own `judge_provider` and `judge_model` settings, behind the same gateway seam (ADRs 1 and 2).
+**The judge** sees the ticket, the reply and the **labeled** answering article, never the article retrieval picked. It returns a structured `correct`/`incorrect` verdict with a reason. It marks a reply correct only if the reply answers the ticket's question, agrees with the article and adds no claims the article doesn't support. It runs on a different model family from triage: Gemini Flash-Lite (`gemini-3.5-flash-lite`, the newest Flash-Lite without a preview tag on 2026-11-17) through its own `judge_provider` and `judge_model` settings, behind the same gateway seam (ADRs 1 and 2).
 
 ## Considered options
 

@@ -22,3 +22,12 @@ Tickets that match a rule in `safety_rules.yaml` always escalate to a human, bef
 Otherwise a ticket auto-replies only when two checks pass: the closest article is within a cosine-distance threshold, and a grounding check confirms that article actually answers the ticket. Every model step returns validated JSON; output that keeps failing validation escalates. See `docs/adr/0004-*`.
 
 Configuration is by environment variable; see `src/casewise/config.py`.
+
+## Evaluation
+
+```sh
+# Reproduce the recorded numbers from the committed cache: no API keys, no live extra
+CASEWISE_GATEWAY_MODE=replay uv run casewise eval
+```
+
+`casewise eval` triages the labeled tickets in `eval/fixtures.jsonl`, has an LLM judge on a different model family (Gemini Flash-Lite; needs `GEMINI_API_KEY` when recording) grade each auto-reply against its labeled article, and writes `eval/results/latest.json` and `latest.md`. Deflection counts only correct auto-replies: a wrong answer is a failure, not a deflection. Definitions are in `GLOSSARY.md` and `docs/adr/0005-*`.

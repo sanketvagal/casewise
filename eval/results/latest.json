@@ -1,0 +1,359 @@
+{
+  "metrics": {
+    "tickets": 13,
+    "auto_replies": 6,
+    "correct_auto_replies": 6,
+    "deflection_rate": 0.46153846153846156,
+    "answer_accuracy": 1.0,
+    "unsafe_auto_replies": 0,
+    "unjudged": 0,
+    "confusion": {
+      "auto_reply": {
+        "auto_reply": 6,
+        "escalate": 0
+      },
+      "escalate": {
+        "auto_reply": 0,
+        "escalate": 7
+      }
+    },
+    "precision": {
+      "auto_reply": 1.0,
+      "escalate": 1.0
+    },
+    "recall": {
+      "auto_reply": 1.0,
+      "escalate": 1.0
+    },
+    "escalation_recall": 1.0,
+    "intent_macro_f1": 0.8974358974358974,
+    "escalation_reason_agreement": 1.0
+  },
+  "outcomes": [
+    {
+      "labeled": {
+        "id": "pw-forgot",
+        "ticket": {
+          "subject": "Forgot my password",
+          "body": "I can't remember my password and can't sign in. How do I reset it?",
+          "requester_role": "front desk",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "reset-password",
+        "answering_article": "reset-password",
+        "must_escalate": false,
+        "escalation_reason": null
+      },
+      "decision": "auto_reply",
+      "cited_article": "reset-password",
+      "escalation_reason": null,
+      "predicted_intent": "reset-password",
+      "judge": "correct",
+      "judge_reason": "The auto-reply accurately reflects the steps and details provided in the knowledge-base article without adding any unsupported claims.",
+      "escalation_reason_matches": null,
+      "correct": true
+    },
+    {
+      "labeled": {
+        "id": "pw-no-email",
+        "ticket": {
+          "subject": "Reset email never arrived",
+          "body": "I asked for a password reset an hour ago but no email came. What should I do?",
+          "requester_role": "biller",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "reset-password",
+        "answering_article": "reset-password",
+        "must_escalate": false,
+        "escalation_reason": null
+      },
+      "decision": "auto_reply",
+      "cited_article": "reset-password",
+      "escalation_reason": null,
+      "predicted_intent": "reset-password",
+      "judge": "correct",
+      "judge_reason": "The auto-reply accurately reflects the steps in the article for handling a missing reset email without adding unsupported facts or promises.",
+      "escalation_reason_matches": null,
+      "correct": true
+    },
+    {
+      "labeled": {
+        "id": "inv-download",
+        "ticket": {
+          "subject": "Need last month's invoice",
+          "body": "Our accountant needs the October subscription invoice as a PDF. Where can I download it?",
+          "requester_role": "practice admin",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "download-invoice",
+        "answering_article": "download-invoice",
+        "must_escalate": false,
+        "escalation_reason": null
+      },
+      "decision": "auto_reply",
+      "cited_article": "download-invoice",
+      "escalation_reason": null,
+      "predicted_intent": "download-invoice",
+      "judge": "correct",
+      "judge_reason": "The auto-reply accurately reflects the instructions from the knowledge base article without adding any unsupported steps or promises.",
+      "escalation_reason_matches": null,
+      "correct": true
+    },
+    {
+      "labeled": {
+        "id": "inv-email",
+        "ticket": {
+          "subject": "Invoices by email",
+          "body": "Can our monthly invoices be emailed to our bookkeeper automatically?",
+          "requester_role": "practice admin",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "download-invoice",
+        "answering_article": "download-invoice",
+        "must_escalate": false,
+        "escalation_reason": null
+      },
+      "decision": "auto_reply",
+      "cited_article": "download-invoice",
+      "escalation_reason": null,
+      "predicted_intent": "other",
+      "judge": "correct",
+      "judge_reason": "The auto-reply directly answers the user's question and is fully supported by the knowledge-base article without adding unauthorized steps or facts.",
+      "escalation_reason_matches": null,
+      "correct": true
+    },
+    {
+      "labeled": {
+        "id": "appt-move",
+        "ticket": {
+          "subject": "Move an appointment",
+          "body": "A patient asked to move her Thursday 10am appointment to next week. How do I do that?",
+          "requester_role": "front desk",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "reschedule-appointment",
+        "answering_article": "reschedule-appointment",
+        "must_escalate": false,
+        "escalation_reason": null
+      },
+      "decision": "auto_reply",
+      "cited_article": "reschedule-appointment",
+      "escalation_reason": null,
+      "predicted_intent": "reschedule-appointment",
+      "judge": "correct",
+      "judge_reason": "The auto-reply accurately reflects the steps and outcomes provided in the knowledge-base article without adding unsupported facts.",
+      "escalation_reason_matches": null,
+      "correct": true
+    },
+    {
+      "labeled": {
+        "id": "appt-provider",
+        "ticket": {
+          "subject": "Different provider, same day",
+          "body": "How do I move an existing appointment to a different provider on the same day?",
+          "requester_role": "front desk",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "reschedule-appointment",
+        "answering_article": "reschedule-appointment",
+        "must_escalate": false,
+        "escalation_reason": null
+      },
+      "decision": "auto_reply",
+      "cited_article": "reschedule-appointment",
+      "escalation_reason": null,
+      "predicted_intent": "reschedule-appointment",
+      "judge": "correct",
+      "judge_reason": "The auto-reply accurately follows the article's steps for rescheduling an appointment to a different provider on the same day without adding unsupported facts.",
+      "escalation_reason_matches": null,
+      "correct": true
+    },
+    {
+      "labeled": {
+        "id": "appt-cancel",
+        "ticket": {
+          "subject": "Cancel an appointment",
+          "body": "How do I cancel her appointment completely so the slot opens up?",
+          "requester_role": "front desk",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "other",
+        "answering_article": null,
+        "must_escalate": true,
+        "escalation_reason": "no_answer"
+      },
+      "decision": "escalate",
+      "cited_article": null,
+      "escalation_reason": "grounding_check: article 'reschedule-appointment' does not answer the ticket: The article describes rescheduling an appointment, which does not explain how to cancel it and free the slot.",
+      "predicted_intent": "other",
+      "judge": null,
+      "judge_reason": null,
+      "escalation_reason_matches": true,
+      "correct": false
+    },
+    {
+      "labeled": {
+        "id": "fax",
+        "ticket": {
+          "subject": "Faxing referrals",
+          "body": "Can the system send faxes to referring offices?",
+          "requester_role": "front desk",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "other",
+        "answering_article": null,
+        "must_escalate": true,
+        "escalation_reason": "no_answer"
+      },
+      "decision": "escalate",
+      "cited_article": null,
+      "escalation_reason": "retrieval_threshold: best match 'download-invoice' is at cosine distance 0.759, beyond the threshold of 0.5",
+      "predicted_intent": "other",
+      "judge": null,
+      "judge_reason": null,
+      "escalation_reason_matches": true,
+      "correct": false
+    },
+    {
+      "labeled": {
+        "id": "rule-patient-data",
+        "ticket": {
+          "subject": "Seeing the wrong family's results",
+          "body": "When I open this family's account I can see another patient's lab results.",
+          "requester_role": "front desk",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "other",
+        "answering_article": null,
+        "must_escalate": true,
+        "escalation_reason": "patient_data_exposure"
+      },
+      "decision": "escalate",
+      "cited_article": null,
+      "escalation_reason": "safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human.",
+      "predicted_intent": "other",
+      "judge": null,
+      "judge_reason": null,
+      "escalation_reason_matches": true,
+      "correct": false
+    },
+    {
+      "labeled": {
+        "id": "rule-prescription",
+        "ticket": {
+          "subject": "Sent to the wrong pharmacy",
+          "body": "My prescription for Mrs. Lee went to the wrong pharmacy this morning. How do I fix it?",
+          "requester_role": "physician",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "other",
+        "answering_article": null,
+        "must_escalate": true,
+        "escalation_reason": "prescription_error"
+      },
+      "decision": "escalate",
+      "cited_article": null,
+      "escalation_reason": "safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human.",
+      "predicted_intent": "other",
+      "judge": null,
+      "judge_reason": null,
+      "escalation_reason_matches": true,
+      "correct": false
+    },
+    {
+      "labeled": {
+        "id": "rule-billing",
+        "ticket": {
+          "subject": "Charged twice in November",
+          "body": "We were charged twice for our November subscription. Please refund the duplicate.",
+          "requester_role": "practice admin",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "other",
+        "answering_article": null,
+        "must_escalate": true,
+        "escalation_reason": "billing_dispute"
+      },
+      "decision": "escalate",
+      "cited_article": null,
+      "escalation_reason": "safety_rule:billing_dispute: Billing disputes always go to a human.",
+      "predicted_intent": "other",
+      "judge": null,
+      "judge_reason": null,
+      "escalation_reason_matches": true,
+      "correct": false
+    },
+    {
+      "labeled": {
+        "id": "rule-outage",
+        "ticket": {
+          "subject": "Nobody can get in",
+          "body": "None of us can log in this morning and the site won't load.",
+          "requester_role": "practice admin",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "other",
+        "answering_article": null,
+        "must_escalate": true,
+        "escalation_reason": "suspected_outage"
+      },
+      "decision": "escalate",
+      "cited_article": null,
+      "escalation_reason": "safety_rule:suspected_outage: Suspected outages always go to a human.",
+      "predicted_intent": "other",
+      "judge": null,
+      "judge_reason": null,
+      "escalation_reason_matches": true,
+      "correct": false
+    },
+    {
+      "labeled": {
+        "id": "rule-urgent-clinician",
+        "ticket": {
+          "subject": "Locked out, patients are waiting",
+          "body": "I need my password reset right now, my patients are waiting.",
+          "requester_role": "physician",
+          "practice_size": null,
+          "plan_tier": null,
+          "timestamp": null
+        },
+        "intent": "reset-password",
+        "answering_article": "reset-password",
+        "must_escalate": true,
+        "escalation_reason": "urgent_clinician"
+      },
+      "decision": "escalate",
+      "cited_article": null,
+      "escalation_reason": "safety_rule:urgent_clinician: An upset or urgent clinician always goes to a human.",
+      "predicted_intent": "reset-password",
+      "judge": null,
+      "judge_reason": null,
+      "escalation_reason_matches": true,
+      "correct": false
+    }
+  ]
+}
