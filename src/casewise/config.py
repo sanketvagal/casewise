@@ -13,6 +13,9 @@ class Settings:
     """Chat provider used by the live gateway."""
     chat_model: str = "openai/gpt-oss-120b"
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    judge_provider: str = "gemini"
+    """Chat provider for the evaluation judge: a different model family from triage (ADR 5)."""
+    judge_model: str = "gemini-3.5-flash-lite"
     gateway_mode: str = "record"
     """``live`` (no cache), ``record`` (cache, calling the provider on a miss) or
     ``replay`` (cache only, never calls a provider)."""

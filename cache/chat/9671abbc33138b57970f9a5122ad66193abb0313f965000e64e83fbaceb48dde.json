@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: reset-password\nArticle: Reset a staff member's password\nStaff can reset their own password from the sign-in page.\n\n1. On the sign-in page, select **Forgot password**.\n2. Enter the work email address linked to the account.\n3. Open the reset email (it arrives within 5 minutes and the link expires after 60 minutes) and choose a new password.\n\nPasswords must be at least 12 characters. If the reset email does not arrive, check the spam folder, then ask a practice admin to confirm the email address under **Settings > Staff**. A practice admin can also send a reset link from the staff member's profile.\n\nTicket:\nForgot my password\n\nI can't remember my password and can't sign in. How do I reset it?\n\nAuto-reply:\nOn the sign\u2011in page click **Forgot password**, enter your work email, and follow the reset link sent (check spam if needed). The link is valid for 60 minutes and passwords must be at least 12 characters.\n\nSource: Reset a staff member's password (reset-password)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately reflects the steps and details provided in the knowledge-base article without adding any unsupported claims.\"}\n```",
+  "input_tokens": 442,
+  "output_tokens": 40
+ }
+}

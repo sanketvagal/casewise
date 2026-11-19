@@ -67,7 +67,47 @@ def _groq_chat() -> ChatFn:
     return chat
 
 
-CHAT_PROVIDERS: dict[str, Callable[[], ChatFn]] = {"groq": _groq_chat}
+def _gemini_chat() -> ChatFn:
+    try:
+        from google import genai
+        from google.genai import types
+    except ImportError as error:
+        raise _missing("google-genai") from error
+
+    if not os.environ.get("GEMINI_API_KEY"):
+        raise LiveUnavailable(
+            "Live chat calls to Gemini need GEMINI_API_KEY (from Google AI Studio). Export "
+            "it or put it in a .env file in the directory you run casewise from."
+        )
+    client = genai.Client()  # reads GEMINI_API_KEY
+
+    def chat(model: str, messages: Sequence[Message]) -> ChatResult:
+        # Gemini takes system text separately and calls the assistant role "model".
+        system = "\n\n".join(m["content"] for m in messages if m["role"] == "system")
+        contents = [
+            types.Content(
+                role="model" if m["role"] == "assistant" else "user",
+                parts=[types.Part(text=m["content"])],
+            )
+            for m in messages
+            if m["role"] != "system"
+        ]
+        response = client.models.generate_content(
+            model=model,
+            contents=contents,
+            config=types.GenerateContentConfig(system_instruction=system or None, temperature=0),
+        )
+        usage = response.usage_metadata
+        return ChatResult(
+            text=response.text or "",
+            input_tokens=(usage.prompt_token_count or 0) if usage else 0,
+            output_tokens=(usage.candidates_token_count or 0) if usage else 0,
+        )
+
+    return chat
+
+
+CHAT_PROVIDERS: dict[str, Callable[[], ChatFn]] = {"groq": _groq_chat, "gemini": _gemini_chat}
 """Chat providers by configuration name. Each factory builds its client when first called."""
 
 
@@ -96,14 +136,19 @@ class LiveGateway:
         return self._embedders[model].encode(list(texts), normalize_embeddings=True).tolist()
 
 
-def build_gateway(settings: Settings) -> ModelGateway:
-    """Build the gateway the configuration asks for (see ``Settings.gateway_mode``)."""
+def build_gateway(settings: Settings, *, provider: str | None = None) -> ModelGateway:
+    """Build the gateway the configuration asks for (see ``Settings.gateway_mode``).
+
+    ``provider`` overrides ``settings.provider``: the evaluation judge passes
+    ``settings.judge_provider``.
+    """
+    provider = provider or settings.provider
     if settings.gateway_mode == "replay":
         return CachedGateway(settings.cache_dir)
     if settings.gateway_mode == "record":
-        return CachedGateway(settings.cache_dir, provider=LiveGateway(settings.provider))
+        return CachedGateway(settings.cache_dir, provider=LiveGateway(provider))
     if settings.gateway_mode == "live":
-        return LiveGateway(settings.provider)
+        return LiveGateway(provider)
     raise ValueError(
         f"Unknown gateway mode {settings.gateway_mode!r}. Use one of: live, record, replay"
     )

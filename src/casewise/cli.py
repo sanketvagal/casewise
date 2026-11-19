@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 
 from casewise.cache import CacheMiss
 from casewise.config import Settings
+from casewise.evaluate import evaluate, load_labeled_tickets, summary_markdown, write_results
 from casewise.live import LiveUnavailable, build_gateway
 from casewise.triage import Ticket, triage
 
@@ -30,7 +31,46 @@ def main(argv: Sequence[str] | None = None) -> int:
     triage_cmd.add_argument("--plan-tier")
     triage_cmd.add_argument("--timestamp", help="ISO 8601")
 
+    eval_cmd = commands.add_parser(
+        "eval", help="Evaluate triage on labeled tickets and write the results."
+    )
+    eval_cmd.add_argument(
+        "--fixtures", type=Path, default=Path("eval/fixtures.jsonl"),
+        help="JSONL file of labeled tickets",
+    )  # fmt: skip
+    eval_cmd.add_argument(
+        "--out", type=Path, default=Path("eval/results"),
+        help="Directory for latest.json and latest.md",
+    )  # fmt: skip
+
     args = parser.parse_args(argv)
+    # A .env in the working directory supplies API keys and CASEWISE_* settings.
+    # Variables already set in the environment win.
+    load_dotenv(Path.cwd() / ".env")
+    if args.command == "eval":
+        return _eval(args)
+    return _triage(parser, args)
+
+
+def _eval(args: argparse.Namespace) -> int:
+    settings = Settings.from_env()
+    labeled = load_labeled_tickets(args.fixtures)
+    try:
+        results = evaluate(
+            labeled,
+            gateway=build_gateway(settings),
+            judge_gateway=build_gateway(settings, provider=settings.judge_provider),
+            settings=settings,
+        )
+    except (CacheMiss, LiveUnavailable) as problem:
+        print(f"casewise: {problem}", file=sys.stderr)
+        return 1
+    write_results(results, args.out)
+    print(summary_markdown(results))
+    return 0
+
+
+def _triage(parser: argparse.ArgumentParser, args: argparse.Namespace) -> int:
     if args.ticket_file:
         ticket = Ticket.model_validate_json(args.ticket_file.read_text(encoding="utf-8"))
     elif args.subject and args.body:
@@ -45,9 +85,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     else:
         parser.error("triage needs --ticket-file, or both --subject and --body")
 
-    # A .env in the working directory supplies API keys and CASEWISE_* settings.
-    # Variables already set in the environment win.
-    load_dotenv(Path.cwd() / ".env")
     settings = Settings.from_env()
     try:
         result = triage(ticket, gateway=build_gateway(settings), settings=settings)

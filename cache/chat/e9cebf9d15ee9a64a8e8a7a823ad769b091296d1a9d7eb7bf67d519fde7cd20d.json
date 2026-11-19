@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: reset-password\nArticle: Reset a staff member's password\nStaff can reset their own password from the sign-in page.\n\n1. On the sign-in page, select **Forgot password**.\n2. Enter the work email address linked to the account.\n3. Open the reset email (it arrives within 5 minutes and the link expires after 60 minutes) and choose a new password.\n\nPasswords must be at least 12 characters. If the reset email does not arrive, check the spam folder, then ask a practice admin to confirm the email address under **Settings > Staff**. A practice admin can also send a reset link from the staff member's profile.\n\nTicket:\nForgot my password\n\nI can't remember my password and can't sign in. How do I reset it?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article provides the exact steps for resetting a forgotten password, which directly resolves the user's request.\"\n}",
+  "input_tokens": 412,
+  "output_tokens": 93
+ }
+}

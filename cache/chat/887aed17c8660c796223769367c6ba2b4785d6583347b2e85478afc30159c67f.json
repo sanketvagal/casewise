@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: reschedule-appointment\nArticle: Reschedule a patient appointment\nFront-desk staff can move an existing appointment without cancelling it.\n\n1. Open **Schedule** and find the appointment on the calendar.\n2. Select the appointment, then choose **Reschedule**.\n3. Pick a new date, time and provider, then select **Save**.\n\nThe patient receives an updated confirmation by their preferred contact method. The original slot is released immediately so it can be booked by someone else. Rescheduling keeps the appointment's notes and visit reason.\n\nTicket:\nDifferent provider, same day\n\nHow do I move an existing appointment to a different provider on the same day?\n\nAuto-reply:\nOpen Schedule, locate the appointment, select it and choose **Reschedule**. Keep the same date, change the provider to the desired one, then click **Save**. The patient will receive an updated confirmation and the original slot will be released.\n\nSource: Reschedule a patient appointment (reschedule-appointment)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately follows the article's steps for rescheduling an appointment to a different provider on the same day without adding unsupported facts.\"}\n```",
+  "input_tokens": 407,
+  "output_tokens": 45
+ }
+}

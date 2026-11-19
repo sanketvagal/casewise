@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [x] Rules live in a human-readable config file, and each rule has a stable identifier
 - [x] Rules cover patient-data access or exposure, prescriptions and e-prescribing errors, billing disputes, suspected outages, and upset or urgent clinicians (requester role is an input)
