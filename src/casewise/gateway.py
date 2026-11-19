@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from typing import Protocol
 
@@ -27,6 +27,10 @@ class ModelGateway(Protocol):
         ...
 
 
+Reply = Callable[[Sequence[Message]], str]
+"""A scripted reply worked out from the prompt."""
+
+
 class ScriptedGateway:
     """Fake gateway for tests: chat replies and embeddings are set per test.
 
@@ -34,7 +38,8 @@ class ScriptedGateway:
     mapping from a step's output type (``intent``, ``grounding``, ``draft``,
     ``review_draft``: the ``Output:`` a structured prompt asks for) to what the model
     says at that step. A string answers every call to its step; a sequence answers
-    successive calls, retries included, in order.
+    successive calls, retries included, in order. A callable is given the messages and
+    returns the reply, for steps whose answer depends on the prompt.
 
     ``embeddings`` maps a keyword to a vector: a text gets the vector of the first
     keyword it contains (case-insensitive), or ``default_embedding`` if it contains none.
@@ -42,13 +47,13 @@ class ScriptedGateway:
 
     def __init__(
         self,
-        chat_replies: Sequence[str] | Mapping[str, str | Sequence[str]] = (),
+        chat_replies: Sequence[str] | Mapping[str, str | Sequence[str] | Reply] = (),
         embeddings: Mapping[str, Sequence[float]] | None = None,
         default_embedding: Sequence[float] | None = None,
     ) -> None:
         if isinstance(chat_replies, Mapping):
             self._replies_by_step = {
-                step: reply if isinstance(reply, str) else list(reply)
+                step: reply if isinstance(reply, str) or callable(reply) else list(reply)
                 for step, reply in chat_replies.items()
             }
             self._chat_replies: list[str] | None = None
@@ -81,6 +86,8 @@ class ScriptedGateway:
             raise AssertionError(f"ScriptedGateway has no reply scripted for step {step!r}")
         if isinstance(reply, str):
             return reply
+        if callable(reply):
+            return reply(messages)
         if not reply:
             raise AssertionError(f"ScriptedGateway has no {step!r} reply left")
         return reply.pop(0)

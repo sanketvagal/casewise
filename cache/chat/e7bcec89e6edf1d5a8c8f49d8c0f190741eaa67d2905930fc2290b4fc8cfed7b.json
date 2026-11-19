@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"attach-external-lab-reports\",\n  \"area\": \"lab-orders-results\",\n  \"title\": \"Upload and attach external paper lab reports to charts\",\n  \"description\": \"Staff need to manually attach scanned paper lab reports or outside imaging PDFs to the correct patient chart. Support helps resolve errors when uploading large document formats.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Upload and attach external paper lab reports to charts\",\n  \"body\": \"To integrate outside paper reports or external PDF imaging into a patient's record, clinic staff must follow the secure ingestion workflow.\\n\\n### Steps to Upload\\n1. Scan the paper document or save the external file as a standard PDF. Ensure the file size does not exceed 25 MB.\\n2. Navigate to **Patients > Chart Search** and locate the correct individual.\\n3. Open the chart and go to **Documents > Lab Reports**.\\n4. Click **Upload New**, select your file, and choose the matching lab order from the dropdown list to link them.\\n5. Click **Save and Verify** to complete the attachment.\\n\\n### Limits & Conditions\\nOnly PDF, JPG, and PNG formats are accepted. Files over 25 MB will fail to process.\\n\\n### Troubleshooting\\nIf the upload fails or the target lab order does not appear in the dropdown, verify that the lab order was previously created in **Labs > Active Orders**. For persistent upload errors, compress your PDF using the internal document toolkit or contact IT support with the error code.\"\n}\n```",
+  "input_tokens": 312,
+  "output_tokens": 256
+ }
+}

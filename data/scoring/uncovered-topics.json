@@ -1,0 +1,17 @@
+[
+  "create-and-manage-staff-accounts",
+  "generate-patient-statements",
+  "handle-medication-substitution",
+  "manage-cancellation-waitlist",
+  "manage-claim-denials-and-appeals",
+  "manage-insurance-fee-schedules",
+  "manage-patient-portal-accounts",
+  "manage-secure-patient-messages",
+  "manage-waiting-room-queue",
+  "place-electronic-lab-order",
+  "reschedule-patient-appointment",
+  "reset-staff-passwords",
+  "review-system-audit-logs",
+  "send-electronic-prescription",
+  "setup-controlled-substances"
+]

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"schedule-recurring-visits\",\n  \"area\": \"scheduling\",\n  \"title\": \"Set up a series of recurring appointments\",\n  \"description\": \"Users ask how to book recurring appointments for patients who need regular weekly or monthly visits. They encounter scheduling conflicts when an existing time slot is blocked or unavailable.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n \"title\": \"Set up a series of recurring appointments\",\n \"body\": \"To book regular visits for a patient requiring ongoing care, follow these steps:\\n\\n1. Navigate to **Scheduling > Calendar** and select the patient's initial time slot.\\n2. Click **New Appointment**, complete the visit details, and toggle **Recurring Series** to **On**.\\n3. Choose the frequency (e.g., weekly or monthly), set the end date or total number of occurrences, and click **Save Series**.\\n\\n### Conditions and Limits\\nRecurring series can be scheduled up to 12 months in advance. A maximum of 52 occurrences can be generated in a single series.\\n\\n### Troubleshooting Conflicts\\nIf the system detects a scheduling conflict (such as a provider vacation, holiday closure, or an already booked time slot), a conflict resolution prompt appears. You can choose to skip the conflicting date, assign the visit to a covering provider, or manually select a new time slot for that specific occurrence before finalizing the rest of the series. If the entire series fails to generate, verify that the selected appointment type is permitted for recurring bookings under **Settings > Appointment Types**.\",\n \"additionalProperties\": false\n}\n```",
+  "input_tokens": 306,
+  "output_tokens": 264
+ }
+}

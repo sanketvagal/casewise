@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"configure-data-backup-and-compliance\",\n  \"area\": \"account-admin\",\n  \"title\": \"Configure data backups and compliance archive settings\",\n  \"description\": \"Administrators need to establish business associate agreements and configure data backup schedules for compliance. Support assists with retrieving archived historical data exports.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Configure Data Backups and Compliance Archive Settings\",\n  \"body\": \"Protect sensitive patient records and maintain regulatory compliance by setting up automated system backups and executing your required Business Associate Agreement (BAA).\\n\\n### Requirements and Limits\\n* Only users with the **Administrator** role can modify backup and compliance settings.\\n* Automated backups occur daily at midnight UTC and are retained for 90 days.\\n* You must execute a digital BAA before enabling external cloud storage sync.\\n\\n### Configuration Steps\\n1. Go to **Settings > Security > Compliance**. \\n2. Review the BAA text and click **Accept and Sign**.\\n3. Navigate to **Settings > Data Management > Backups**.\\n4. Toggle on **Automated Daily Backups**.\\n5. Select your retention tier (**90-Day Standard** or **1-Year Extended**).\\n6. Click **Save Changes**.\\n\\n### Troubleshooting\\nIf backup generation fails or your export link returns an error, verify that your storage bucket permissions allow write access from the application IP whitelist. If historical data exports do not appear within 24 hours, contact support to manually trigger the retrieval queue.\"\n}\n```",
+  "input_tokens": 306,
+  "output_tokens": 264
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"troubleshoot-lab-interface\",\n  \"area\": \"lab-orders-results\",\n  \"title\": \"Troubleshoot lab interface connections and missing feeds\",\n  \"description\": \"Clinics rely on direct electronic lab interfaces to receive incoming diagnostic results automatically. Support assists when lab feed connections drop or results stop populating.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Troubleshoot lab interface connections and missing feeds\",\n  \"body\": \"When electronic diagnostic results stop populating, clinic staff can resolve most interface disruptions using the administrative console.\\n\\n### Steps to Restart the Feed\\n1. Navigate to **Admin > Interfaces > Lab Connectivity**.\\n2. Locate the affected vendor in the active connections list.\\n3. Click **Diagnostics** to run a live ping test.\\n4. If the status reads offline, click **Action > Restart Service**.\\n5. Wait three minutes for the queue to flush and refresh the dashboard.\\n\\n### Limits and Conditions\\nOnly users with the *System Administrator* role can restart interface services. The system processes up to 500 queued results per batch; backlog clearing for extended outages may take up to thirty minutes.\\n\\n### Troubleshooting\\nIf the connection status remains red after a manual restart, verify that your local firewall permits outbound traffic on port 443 to the designated gateway IP. Should results still fail to appear, document the error code displayed in the event log and submit a support ticket with the specimen requisition numbers for the missing labs.\"\n}\n```",
+  "input_tokens": 311,
+  "output_tokens": 252
+ }
+}

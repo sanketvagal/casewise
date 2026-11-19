@@ -63,3 +63,27 @@ An auto-reply on a must-escalate ticket. The target count is zero.
 
 **Escalation recall**:
 Escalations on must-escalate tickets divided by all must-escalate tickets, whatever path caused the escalation. The target is 100%.
+
+## Data generation
+
+**Topic**:
+One specific support question or problem from the product spec, such as moving an appointment to another provider. Each topic belongs to one product area.
+
+**Product spec**:
+The generated description of the fictional product: a summary and about 40 topics across six product areas.
+
+**Covered topic**:
+A topic the knowledge base has an article for. Its article id is the topic id.
+
+**Simulated gap**:
+A topic the initial knowledge base deliberately doesn't cover. Gaps are chosen at random during generation and recorded only for scoring. Triage and insights never see them.
+_Avoid_: Planted gap, missing article (that is what the insights report infers, not what it is told)
+
+**Labels first**:
+Generation order in which every ticket's labels are sampled and saved before a model writes its text from them.
+
+**Safety situation**:
+What a rule-labeled ticket is written about, such as a prescription sent to the wrong pharmacy. It is described in plain words, never with the rule's phrases.
+
+**Weeks 1–2, weeks 3–4**:
+The two fortnights the tickets are split into by timestamp. Tuning and gap-finding use only weeks 1–2. Weeks 3–4 are held out.

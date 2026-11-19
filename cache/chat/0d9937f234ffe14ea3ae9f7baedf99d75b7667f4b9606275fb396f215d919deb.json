@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"configure-portal-result-visibility\",\n  \"area\": \"patient-portal\",\n  \"title\": \"Manage result release rules and patient portal visibility\",\n  \"description\": \"Patients want to view their diagnostic results, lab reports, and visit summaries through their portal view. Customers ask how to configure delayed release timers for sensitive test results.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n \"title\": \"Manage result release rules and patient portal visibility\",\n \"body\": \"You can configure automated release timers so sensitive lab reports and diagnostic results appear in the patient portal only after clinical review. \\n\\n### Configuration Steps\\n\\n1. Go to **Settings > Patient Portal > Result Rules**.\\n2. Click **Add Rule** to create a new category mapping.\\n3. Select the target lab category (e.g., *Pathology* or *Imaging*).\\n4. Enter the desired delay in hours under **Hold Period**.\\n5. Toggle **Auto-Release** to active, then click **Save**.\\n\\n### Limits and Conditions\\n\\n* Delay timers apply to all clinicians unless an override is set on the individual order.\\n* The maximum hold period is 168 hours (7 days).\\n* Critical-flagged results bypass the hold period and require manual provider sign-off.\\n\\n### Troubleshooting\\n\\nIf results fail to appear after the timer expires, check **Reports > Portal Log** to confirm the auto-release job ran. If the entry shows an error, verify that the patient has an active portal account and valid contact preferences, then select **Resend to Portal** from the patient's chart.\"\n}\n```",
+  "input_tokens": 312,
+  "output_tokens": 279
+ }
+}

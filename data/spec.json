@@ -1,0 +1,245 @@
+{
+  "summary": "This comprehensive clinical practice-management software streamlines outpatient clinic workflows from front-desk scheduling and billing to clinical documentation, electronic prescribing, laboratory integration, and patient portal engagement. It provides staff with intuitive tools for managing daily operations while ensuring secure, compliant communication with patients and external medical services.",
+  "topics": [
+    {
+      "id": "schedule-recurring-visits",
+      "area": "scheduling",
+      "title": "Set up a series of recurring appointments",
+      "description": "Users ask how to book recurring appointments for patients who need regular weekly or monthly visits. They encounter scheduling conflicts when an existing time slot is blocked or unavailable."
+    },
+    {
+      "id": "configure-provider-calendar",
+      "area": "scheduling",
+      "title": "Update provider working hours and calendar blocks",
+      "description": "Clinicians need to configure their weekly availability and block off time for meetings or time off. Customers contact support when their calendar displays incorrect working hours."
+    },
+    {
+      "id": "manage-cancellation-waitlist",
+      "area": "scheduling",
+      "title": "Add patients to the waitlist and fill open slots",
+      "description": "Front desk staff want to add patients to a cancellation waitlist to fill empty slots quickly. They ask how to automatically notify the next patient on the list when a cancellation occurs."
+    },
+    {
+      "id": "configure-automated-reminders",
+      "area": "scheduling",
+      "title": "Customize and troubleshoot automated appointment reminders",
+      "description": "Clinics need to customize the timing and text content of automated SMS and email appointment reminders. Customers reach out when reminder messages fail to deliver to patients."
+    },
+    {
+      "id": "reschedule-patient-appointment",
+      "area": "scheduling",
+      "title": "Move an appointment to another provider or time slot",
+      "description": "Receptionists frequently need to move an existing appointment to a different date, time, or practitioner without losing visit notes. Support helps resolve errors that occur during rescheduling."
+    },
+    {
+      "id": "create-custom-appointment-types",
+      "area": "scheduling",
+      "title": "Configure custom visit types and durations",
+      "description": "Staff need to set up custom appointment types with specific durations, colors, and intake requirements. Customers ask why certain visit types are hidden from the booking screen."
+    },
+    {
+      "id": "send-electronic-prescription",
+      "area": "e-prescribing",
+      "title": "Transmit a new prescription to a pharmacy electronically",
+      "description": "Providers need to transmit new prescriptions electronically to retail and mail-order pharmacies. Support assists when transmission errors occur due to outdated pharmacy records."
+    },
+    {
+      "id": "search-update-pharmacy-directory",
+      "area": "e-prescribing",
+      "title": "Search the pharmacy directory and update patient favorites",
+      "description": "Medical assistants need to update or search the integrated pharmacy directory when a patient's preferred pharmacy has closed or changed location. They ask how to add custom pharmacy entries."
+    },
+    {
+      "id": "process-medication-renewal-requests",
+      "area": "e-prescribing",
+      "title": "Review and process pharmacy medication renewal requests",
+      "description": "Providers receive electronic renewal requests from pharmacies and need to approve, deny, or modify them. Customers ask how to link renewal requests directly to the patient's active medication list."
+    },
+    {
+      "id": "manage-medication-favorites",
+      "area": "e-prescribing",
+      "title": "Create and manage personal medication favorites",
+      "description": "Clinicians want to save frequently prescribed medications and sigs into a personal preference list for faster ordering. Support helps restore missing favorite lists after software updates."
+    },
+    {
+      "id": "setup-controlled-substances",
+      "area": "e-prescribing",
+      "title": "Set up electronic prescribing for controlled substances",
+      "description": "Providers must complete identity proofing and two-factor authentication setup to prescribe controlled substances. Customers contact support when their token authentication fails during signing."
+    },
+    {
+      "id": "query-medication-history",
+      "area": "e-prescribing",
+      "title": "Query external medication history and prescription monitoring",
+      "description": "Clinicians need to check patient medication history databases for prior fills across multiple pharmacies. Support troubleshoots access errors when querying state prescription monitoring programs."
+    },
+    {
+      "id": "place-electronic-lab-order",
+      "area": "lab-orders-results",
+      "title": "Create and submit an electronic lab order",
+      "description": "Providers need to select test panels, assign ICD-10 diagnosis codes, and electronically transmit lab orders to reference laboratories. Customers ask how to fix rejected lab requisition orders."
+    },
+    {
+      "id": "troubleshoot-lab-interface",
+      "area": "lab-orders-results",
+      "title": "Troubleshoot lab interface connections and missing feeds",
+      "description": "Clinics rely on direct electronic lab interfaces to receive incoming diagnostic results automatically. Support assists when lab feed connections drop or results stop populating."
+    },
+    {
+      "id": "review-and-sign-lab-results",
+      "area": "lab-orders-results",
+      "title": "Review, sign off, and annotate incoming lab results",
+      "description": "Physicians must review, sign, and annotate incoming lab results before filing them into the patient chart. Customers ask how to route abnormal results to covering physicians."
+    },
+    {
+      "id": "attach-external-lab-reports",
+      "area": "lab-orders-results",
+      "title": "Upload and attach external paper lab reports to charts",
+      "description": "Staff need to manually attach scanned paper lab reports or outside imaging PDFs to the correct patient chart. Support helps resolve errors when uploading large document formats."
+    },
+    {
+      "id": "configure-critical-lab-alerts",
+      "area": "lab-orders-results",
+      "title": "Configure notification rules for critical lab values",
+      "description": "Clinics need to set up rules for auto-flagging critical lab values so staff are alerted immediately. Customers ask how to adjust threshold parameters for abnormal flags."
+    },
+    {
+      "id": "generate-and-submit-claims",
+      "area": "billing",
+      "title": "Generate, review, and submit insurance claims",
+      "description": "Billers need to generate, review, and batch insurance claims for electronic submission to clearinghouses. Customers ask how to resolve common claim validation errors before submission."
+    },
+    {
+      "id": "generate-patient-statements",
+      "area": "billing",
+      "title": "Generate and send monthly patient billing statements",
+      "description": "Administrative staff need to generate and mail or email monthly financial statements to patients with outstanding balances. Support assists with customizing statement reminder language."
+    },
+    {
+      "id": "post-payments-and-remittances",
+      "area": "billing",
+      "title": "Post payments and insurance remittances to accounts",
+      "description": "Billing staff need to record insurance and patient payments from electronic remittance advices or physical checks. Customers ask how to correct misapplied payments across multiple invoice lines."
+    },
+    {
+      "id": "verify-insurance-eligibility",
+      "area": "billing",
+      "title": "Check real-time patient insurance eligibility",
+      "description": "Front desk staff must verify patient insurance coverage and active policy benefits in real time prior to visits. Support helps troubleshoot connectivity errors with third-party eligibility clearinghouses."
+    },
+    {
+      "id": "manage-practice-subscription-billing",
+      "area": "billing",
+      "title": "Update payment methods for practice subscription invoices",
+      "description": "Practice managers need to update credit card payment methods and review monthly software subscription invoices. Customers contact support regarding billing discrepancies on their practice account."
+    },
+    {
+      "id": "manage-claim-denials-and-appeals",
+      "area": "billing",
+      "title": "Track, appeal, and re-file denied insurance claims",
+      "description": "Billers need to manage claim denials, attach supporting clinical documentation, and submit appeals. Support guides staff through tracking denial trends using built-in reporting tools."
+    },
+    {
+      "id": "manage-patient-portal-accounts",
+      "area": "patient-portal",
+      "title": "Assist patients with portal account creation and password resets",
+      "description": "Patients need assistance creating online portal accounts, resetting forgotten passwords, or linking dependent profiles. Support helps staff unlock locked portal accounts."
+    },
+    {
+      "id": "manage-secure-patient-messages",
+      "area": "patient-portal",
+      "title": "Handle and route secure messages from the patient portal",
+      "description": "Patients use secure messaging to ask non-urgent clinical questions or request medication refills. Staff need to route these messages to the appropriate care team member."
+    },
+    {
+      "id": "configure-online-appointment-booking",
+      "area": "patient-portal",
+      "title": "Set up and manage online appointment booking for patients",
+      "description": "Clinics want to allow patients to book routine appointment types directly through the web or mobile portal. Customers ask how to restrict online booking to specific providers or visit types."
+    },
+    {
+      "id": "create-online-intake-forms",
+      "area": "patient-portal",
+      "title": "Create and publish digital intake forms for patients",
+      "description": "Practice managers need to build and publish custom intake forms and medical history questionnaires for patients to complete online before their visit. Support assists with form field validation errors."
+    },
+    {
+      "id": "configure-portal-result-visibility",
+      "area": "patient-portal",
+      "title": "Manage result release rules and patient portal visibility",
+      "description": "Patients want to view their diagnostic results, lab reports, and visit summaries through their portal view. Customers ask how to configure delayed release timers for sensitive test results."
+    },
+    {
+      "id": "create-and-manage-staff-accounts",
+      "area": "account-admin",
+      "title": "Add, update, and deactivate staff user accounts",
+      "description": "Practice administrators need to create new employee profiles, assign job titles, and manage staff credentials. Support helps deactivate accounts when personnel leave the practice."
+    },
+    {
+      "id": "reset-staff-passwords",
+      "area": "account-admin",
+      "title": "Reset staff passwords and configure security policies",
+      "description": "Staff members need assistance resetting locked or expired account passwords. Administrators ask how to enforce stricter password complexity rules across the practice."
+    },
+    {
+      "id": "configure-roles-and-permissions",
+      "area": "account-admin",
+      "title": "Assign user roles and configure permission levels",
+      "description": "Practice managers need to define custom security roles and permissions to restrict access to sensitive financial or clinical records. Support guides administrators through role-based access audits."
+    },
+    {
+      "id": "update-practice-settings-and-locations",
+      "area": "account-admin",
+      "title": "Update practice details, locations, and provider identifiers",
+      "description": "Administrators need to update practice demographics, tax IDs, NPI numbers, and physical location addresses. Customers ask why updated practice information is not reflecting on outgoing claims."
+    },
+    {
+      "id": "review-system-audit-logs",
+      "area": "account-admin",
+      "title": "Access and review system security audit logs",
+      "description": "Practice managers need to configure audit log tracking to review who accessed specific patient charts. Support assists with exporting audit logs for compliance reporting."
+    },
+    {
+      "id": "manage-waiting-room-queue",
+      "area": "scheduling",
+      "title": "Track patient check-in and waiting room status",
+      "description": "Front desk staff need to track patient arrival times, check-in status, and rooming progress in the waiting room queue. Customers ask how to customize waiting room status columns."
+    },
+    {
+      "id": "handle-medication-substitution",
+      "area": "e-prescribing",
+      "title": "Manage medication substitutions and out-of-stock alerts",
+      "description": "Providers need to handle out-of-stock medication alerts and switch prescriptions to alternative therapeutic agents. Support assists with pharmacy substitution messaging workflows."
+    },
+    {
+      "id": "create-custom-lab-panels",
+      "area": "lab-orders-results",
+      "title": "Build custom lab order panels and requisition bundles",
+      "description": "Clinicians want to bundle frequently ordered lab tests into standard requisition panels for specific clinical protocols. Support helps organize and share custom panels across provider groups."
+    },
+    {
+      "id": "manage-insurance-fee-schedules",
+      "area": "billing",
+      "title": "Set up and manage insurance fee schedules and pricing",
+      "description": "Practice billers need to enter and manage contracted fee schedules for different insurance payers. Customers ask how fee schedule updates impact existing unbilled encounters."
+    },
+    {
+      "id": "process-portal-patient-payments",
+      "area": "patient-portal",
+      "title": "Process online patient payments through the portal",
+      "description": "Patients need to make secure copay and balance payments through the online portal prior to or after visits. Support helps troubleshoot credit card processing declines on the portal payment screen."
+    },
+    {
+      "id": "customize-notification-templates",
+      "area": "account-admin",
+      "title": "Customize patient notification and message templates",
+      "description": "Practice managers need to configure and customize automated notification templates for appointment confirmations and billing notices. Support helps resolve template syntax errors."
+    },
+    {
+      "id": "configure-data-backup-and-compliance",
+      "area": "account-admin",
+      "title": "Configure data backups and compliance archive settings",
+      "description": "Administrators need to establish business associate agreements and configure data backup schedules for compliance. Support assists with retrieving archived historical data exports."
+    }
+  ]
+}

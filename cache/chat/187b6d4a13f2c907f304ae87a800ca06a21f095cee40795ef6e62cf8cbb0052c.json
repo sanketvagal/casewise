@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"manage-medication-favorites\",\n  \"area\": \"e-prescribing\",\n  \"title\": \"Create and manage personal medication favorites\",\n  \"description\": \"Clinicians want to save frequently prescribed medications and sigs into a personal preference list for faster ordering. Support helps restore missing favorite lists after software updates.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Create and manage personal medication favorites\",\n  \"body\": \"Save time during e-prescribing by building a personalized list of frequently ordered medications and instructions.\\n\\n### How to Create a Favorite\\n1. Go to **Patients > Chart** and open the e-prescribing module.\\n2. Search for and select your desired medication and dosage.\\n3. Enter the preferred sig in the directions field.\\n4. Click **Save to Favorites** in the action toolbar.\\n5. Assign a custom label and click **Confirm**.\\n\\n### Limits and Conditions\\n* Each clinician can store up to 150 items in their personal favorites list.\\n* Shared clinic-wide favorites are managed separately through **Settings > E-Prescribing > Practice Defaults**.\\n\\n### Troubleshooting\\nIf your favorites disappear following a software update, navigate to **Tools > Preferences > Restore Defaults** and select **Reload Personal Prescribing Lists**. If the list remains empty after reloading, contact the IT help desk to verify your user profile permissions.\"\n}\n```",
+  "input_tokens": 308,
+  "output_tokens": 232
+ }
+}

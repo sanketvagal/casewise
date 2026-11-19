@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"query-medication-history\",\n  \"area\": \"e-prescribing\",\n  \"title\": \"Query external medication history and prescription monitoring\",\n  \"description\": \"Clinicians need to check patient medication history databases for prior fills across multiple pharmacies. Support troubleshoots access errors when querying state prescription monitoring programs.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Query external medication history and prescription monitoring\",\n  \"body\": \"Clinicians can retrieve a patient's multi-pharmacy fill history and state prescription monitoring program (PMP) data directly from the clinical workspace. Users must have active prescribing credentials and completed identity proofing.\\n\\n1. Open the patient chart and navigate to **Clinical > Medications**.\\n2. Click **Query External History** in the toolbar.\\n3. Review the identity verification prompt and select **Authorize & Submit**.\\n4. View the consolidated report detailing prior fills and controlled substance data.\\n\\n### Limits and Conditions\\nQueries depend on state database availability and patient consent where required by local regulations. Historical data is restricted to the preceding twelve months.\\n\\n### Troubleshooting\\nIf the query fails or returns an access error, verify that the clinician's National Provider Identifier (NPI) and Drug Enforcement Administration (DEA) numbers are correctly entered under **Settings > Provider Profile**. If the state PMP gateway is offline, a notification banner will appear; wait fifteen minutes before retrying.\"\n}\n```",
+  "input_tokens": 308,
+  "output_tokens": 236
+ }
+}

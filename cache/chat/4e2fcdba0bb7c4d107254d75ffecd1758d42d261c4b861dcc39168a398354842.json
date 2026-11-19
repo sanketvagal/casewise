@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"configure-automated-reminders\",\n  \"area\": \"scheduling\",\n  \"title\": \"Customize and troubleshoot automated appointment reminders\",\n  \"description\": \"Clinics need to customize the timing and text content of automated SMS and email appointment reminders. Customers reach out when reminder messages fail to deliver to patients.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Customize and troubleshoot automated appointment reminders\",\n  \"body\": \"Configure your patient notifications by navigating to **Settings > Communications > Reminders**. Here, you can adjust SMS and email templates and set the dispatch window from 24 to 72 hours before the visit.\\n\\n### Conditions and Limits\\n* Patients must have a verified mobile number or email address.\\n* SMS messages are capped at 160 characters; longer texts will split into multiple segments.\\n* Reminders will not send if the appointment status is marked as 'Cancelled' or 'Arrived'.\\n\\n### Step-by-Step Setup\\n1. Go to **Settings > Communications > Reminders**.\\n2. Select **Edit** next to the desired channel (SMS or Email).\\n3. Use allowed merge tags like `[PatientName]` and `[AppointmentTime]` to personalize the content.\\n4. Click **Save Changes** to apply.\\n\\n### Troubleshooting\\nIf a patient does not receive a reminder, first check the patient profile to ensure communication opt-in is enabled. Next, review **Reports > Message Log** to check delivery status. If the log shows a 'Failed' status due to carrier blocking, verify the phone number supports SMS. For persistent delivery failures, contact support with the affected patient ID and timestamp.\"\n}\n```",
+  "input_tokens": 305,
+  "output_tokens": 291
+ }
+}

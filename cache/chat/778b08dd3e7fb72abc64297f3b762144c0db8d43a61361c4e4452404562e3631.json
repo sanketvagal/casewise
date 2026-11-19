@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"verify-insurance-eligibility\",\n  \"area\": \"billing\",\n  \"title\": \"Check real-time patient insurance eligibility\",\n  \"description\": \"Front desk staff must verify patient insurance coverage and active policy benefits in real time prior to visits. Support helps troubleshoot connectivity errors with third-party eligibility clearinghouses.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Check real-time patient insurance eligibility\",\n  \"body\": \"Front desk staff can verify patient coverage instantly before scheduled appointments using our integrated clearinghouse connection.\\n\\n### Steps to Verify Coverage\\n1. Open the patient's appointment and click **Billing > Insurance Eligibility**.\\n2. Select the active policy from the dropdown menu and confirm the primary subscriber's date of birth.\\n3. Click **Run Real-Time Check** to query the payer database.\\n\\n### Limits and Conditions\\n* Real-time checks require an active internet connection and valid payer ID on the patient profile.\\n* Verification results only confirm active coverage status, copay amounts, and deductible balances at the exact moment of the query; benefits are subject to final payer adjudication.\\n\\n### Troubleshooting\\nIf the system returns a connection timeout or clearinghouse error:\\n1. Navigate to **Settings > Billing Integration** and click **Test Clearinghouse Connection**.\\n2. Verify that the patient's Member ID contains no spaces or special characters.\\n3. If the error persists, contact support with the specific error code displayed on the screen.\"\n}\n```",
+  "input_tokens": 308,
+  "output_tokens": 250
+ }
+}

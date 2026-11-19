@@ -41,6 +41,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "reset-password",
         "answering_article": "reset-password",
         "must_escalate": false,
@@ -66,6 +67,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "reset-password",
         "answering_article": "reset-password",
         "must_escalate": false,
@@ -91,6 +93,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "download-invoice",
         "answering_article": "download-invoice",
         "must_escalate": false,
@@ -116,6 +119,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "download-invoice",
         "answering_article": "download-invoice",
         "must_escalate": false,
@@ -141,6 +145,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "reschedule-appointment",
         "answering_article": "reschedule-appointment",
         "must_escalate": false,
@@ -166,6 +171,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "reschedule-appointment",
         "answering_article": "reschedule-appointment",
         "must_escalate": false,
@@ -191,6 +197,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "other",
         "answering_article": null,
         "must_escalate": true,
@@ -216,6 +223,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "other",
         "answering_article": null,
         "must_escalate": true,
@@ -241,6 +249,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "other",
         "answering_article": null,
         "must_escalate": true,
@@ -266,6 +275,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "other",
         "answering_article": null,
         "must_escalate": true,
@@ -291,6 +301,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "other",
         "answering_article": null,
         "must_escalate": true,
@@ -316,6 +327,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "other",
         "answering_article": null,
         "must_escalate": true,
@@ -341,6 +353,7 @@
           "plan_tier": null,
           "timestamp": null
         },
+        "topic": null,
         "intent": "reset-password",
         "answering_article": "reset-password",
         "must_escalate": true,

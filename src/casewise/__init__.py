@@ -3,6 +3,7 @@
 from casewise.cache import CachedGateway, CacheMiss
 from casewise.config import Settings
 from casewise.gateway import ChatResult, ModelGateway, ScriptedGateway
+from casewise.generate import generate
 from casewise.live import LiveGateway, build_gateway
 from casewise.triage import HandoffPacket, Ticket, TriageResult, triage
 
@@ -18,5 +19,6 @@ __all__ = [
     "Ticket",
     "TriageResult",
     "build_gateway",
+    "generate",
     "triage",
 ]

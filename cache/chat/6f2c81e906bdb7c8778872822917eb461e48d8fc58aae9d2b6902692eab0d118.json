@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"create-custom-lab-panels\",\n  \"area\": \"lab-orders-results\",\n  \"title\": \"Build custom lab order panels and requisition bundles\",\n  \"description\": \"Clinicians want to bundle frequently ordered lab tests into standard requisition panels for specific clinical protocols. Support helps organize and share custom panels across provider groups.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n \"title\": \"Build custom lab order panels and requisition bundles\",\n \"body\": \"Streamline frequent lab orders by grouping multiple tests into a single reusable panel. Only users with clinical administrator roles can create and publish shared panels for the practice.\\n\\n1. Navigate to **Clinical Setup > Lab Management > Order Panels**.\\n2. Click **Create New Panel** in the top right corner.\\n3. Enter a descriptive **Panel Name** and select the applicable clinical specialty.\\n4. Use the search bar to locate and add individual tests from the master catalog.\\n5. Click **Save and Publish** to make the bundle available to your provider group.\\n\\n### Limits and Conditions\\n* Panels are limited to a maximum of 25 individual tests.\\n* Custom panels cannot override specific external reference laboratory coding requirements.\\n\\n### Troubleshooting\\nIf providers cannot view the new panel in their order menu, verify that the panel's sharing permissions are assigned to their specific department under **Settings > Permissions > Lab Access**.\",\n  \"kb_article\": \"kb_article\"\n}\n```",
+  "input_tokens": 311,
+  "output_tokens": 236
+ }
+}
