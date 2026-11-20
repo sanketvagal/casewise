@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"create-online-intake-forms\",\n  \"area\": \"patient-portal\",\n  \"title\": \"Create and publish digital intake forms for patients\",\n  \"description\": \"Practice managers need to build and publish custom intake forms and medical history questionnaires for patients to complete online before their visit. Support assists with form field validation errors.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n \"title\": \"Create and publish digital intake forms for patients\",\n \"body\": \"Custom intake questionnaires streamline the check-in process by letting patients submit information securely before arrival.\\n\\n### Steps to Create and Publish a Form\\n1. Go to **Patient Portal > Form Builder**.\\n2. Click **New Form** and select a template type, such as *Medical History* or *Consent*.\\n3. Drag and drop desired fields into the layout area. Required fields must have the **Mandatory** toggle enabled.\\n4. Click **Save Draft**, then select **Publish to Portal**.\\n5. Navigate to **Patient Portal > Settings** to assign the form to specific appointment types.\\n\\n### Limits and Conditions\\n- Forms can only be published if all required field validation checks pass without errors.\\n- Patients must have an active portal account to receive and complete assigned questionnaires.\\n- Maximum file upload size within a single form is 25 MB.\\n\\n### Troubleshooting\\nIf form fields trigger validation errors upon publication, check for duplicate field IDs or unassigned dropdown options. Clear your browser cache and reload **Form Builder** if changes do not appear on the live patient portal immediately. Contact support if validation errors persist after correcting all flagged items.\"\n}\n```",
+  "input_tokens": 312,
+  "output_tokens": 274
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"create-custom-appointment-types\",\n  \"area\": \"scheduling\",\n  \"title\": \"Configure custom visit types and durations\",\n  \"description\": \"Staff need to set up custom appointment types with specific durations, colors, and intake requirements. Customers ask why certain visit types are hidden from the booking screen.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n \"title\": \"Configure custom visit types and durations\",\n \"body\": \"Administrators and scheduling coordinators can create tailored visit categories to streamline patient intake.\\n\\n1. Navigate to **Settings > Scheduling > Appointment Types**.\\n2. Click **New Type** in the top right corner.\\n3. Enter the display name, default duration in minutes, and select a calendar color code.\\n4. Check the box for **Require Intake Form** if patients must complete pre-visit paperwork.\\n5. Click **Save**.\\n\\n### Limits and Conditions\\nCustom types require a minimum duration of 5 minutes and a maximum of 480 minutes. Deactivating a type preserves historical calendar data but removes it from future booking options.\\n\\n### Troubleshooting\\nIf a newly created visit type does not appear on the patient booking screen, check **Settings > Scheduling > Locations** to ensure the type is enabled for that specific facility. If issues persist, verify that your user role includes the `Manage Appointment Types` permission under **Settings > Staff > Roles**.\"\n}\n```",
+  "input_tokens": 307,
+  "output_tokens": 231
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"process-portal-patient-payments\",\n  \"area\": \"patient-portal\",\n  \"title\": \"Process online patient payments through the portal\",\n  \"description\": \"Patients need to make secure copay and balance payments through the online portal prior to or after visits. Support helps troubleshoot credit card processing declines on the portal payment screen.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Process online patient payments through the portal\",\n  \"body\": \"Patients can securely pay copays and outstanding balances online before or after their visits. Staff can review these transactions in real time.\\n\\n### Steps to Process and Verify Payments\\n1. Go to **Billing > Portal Transactions** to view incoming online payments.\\n2. Locate the patient's name and check the status column for confirmation.\\n3. Click **Process Receipt** to post the funds directly to the patient ledger.\\n\\n### Limits and Conditions\\n- The maximum single online payment is $2,500.00.\\n- Accepted payment methods include Visa, Mastercard, Discover, and HSA/FSA debit cards.\\n- Transactions initiated after 8:00 PM EST post to the ledger on the next business day.\\n\\n### Troubleshooting\\nIf a patient reports a card decline, verify that their billing address matches the card issuer's file exactly. For persistent gateway errors, navigate to **Settings > Payment Gateway** and click **Test Connection** to reset the merchant API sync. If the gateway remains offline, contact merchant support and instruct the patient to pay via the front desk terminal.\"\n}\n```",
+  "input_tokens": 312,
+  "output_tokens": 260
+ }
+}

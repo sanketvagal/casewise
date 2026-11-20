@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 from casewise.cache import CacheMiss
 from casewise.config import Settings
 from casewise.evaluate import evaluate, load_labeled_tickets, summary_markdown, write_results
+from casewise.generate import DEFAULT_SEED, GenerationError, generate
 from casewise.live import LiveUnavailable, build_gateway
 from casewise.triage import Ticket, triage
 
@@ -43,12 +44,22 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="Directory for latest.json and latest.md",
     )  # fmt: skip
 
+    generate_cmd = commands.add_parser(
+        "generate", help="Generate the fictional clinic world: topics, labeled tickets, articles."
+    )
+    generate_cmd.add_argument(
+        "--out", type=Path, default=Path("data"), help="Directory to write the world into"
+    )
+    generate_cmd.add_argument("--seed", type=int, default=DEFAULT_SEED)
+
     args = parser.parse_args(argv)
     # A .env in the working directory supplies API keys and CASEWISE_* settings.
     # Variables already set in the environment win.
     load_dotenv(Path.cwd() / ".env")
     if args.command == "eval":
         return _eval(args)
+    if args.command == "generate":
+        return _generate(args)
     return _triage(parser, args)
 
 
@@ -67,6 +78,23 @@ def _eval(args: argparse.Namespace) -> int:
         return 1
     write_results(results, args.out)
     print(summary_markdown(results))
+    return 0
+
+
+def _generate(args: argparse.Namespace) -> int:
+    settings = Settings.from_env()
+    try:
+        tickets = generate(
+            gateway=build_gateway(settings, provider=settings.generator_provider),
+            settings=settings,
+            out_dir=args.out,
+            seed=args.seed,
+        )
+    except (CacheMiss, LiveUnavailable, GenerationError) as problem:
+        print(f"casewise: {problem}", file=sys.stderr)
+        return 1
+    print(f"Wrote {len(tickets)} labeled tickets to {args.out}")
+    print((args.out / "generation-report.md").read_text(encoding="utf-8"))
     return 0
 
 

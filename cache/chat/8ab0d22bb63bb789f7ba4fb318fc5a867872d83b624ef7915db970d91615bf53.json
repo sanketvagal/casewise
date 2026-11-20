@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"update-practice-settings-and-locations\",\n  \"area\": \"account-admin\",\n  \"title\": \"Update practice details, locations, and provider identifiers\",\n  \"description\": \"Administrators need to update practice demographics, tax IDs, NPI numbers, and physical location addresses. Customers ask why updated practice information is not reflecting on outgoing claims.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Update practice details, locations, and provider identifiers\",\n  \"body\": \"To keep your billing and demographics accurate, administrators can update practice profiles, service locations, and provider identifiers at any time.\\n\\n### Steps to Update Practice Information\\n1. Navigate to **Admin > Practice Setup**.\\n2. Select the **Details & Tax ID** tab to modify your legal business name, physical address, or federal Tax ID.\\n3. Open the **Locations** tab to add or edit physical service addresses and assign unique location NPI numbers.\\n4. Go to **Admin > Providers**, click a staff member's name, and update their individual NPI and taxonomy codes in the **Billing Identifiers** section.\\n5. Click **Save Changes** at the bottom of each page.\\n\\n### Limits and Conditions\\nOnly users with the Administrator role can modify practice-level settings and tax identifiers. Changes apply immediately to new drafts, but do not automatically retroactively update claims already generated or queued.\\n\\n### Troubleshooting\\nIf updated practice information does not appear on outgoing claims, verify that the specific billing location is correctly linked under **Billing > Claim Defaults**. If the issue persists, clear your browser cache or contact support with the affected claim ID.\"\n}\n```",
+  "input_tokens": 316,
+  "output_tokens": 275
+ }
+}

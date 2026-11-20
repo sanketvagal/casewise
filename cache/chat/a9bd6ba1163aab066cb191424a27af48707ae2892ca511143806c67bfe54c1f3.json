@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"manage-practice-subscription-billing\",\n  \"area\": \"billing\",\n  \"title\": \"Update payment methods for practice subscription invoices\",\n  \"description\": \"Practice managers need to update credit card payment methods and review monthly software subscription invoices. Customers contact support regarding billing discrepancies on their practice account.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Update payment methods for practice subscription invoices\",\n  \"body\": \"Practice managers can update the credit card used for monthly software subscription fees and review past billing statements directly within the account portal. \\n\\n### Update Payment Details\\n1. Navigate to **Billing > Subscription Settings**.\\n2. Select the **Payment Methods** tab.\\n3. Click **Add New Card** or select **Edit** next to your current card.\\n4. Enter the updated billing address and card details, then click **Save Changes**.\\n\\n### Review Invoices\\n1. Go to **Billing > Invoice History**.\\n2. Click any invoice number to download the PDF statement.\\n\\n### Limits and Conditions\\n* Only users with the Practice Manager role can access subscription billing settings.\\n* Accepted payment methods include Visa, Mastercard, and American Express.\\n* Changes take effect immediately for the next billing cycle.\\n\\n### Troubleshooting\\nIf a payment update fails, verify that the billing ZIP code matches your bank records exactly. If charges are declined despite correct details, contact your financial institution to authorize recurring software subscription charges before trying again in **Billing > Subscription Settings**.\"\n}\n```",
+  "input_tokens": 304,
+  "output_tokens": 259
+ }
+}

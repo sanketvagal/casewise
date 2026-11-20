@@ -33,6 +33,9 @@ class LabeledTicket(BaseModel):
 
     id: str
     ticket: Ticket
+    topic: str | None = None
+    """The support topic the ticket was generated from. For scoring the simulated gaps
+    only: triage and insights never see it (ADR 6)."""
     intent: str
     answering_article: str | None
     """The article that truly answers the ticket, or ``None`` if none does."""

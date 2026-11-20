@@ -7,6 +7,7 @@ gateway is free and tests never pay for them. Install them with ``uv sync --extr
 from __future__ import annotations
 
 import os
+import time
 from collections.abc import Callable, Sequence
 from typing import Any
 
@@ -67,10 +68,14 @@ def _groq_chat() -> ChatFn:
     return chat
 
 
+GEMINI_RETRIES = 5
+"""Retries after a rate-limit or overload error, waiting 5, 10, 20, 40 then 60 seconds."""
+
+
 def _gemini_chat() -> ChatFn:
     try:
         from google import genai
-        from google.genai import types
+        from google.genai import errors, types
     except ImportError as error:
         raise _missing("google-genai") from error
 
@@ -92,11 +97,18 @@ def _gemini_chat() -> ChatFn:
             for m in messages
             if m["role"] != "system"
         ]
-        response = client.models.generate_content(
-            model=model,
-            contents=contents,
-            config=types.GenerateContentConfig(system_instruction=system or None, temperature=0),
-        )
+        config = types.GenerateContentConfig(system_instruction=system or None, temperature=0)
+        for attempt in range(GEMINI_RETRIES + 1):
+            try:
+                response = client.models.generate_content(
+                    model=model, contents=contents, config=config
+                )
+                break
+            except errors.APIError as error:
+                # Free-tier rate limits (429) and overload (503) clear if you wait.
+                if error.code not in (429, 500, 503) or attempt == GEMINI_RETRIES:
+                    raise
+                time.sleep(min(60, 5 * 2**attempt))
         usage = response.usage_metadata
         return ChatResult(
             text=response.text or "",

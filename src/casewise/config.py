@@ -16,6 +16,9 @@ class Settings:
     judge_provider: str = "gemini"
     """Chat provider for the evaluation judge: a different model family from triage (ADR 5)."""
     judge_model: str = "gemini-3.5-flash-lite"
+    generator_provider: str = "gemini"
+    """Chat provider that writes the generated data: a different family from triage (ADR 6)."""
+    generator_model: str = "gemini-3.5-flash-lite"
     gateway_mode: str = "record"
     """``live`` (no cache), ``record`` (cache, calling the provider on a miss) or
     ``replay`` (cache only, never calls a provider)."""

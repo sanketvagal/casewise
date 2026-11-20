@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"search-update-pharmacy-directory\",\n  \"area\": \"e-prescribing\",\n  \"title\": \"Search the pharmacy directory and update patient favorites\",\n  \"description\": \"Medical assistants need to update or search the integrated pharmacy directory when a patient's preferred pharmacy has closed or changed location. They ask how to add custom pharmacy entries.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n \"title\": \"Search the pharmacy directory and update patient favorites\",\n \"body\": \"To update a patient's preferred pharmacy or add a custom entry, navigate to **Patients > Chart > Demographics** and select the **Pharmacy** tab. \\n\\n1. Click **Search Directory** to query the national e-prescribing database using the pharmacy name, NPI, or zip code.\\n2. Select the correct facility from the results list and click **Set as Preferred** to update the patient's record.\\n3. If a newly opened location is missing from the database, click **Add Custom Pharmacy**, complete the required fields (Name, Address, Phone, and Fax), and click **Save Entry**.\\n\\n**Limits & Conditions:** \\nCustom pharmacies are restricted to your clinic's database and cannot receive electronic prescriptions until verified by network administrators. Only staff with Medical Assistant or Provider roles can modify pharmacy favorites.\\n\\n**Troubleshooting:** \\nIf a pharmacy search yields no results, verify the zip code or try searching by phone number alone. If an added custom pharmacy fails to appear in the drop-down menu when prescribing, refresh your browser cache using `Ctrl+F5` (`Cmd+Shift+R` on Mac) and ensure all mandatory address fields were completed.\"\n}\n```",
+  "input_tokens": 315,
+  "output_tokens": 278
+ }
+}

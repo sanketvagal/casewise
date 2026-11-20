@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"configure-provider-calendar\",\n  \"area\": \"scheduling\",\n  \"title\": \"Update provider working hours and calendar blocks\",\n  \"description\": \"Clinicians need to configure their weekly availability and block off time for meetings or time off. Customers contact support when their calendar displays incorrect working hours.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n \"title\": \"Update provider working hours and calendar blocks\",\n \"body\": \"To keep appointment slots accurate, you can update regular working hours and add one-time calendar blocks for meetings or time off. \\n\\n1. Go to **Settings > Scheduling > Provider Hours**.\\n2. Select the target clinician from the **Provider** dropdown menu.\\n3. Adjust the weekly schedule by entering start and end times, or check **Day Off** for non-working days.\\n4. To block specific dates, click **Add Block**, choose your start and end timestamps, and select a reason from the category list.\\n5. Click **Save Changes** at the bottom of the page.\\n\\n### Limits and Conditions\\nChanges apply immediately to future scheduling slots. Past appointments remain unaffected, and you cannot overlap a working-hours shift with an existing confirmed appointment.\\n\\n### Troubleshooting\\nIf the calendar still displays incorrect availability, clear your browser cache and verify that no conflicting group-schedule overrides are active under **Settings > Scheduling > Facility Hours**. If issues persist, ensure the provider's primary time zone matches your clinic's main location setting.\"\n}\n```",
+  "input_tokens": 304,
+  "output_tokens": 250
+ }
+}

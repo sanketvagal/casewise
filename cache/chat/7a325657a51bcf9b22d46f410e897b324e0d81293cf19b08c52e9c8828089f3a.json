@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"generate-and-submit-claims\",\n  \"area\": \"billing\",\n  \"title\": \"Generate, review, and submit insurance claims\",\n  \"description\": \"Billers need to generate, review, and batch insurance claims for electronic submission to clearinghouses. Customers ask how to resolve common claim validation errors before submission.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n \"title\": \"Generate, review, and submit insurance claims\",\n \"body\": \"Follow these steps to process and submit electronic claims to your clearinghouse:\\n\\n1. Navigate to **Billing > Claim Center** and select the **Ready to Batch** tab.\\n2. Filter by payer or date range, then click **Generate Claims** to compile all finalized encounters.\\n3. Review the generated list on the **Validation Queue** tab. Claims with missing modifiers, invalid subscriber IDs, or unmapped diagnosis codes will display a red error icon.\\n4. Click any flagged claim to open the editor, correct the highlighted errors, and click **Save & Re-validate**.\\n5. Select the validated claims and click **Batch & Submit** to transmit them to the clearinghouse.\\n\\n### Limits and Conditions\\n- Claims must be generated within 90 days of the service date.\\n- Batch sizes cannot exceed 500 claims per transmission.\\n\\n### Troubleshooting\\nIf a claim repeatedly fails validation despite correct data entry, go to **Billing > Payer Rules** to verify that the specific payer's current electronic format requirements are up to date. If transmission errors persist after a successful batch, check the **Clearinghouse Log** under **Reports** for specific rejection codes.\",\n \"additionalProperties\": false\n}\n```",
+  "input_tokens": 309,
+  "output_tokens": 285
+ }
+}

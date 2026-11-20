@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You write knowledge-base articles for the support site of a fictional clinical practice-management product. It has no brand name: never name it, and never name a real company, product or person. Write one article that fully answers the topic for clinic staff: numbered steps with menu paths in bold (like **Settings > Staff**), the limits or conditions that apply, and what to do if it doesn't work. Invent plausible specifics and keep them consistent. The body is Markdown, 120 to 250 words, and does not repeat the title.\n\nReply with only a JSON object and no other text.\nOutput: kb_article.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"properties\": {\"body\": {\"description\": \"The article body in Markdown, without the title\", \"title\": \"Body\", \"type\": \"string\"}, \"title\": {\"title\": \"Title\", \"type\": \"string\"}}, \"required\": [\"title\", \"body\"], \"title\": \"kb_article\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "{\n \"topic\": {\n  \"id\": \"configure-online-appointment-booking\",\n  \"area\": \"patient-portal\",\n  \"title\": \"Set up and manage online appointment booking for patients\",\n  \"description\": \"Clinics want to allow patients to book routine appointment types directly through the web or mobile portal. Customers ask how to restrict online booking to specific providers or visit types.\"\n }\n}"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\n  \"title\": \"Set up and manage online appointment booking for patients\",\n  \"body\": \"Enable patients to schedule routine visits directly through the web and mobile portal by configuring your scheduling rules. Only providers with active schedules and visit types marked as 'Online Eligible' will appear to patients.\\n\\n1. Go to **Settings > Patient Portal > Booking Rules**.\\n2. Toggle on **Allow Online Appointment Booking**.\\n3. Navigate to **Scheduling > Visit Types**, select a visit type, and check the box for **Available Online**.\\n4. Under **Settings > Schedule > Provider Availability**, designate which staff members accept online requests.\\n\\n**Limits & Conditions:**\\nPatients can only book appointments between 24 hours and 60 days in advance. Urgent visit types cannot be made available online.\\n\\n**Troubleshooting:**\\nIf a provider does not appear for booking, verify their schedule template is published and that their assigned rooms are active under **Settings > Facility > Rooms**.\"\n}\n```",
+  "input_tokens": 314,
+  "output_tokens": 220
+ }
+}
