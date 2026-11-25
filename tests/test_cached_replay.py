@@ -4,6 +4,7 @@ import pytest
 
 import replies as say
 from casewise import CachedGateway, CacheMiss, ScriptedGateway, Settings, Ticket, triage
+from paths import FIXTURE_KB
 
 TOPIC_VECTORS = {"password": [1.0, 0.0, 0.0], "appointment": [0.0, 1.0, 0.0]}
 
@@ -12,7 +13,7 @@ TICKET = Ticket(subject="Locked out", body="How do I reset my password?")
 
 @pytest.fixture
 def settings(tmp_path):
-    return Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache")
+    return Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache", kb_dir=FIXTURE_KB)
 
 
 def record_run(settings):
@@ -54,7 +55,10 @@ def test_replay_of_an_unrecorded_ticket_fails_instead_of_calling_a_provider(sett
 def test_cache_is_keyed_by_model(settings):
     record_run(settings)
     other_model = Settings(
-        trace_dir=settings.trace_dir, cache_dir=settings.cache_dir, chat_model="another-model"
+        trace_dir=settings.trace_dir,
+        cache_dir=settings.cache_dir,
+        kb_dir=FIXTURE_KB,
+        chat_model="another-model",
     )
 
     with pytest.raises(CacheMiss):

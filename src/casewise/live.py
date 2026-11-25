@@ -36,6 +36,10 @@ cache by hand. "medium" is Groq's documented default, pinned so a change of defa
 Groq's side cannot silently change recorded behavior."""
 
 
+GROQ_RETRIES = 8
+"""Retries the Groq SDK makes after a rate-limit or server error before giving up."""
+
+
 def _groq_chat() -> ChatFn:
     try:
         from groq import Groq
@@ -47,7 +51,9 @@ def _groq_chat() -> ChatFn:
             "Live chat calls to Groq need GROQ_API_KEY. Export it or put it in a .env file "
             "in the directory you run casewise from."
         )
-    client = Groq()  # reads GROQ_API_KEY
+    # The SDK retries rate limits (429) and server errors itself, with backoff that
+    # honors Retry-After. A free-tier evaluation run hits the per-minute limits often.
+    client = Groq(max_retries=GROQ_RETRIES)  # reads GROQ_API_KEY
 
     def chat(model: str, messages: Sequence[Message]) -> ChatResult:
         response = client.chat.completions.create(
@@ -69,7 +75,11 @@ def _groq_chat() -> ChatFn:
 
 
 GEMINI_RETRIES = 5
-"""Retries after a rate-limit or overload error, waiting 5, 10, 20, 40 then 60 seconds."""
+"""Retries after a rate-limit, overload or connection error, waiting 5, 10, 20, 40 then
+60 seconds."""
+
+GEMINI_TIMEOUT_MS = 120_000
+"""How long one Gemini request may take before it is abandoned and retried."""
 
 
 def _gemini_chat() -> ChatFn:
@@ -78,13 +88,20 @@ def _gemini_chat() -> ChatFn:
         from google.genai import errors, types
     except ImportError as error:
         raise _missing("google-genai") from error
+    try:  # google-genai sends requests through httpx2 (3.x) or httpx (older)
+        from httpx2 import TransportError
+    except ImportError:
+        from httpx import TransportError
 
     if not os.environ.get("GEMINI_API_KEY"):
         raise LiveUnavailable(
             "Live chat calls to Gemini need GEMINI_API_KEY (from Google AI Studio). Export "
             "it or put it in a .env file in the directory you run casewise from."
         )
-    client = genai.Client()  # reads GEMINI_API_KEY
+    # With no timeout, one stalled connection once hung an evaluation run for a day.
+    client = genai.Client(  # reads GEMINI_API_KEY
+        http_options=types.HttpOptions(timeout=GEMINI_TIMEOUT_MS)
+    )
 
     def chat(model: str, messages: Sequence[Message]) -> ChatResult:
         # Gemini takes system text separately and calls the assistant role "model".
@@ -104,9 +121,11 @@ def _gemini_chat() -> ChatFn:
                     model=model, contents=contents, config=config
                 )
                 break
-            except errors.APIError as error:
-                # Free-tier rate limits (429) and overload (503) clear if you wait.
-                if error.code not in (429, 500, 503) or attempt == GEMINI_RETRIES:
+            except (errors.APIError, TransportError) as error:
+                # Free-tier rate limits (429), overload (503), timeouts and dropped
+                # connections clear if you wait.
+                transient = isinstance(error, TransportError) or error.code in (429, 500, 503)
+                if not transient or attempt == GEMINI_RETRIES:
                     raise
                 time.sleep(min(60, 5 * 2**attempt))
         usage = response.usage_metadata

@@ -7,10 +7,13 @@ import pytest
 import replies as say
 from casewise import CachedGateway, ScriptedGateway, Settings, Ticket, build_gateway, triage
 from casewise.cli import main
+from paths import FIXTURE_KB, RULES
 
 
 def test_cli_triages_a_ticket_from_the_cache_and_prints_the_result(tmp_path, monkeypatch, capsys):
-    settings = Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache")
+    settings = Settings(
+        trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache", kb_dir=FIXTURE_KB
+    )
     provider = ScriptedGateway(
         chat_replies={
             "intent": say.intent("reset-password"),
@@ -25,6 +28,7 @@ def test_cli_triages_a_ticket_from_the_cache_and_prints_the_result(tmp_path, mon
     monkeypatch.setenv("CASEWISE_GATEWAY_MODE", "replay")
     monkeypatch.setenv("CASEWISE_CACHE_DIR", str(settings.cache_dir))
     monkeypatch.setenv("CASEWISE_TRACE_DIR", str(settings.trace_dir))
+    monkeypatch.setenv("CASEWISE_KB_DIR", str(FIXTURE_KB))
 
     exit_code = main(
         ["triage", "--subject", "Locked out", "--body", "How do I reset my password?",
@@ -41,6 +45,7 @@ def test_cli_triages_a_ticket_from_the_cache_and_prints_the_result(tmp_path, mon
 def test_cli_reads_a_ticket_from_a_json_file(tmp_path, monkeypatch, capsys):
     monkeypatch.setenv("CASEWISE_GATEWAY_MODE", "replay")
     monkeypatch.setenv("CASEWISE_CACHE_DIR", str(tmp_path / "empty-cache"))
+    monkeypatch.setenv("CASEWISE_KB_DIR", str(FIXTURE_KB))
     monkeypatch.setenv("CASEWISE_TRACE_DIR", str(tmp_path / "traces"))
     ticket_file = tmp_path / "ticket.json"
     ticket_file.write_text(json.dumps({"subject": "Fax", "body": "Can you send faxes?"}))
@@ -78,12 +83,12 @@ def test_cli_reads_settings_from_a_dotenv_file_in_the_working_directory(
 ):
     for name in ("CASEWISE_GATEWAY_MODE", "CASEWISE_CACHE_DIR", "CASEWISE_KB_DIR"):
         monkeypatch.delenv(name, raising=False)
-    kb_dir = Settings().kb_dir.resolve()
+    kb_dir = FIXTURE_KB
     (tmp_path / ".env").write_text(
         "CASEWISE_GATEWAY_MODE=replay\n"
         f"CASEWISE_CACHE_DIR={tmp_path / 'empty-cache'}\n"
         f"CASEWISE_KB_DIR={kb_dir}\n"
-        f"CASEWISE_RULES_PATH={Settings().rules_path.resolve()}\n"
+        f"CASEWISE_RULES_PATH={RULES}\n"
         f"CASEWISE_TRACE_DIR={tmp_path / 'traces'}\n"
     )
     monkeypatch.chdir(tmp_path)
@@ -97,7 +102,9 @@ def test_cli_reads_settings_from_a_dotenv_file_in_the_working_directory(
 
 def test_cli_explains_a_missing_api_key_instead_of_crashing(tmp_path, monkeypatch, capsys):
     pytest.importorskip("groq")
-    settings = Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache")
+    settings = Settings(
+        trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache", kb_dir=FIXTURE_KB
+    )
     # Embeddings are already cached, so the first live call is the chat completion.
     embed_only = ScriptedGateway(embeddings={"password": [1.0, 0.0]}, default_embedding=[0.0, 1.0])
     recording = CachedGateway(settings.cache_dir, provider=embed_only)
@@ -107,8 +114,8 @@ def test_cli_explains_a_missing_api_key_instead_of_crashing(tmp_path, monkeypatc
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
     monkeypatch.setenv("CASEWISE_CACHE_DIR", str(settings.cache_dir))
     monkeypatch.setenv("CASEWISE_TRACE_DIR", str(settings.trace_dir))
-    monkeypatch.setenv("CASEWISE_KB_DIR", str(Settings().kb_dir.resolve()))
-    monkeypatch.setenv("CASEWISE_RULES_PATH", str(Settings().rules_path.resolve()))
+    monkeypatch.setenv("CASEWISE_KB_DIR", str(FIXTURE_KB))
+    monkeypatch.setenv("CASEWISE_RULES_PATH", str(RULES))
     monkeypatch.chdir(tmp_path)  # no .env here
 
     exit_code = main(["triage", "--subject", "Locked out", "--body", "Reset password?"])

@@ -4,6 +4,7 @@ import pytest
 
 import replies as say
 from casewise import ScriptedGateway, Settings, Ticket, triage
+from paths import FIXTURE_KB
 
 EMBEDDINGS = {
     "password": [1.0, 0.0, 0.0, 0.0],
@@ -37,7 +38,7 @@ ESCALATING_TICKETS = {
 
 @pytest.fixture
 def settings(tmp_path):
-    return Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache")
+    return Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache", kb_dir=FIXTURE_KB)
 
 
 def gateway() -> ScriptedGateway:
