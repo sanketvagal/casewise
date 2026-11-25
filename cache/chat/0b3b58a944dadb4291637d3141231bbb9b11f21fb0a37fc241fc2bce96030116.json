@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a support agent for a clinical practice-management product. Answer the customer's ticket using only the knowledge-base article provided. Be brief and concrete. Do not add steps or facts that are not in the article. Put the reply in reply and the article's id in cited_article_id.\n\nReply with only a JSON object and no other text.\nOutput: draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"An auto-reply and the article it is based on.\", \"properties\": {\"cited_article_id\": {\"title\": \"Cited Article Id\", \"type\": \"string\"}, \"reply\": {\"minLength\": 1, \"title\": \"Reply\", \"type\": \"string\"}}, \"required\": [\"reply\", \"cited_article_id\"], \"title\": \"draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: update-practice-settings-and-locations\nArticle: Update practice details, locations, and provider identifiers\nTo keep your billing and demographics accurate, administrators can update practice profiles, service locations, and provider identifiers at any time.\n\n### Steps to Update Practice Information\n1. Navigate to **Admin > Practice Setup**.\n2. Select the **Details & Tax ID** tab to modify your legal business name, physical address, or federal Tax ID.\n3. Open the **Locations** tab to add or edit physical service addresses and assign unique location NPI numbers.\n4. Go to **Admin > Providers**, click a staff member's name, and update their individual NPI and taxonomy codes in the **Billing Identifiers** section.\n5. Click **Save Changes** at the bottom of each page.\n\n### Limits and Conditions\nOnly users with the Administrator role can modify practice-level settings and tax identifiers. Changes apply immediately to new drafts, but do not automatically retroactively update claims already generated or queued.\n\n### Troubleshooting\nIf updated practice information does not appear on outgoing claims, verify that the specific billing location is correctly linked under **Billing > Claim Defaults**. If the issue persists, clear your browser cache or contact support with the affected claim ID.\n\nTicket:\nRequest for Assistance Updating Practice NPI and Provider Identifiers\n\nDear Support Team, We recently underwent some administrative restructuring and need to update our practice's billing address, tax ID, and provider NPI numbers within the system. We attempted to make these changes under the practice settings menu, but we noticed that recent outgoing insurance claims are still reflecting our old information. Could you please provide guidance on how to ensure these updates propagate correctly to all billing modules? Best regards, Practice Administration"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"cited_article_id\": \"update-practice-settings-and-locations\",\n  \"reply\": \"To update your practice\u2019s billing address, Tax ID, and provider NPI numbers, an Administrator should go to **Admin > Practice Setup**. On the **Details & Tax ID** tab edit the legal name, address, and Tax ID, then use the **Locations** tab to modify service addresses and assign new location NPI numbers. For provider identifiers, open **Admin > Providers**, select each staff member, and change their NPI and taxonomy codes in the **Billing Identifiers** section, saving after each change. After saving, verify that the updated billing location is linked under **Billing > Claim Defaults**; otherwise claims will continue to use the old data. Changes affect only new claim drafts and will not retroactively change already generated or queued claims. If the updated information still does not appear, clear your browser cache or contact support with the affected claim IDs.\"\n}",
+  "input_tokens": 596,
+  "output_tokens": 276
+ }
+}

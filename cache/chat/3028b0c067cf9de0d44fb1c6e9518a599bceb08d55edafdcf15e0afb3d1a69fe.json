@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Create and manage personal medication favorites\nSave time during e-prescribing by building a personalized list of frequently ordered medications and instructions.\n\n### How to Create a Favorite\n1. Go to **Patients > Chart** and open the e-prescribing module.\n2. Search for and select your desired medication and dosage.\n3. Enter the preferred sig in the directions field.\n4. Click **Save to Favorites** in the action toolbar.\n5. Assign a custom label and click **Confirm**.\n\n### Limits and Conditions\n* Each clinician can store up to 150 items in their personal favorites list.\n* Shared clinic-wide favorites are managed separately through **Settings > E-Prescribing > Practice Defaults**.\n\n### Troubleshooting\nIf your favorites disappear following a software update, navigate to **Tools > Preferences > Restore Defaults** and select **Reload Personal Prescribing Lists**. If the list remains empty after reloading, contact the IT help desk to verify your user profile permissions.\n\nTicket:\nRestoration of Missing Personal Medication Favorites Following System Update\n\nDear Support Team, following the recent software deployment implemented over the weekend, my personal preference list of frequently prescribed medications and associated sigs has completely disappeared from my profile. I have attempted to recreate a few entries by searching the master formulary manually, but this significantly impedes my charting efficiency during patient encounters. Could you please investigate our practice database backups and restore my custom medication favorites as soon as possible? Thank you for your prompt attention to this matter."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hello,\\n\\nThank you for reaching out. I understand that your personal medication favorites disappeared after the recent software update. A member of our support team is reviewing this issue.\\n\\nIn the meantime, you can try the following steps to restore your favorites:\\n1. Navigate to **Tools > Preferences > Restore Defaults**.\\n2. Select **Reload Personal Prescribing Lists** and confirm.\\n\\nIf the list remains empty after reloading, please contact your IT help desk to verify your user profile permissions.\\n\\nWe will keep you updated as we investigate further.\"\n}",
+  "input_tokens": 586,
+  "output_tokens": 406
+ }
+}

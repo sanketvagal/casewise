@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: search-update-pharmacy-directory\nArticle: Search the pharmacy directory and update patient favorites\nTo update a patient's preferred pharmacy or add a custom entry, navigate to **Patients > Chart > Demographics** and select the **Pharmacy** tab. \n\n1. Click **Search Directory** to query the national e-prescribing database using the pharmacy name, NPI, or zip code.\n2. Select the correct facility from the results list and click **Set as Preferred** to update the patient's record.\n3. If a newly opened location is missing from the database, click **Add Custom Pharmacy**, complete the required fields (Name, Address, Phone, and Fax), and click **Save Entry**.\n\n**Limits & Conditions:** \nCustom pharmacies are restricted to your clinic's database and cannot receive electronic prescriptions until verified by network administrators. Only staff with Medical Assistant or Provider roles can modify pharmacy favorites.\n\n**Troubleshooting:** \nIf a pharmacy search yields no results, verify the zip code or try searching by phone number alone. If an added custom pharmacy fails to appear in the drop-down menu when prescribing, refresh your browser cache using `Ctrl+F5` (`Cmd+Shift+R` on Mac) and ensure all mandatory address fields were completed.\n\nTicket:\nCannot find local pharmacies in directory or add custom ones\n\nI've been trying to update a patient's preferred location because their usual spot shut down last week, but the search tool keeps returning zero results for the zip code. When I try to manually type in a custom pharmacy entry to bypass the lookup, the save button remains grayed out. This is holding up our outbound orders and wasting a lot of time.\n\nAuto-reply:\nMake sure the zip code you entered is correct; if it still returns no results, try searching by the pharmacy\u2019s phone number. When adding a custom pharmacy, fill in all required fields (Name, Address, Phone, Fax) and then click Save. If the Save button stays disabled, verify that you have a Medical Assistant or Provider role and that all mandatory address fields are completed. After saving, refresh your browser cache (Ctrl+F5 or Cmd+Shift+R) to see the new entry in the drop\u2011down list.\n\nSource: Search the pharmacy directory and update patient favorites (search-update-pharmacy-directory)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"incorrect\", \"reason\": \"The article does not state that role restrictions cause the save button to stay grayed out for custom pharmacies.\"}\n```",
+  "input_tokens": 691,
+  "output_tokens": 38
+ }
+}

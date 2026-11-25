@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: verify-insurance-eligibility\nArticle: Check real-time patient insurance eligibility\nFront desk staff can verify patient coverage instantly before scheduled appointments using our integrated clearinghouse connection.\n\n### Steps to Verify Coverage\n1. Open the patient's appointment and click **Billing > Insurance Eligibility**.\n2. Select the active policy from the dropdown menu and confirm the primary subscriber's date of birth.\n3. Click **Run Real-Time Check** to query the payer database.\n\n### Limits and Conditions\n* Real-time checks require an active internet connection and valid payer ID on the patient profile.\n* Verification results only confirm active coverage status, copay amounts, and deductible balances at the exact moment of the query; benefits are subject to final payer adjudication.\n\n### Troubleshooting\nIf the system returns a connection timeout or clearinghouse error:\n1. Navigate to **Settings > Billing Integration** and click **Test Clearinghouse Connection**.\n2. Verify that the patient's Member ID contains no spaces or special characters.\n3. If the error persists, contact support with the specific error code displayed on the screen.\n\nTicket:\nEligibility check clearinghouse errors\n\nWe are getting clearinghouse errors when trying to run real-time insurance verification for upcoming visits. The connection keeps dropping out before policy benefits load. Please look into this today so we can clear our check-in queue.\n\nAuto-reply:\nPlease go to Settings\u202f>\u202fBilling Integration and click **Test Clearinghouse Connection**. Then verify that the patient\u2019s Member ID contains no spaces or special characters. If the error still occurs, send us the exact error code displayed so we can investigate further.\n\nSource: Check real-time patient insurance eligibility (verify-insurance-eligibility)"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately follows the troubleshooting steps provided in the knowledge base article for clearinghouse connection errors.\"}",
+  "input_tokens": 565,
+  "output_tokens": 33
+ }
+}

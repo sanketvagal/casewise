@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: grounding_check: article 'create-custom-appointment-types' does not answer the ticket: The article explains how to create custom appointment types, which does not address configuring waiting room queue columns, check-in timestamps, or adding custom status columns. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nWaiting room queue status columns and check-in time display\n\nHi support, we are trying to get our front desk waiting room queue configured properly, but I am a bit confused by how the check-in timestamps are displaying. When a patient arrives and we mark them as checked in, the column sometimes shows the arrival time and sometimes shows the appointment time, and I cannot figure out which button or setting controls this view. Also, is there a way to add a custom status column for triage? I tried clicking around the settings menu under front desk options, but nothing seemed to change the layout on our main dashboard. Could you walk me through how to customize these columns correctly?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for reaching out and letting us know about the inconsistencies you\u2019re seeing with the check\u2011in timestamps in the waiting room queue, as well as your interest in adding a custom status column for triage. I understand how important it is to have the queue display exactly the information you need.\\n\\nI\u2019ve escalated this to a member of our support team who will review the configuration settings and get back to you with the appropriate guidance.\\n\\nWe appreciate your patience while we look into this.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 454,
+  "output_tokens": 218
+ }
+}

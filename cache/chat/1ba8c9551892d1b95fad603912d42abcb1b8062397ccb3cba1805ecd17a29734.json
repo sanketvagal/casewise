@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human. (also matched: urgent_clinician) Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nMedication history lookup error holding up clinic\n\nI am trying to pull up historical prescription data for a patient who is sitting right here in front of me, but the external database query keeps failing with a strange timeout message. This is holding up my whole schedule because I need to verify their prior fills before I can write anything new today. Why isn't this connection working right now? Please help me fix this immediately so I can get back into the room."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hello,\\n\\nThank you for reaching out and letting us know about the issue you\u2019re experiencing with the medication history lookup. I understand how important it is to have that information quickly, especially when you have a patient waiting.\\n\\nI\u2019ve escalated this to a member of our support team who is now reviewing the problem. They will investigate the connection timeout you\u2019re seeing and work on a resolution.\\n\\nWe\u2019ll keep you updated as soon as we have more information.\\n\\nThank you for your patience.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 391,
+  "output_tokens": 210
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: schedule-recurring-visits\nArticle: Set up a series of recurring appointments\nTo book regular visits for a patient requiring ongoing care, follow these steps:\n\n1. Navigate to **Scheduling > Calendar** and select the patient's initial time slot.\n2. Click **New Appointment**, complete the visit details, and toggle **Recurring Series** to **On**.\n3. Choose the frequency (e.g., weekly or monthly), set the end date or total number of occurrences, and click **Save Series**.\n\n### Conditions and Limits\nRecurring series can be scheduled up to 12 months in advance. A maximum of 52 occurrences can be generated in a single series.\n\n### Troubleshooting Conflicts\nIf the system detects a scheduling conflict (such as a provider vacation, holiday closure, or an already booked time slot), a conflict resolution prompt appears. You can choose to skip the conflicting date, assign the visit to a covering provider, or manually select a new time slot for that specific occurrence before finalizing the rest of the series. If the entire series fails to generate, verify that the selected appointment type is permitted for recurring bookings under **Settings > Appointment Types**.\n\nTicket:\nError when rescheduling patient visits\n\nEvery time I try to drag a patient's visit to a different doctor or time slot, the system throws an error code and wipes out the attached clinical notes. This is happening multiple times a day and slowing down our front desk completely. Please fix this bug immediately."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": false,\n  \"reason\": \"The article describes setting up recurring appointments, which does not address the error encountered when dragging and rescheduling a patient visit.\"\n}",
+  "input_tokens": 551,
+  "output_tokens": 139
+ }
+}

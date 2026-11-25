@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: create-online-intake-forms\nArticle: Create and publish digital intake forms for patients\nCustom intake questionnaires streamline the check-in process by letting patients submit information securely before arrival.\n\n### Steps to Create and Publish a Form\n1. Go to **Patient Portal > Form Builder**.\n2. Click **New Form** and select a template type, such as *Medical History* or *Consent*.\n3. Drag and drop desired fields into the layout area. Required fields must have the **Mandatory** toggle enabled.\n4. Click **Save Draft**, then select **Publish to Portal**.\n5. Navigate to **Patient Portal > Settings** to assign the form to specific appointment types.\n\n### Limits and Conditions\n- Forms can only be published if all required field validation checks pass without errors.\n- Patients must have an active portal account to receive and complete assigned questionnaires.\n- Maximum file upload size within a single form is 25 MB.\n\n### Troubleshooting\nIf form fields trigger validation errors upon publication, check for duplicate field IDs or unassigned dropdown options. Clear your browser cache and reload **Form Builder** if changes do not appear on the live patient portal immediately. Contact support if validation errors persist after correcting all flagged items.\n\nTicket:\nDigital intake forms validation error\n\nNeed instructions to set up custom digital intake forms and fix validation errors when patients submit online.\n\nAuto-reply:\n1. Open **Patient Portal > Form Builder** and click **New Form**; choose a template (e.g., Medical History). 2. Drag\u2011drop the needed fields and enable **Mandatory** for required items. 3. Click **Save Draft**, then **Publish to Portal**. 4. Assign the form to appointment types under **Patient Portal > Settings**.\n\nIf you get validation errors when publishing or patients submit the form:\u202fcheck for duplicate field IDs or dropdowns without assigned options, correct any flagged items, then clear your browser cache and reload **Form Builder**. If errors continue after these fixes, contact support.\n\nSource: Create and publish digital intake forms for patients (create-online-intake-forms)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately reflects the setup steps and troubleshooting guidance for validation errors provided in the knowledge base article without adding unsupported facts.\"}\n```",
+  "input_tokens": 645,
+  "output_tokens": 43
+ }
+}

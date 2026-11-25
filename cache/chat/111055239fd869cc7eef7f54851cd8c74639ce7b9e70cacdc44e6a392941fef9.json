@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-online-appointment-booking\nArticle: Set up and manage online appointment booking for patients\nEnable patients to schedule routine visits directly through the web and mobile portal by configuring your scheduling rules. Only providers with active schedules and visit types marked as 'Online Eligible' will appear to patients.\n\n1. Go to **Settings > Patient Portal > Booking Rules**.\n2. Toggle on **Allow Online Appointment Booking**.\n3. Navigate to **Scheduling > Visit Types**, select a visit type, and check the box for **Available Online**.\n4. Under **Settings > Schedule > Provider Availability**, designate which staff members accept online requests.\n\n**Limits & Conditions:**\nPatients can only book appointments between 24 hours and 60 days in advance. Urgent visit types cannot be made available online.\n\n**Troubleshooting:**\nIf a provider does not appear for booking, verify their schedule template is published and that their assigned rooms are active under **Settings > Facility > Rooms**.\n\nTicket:\nConfiguring online patient appointment booking restrictions\n\nGood morning. We would like to configure our online booking settings so that patients can schedule routine appointments directly through the web portal, but we need to restrict certain visit types and providers from showing up on the public schedule. Could you please provide guidance on how to set up these limitations properly for our larger provider group?\n\nAuto-reply:\nTo restrict which visit types and providers appear in the patient portal, follow these steps:\n1. Go to **Settings > Patient Portal > Booking Rules** and turn on **Allow Online Appointment Booking**.\n2. In **Scheduling > Visit Types**, select each routine visit type you want patients to book and check **Available Online**. Leave the box unchecked for any visit types you want to hide (e.g., urgent or restricted types).\n3. Under **Settings > Schedule > Provider Availability**, mark only the staff members who should accept online requests. Do not select providers you wish to exclude.\n4. Ensure each included provider has an active, published schedule template and active rooms (Settings > Facility > Rooms).\nPatients will then only see the visit types marked \u201cAvailable Online\u201d and the providers you designated, and bookings will be limited to 24\u202fhours\u201360\u202fdays in advance.\nIf a provider still appears, verify their schedule template is published and their room is active.\n\nSource: Set up and manage online appointment booking for patients (configure-online-appointment-booking)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately reflects the steps, limits, and troubleshooting steps from the knowledge base article without adding any unsupported claims.\"}\n```",
+  "input_tokens": 708,
+  "output_tokens": 42
+ }
+}

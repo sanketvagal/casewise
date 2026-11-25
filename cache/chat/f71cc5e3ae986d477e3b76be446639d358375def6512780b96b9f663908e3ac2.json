@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: grounding_check: article 'generate-and-submit-claims' does not answer the ticket: The article explains how to correct validation errors but does not explain the specific V-402 error code the ticket asks about. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nConfused about batch claim validation errors\n\nHello, I am trying to push out the weekly insurance claims for our providers, but the system keeps flagging a bunch of them with error code V-402 right before batch submission. I am not really sure what this error means or how I am supposed to fix the validation issues on these specific forms. Could someone please walk me through how to correct them so we can get our claims sent off to the clearinghouse? Thank you."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for reaching out and letting us know about the V\u2011402 validation errors you\u2019re encountering when trying to submit your weekly batch claims. I understand how frustrating this can be, and I\u2019m sorry for the inconvenience.\\n\\nI\u2019ve escalated this issue to a member of our support team who is familiar with the V\u2011402 error code. They will review the details of your claim batch and get back to you with the appropriate guidance on how to resolve the validation issues.\\n\\nWe appreciate your patience while we look into this. If you have any additional information that might help us investigate (such as specific claim IDs or screenshots), feel free to share them.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 409,
+  "output_tokens": 250
+ }
+}

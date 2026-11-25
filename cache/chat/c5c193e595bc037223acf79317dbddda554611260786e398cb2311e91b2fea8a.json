@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: grounding_check: article 'query-medication-history' does not answer the ticket: The article explains how to query external medication history, which does not address the portal data visibility or security issue described in the ticket. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nConcerns regarding potential data visibility issue in patient portal\n\nHello, I am reaching out because we had an alarming situation happen today regarding patient portal accounts. While assisting a patient with a password reset, I noticed that their profile seemed to display information belonging to an entirely different individual. I am very concerned that data may have crossed over or been visible to the wrong person. Could your technical team investigate this right away to see if there was a data mix-up or a security issue with the portal linking?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hello,\\n\\nThank you for bringing this serious concern to our attention. I understand how alarming it must be to see a patient\u2019s profile displaying another individual\u2019s information. Please be assured that a member of our support team is now reviewing the situation and will investigate the portal behavior you described.\\n\\nWe appreciate your patience while we look into this matter.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 414,
+  "output_tokens": 185
+ }
+}

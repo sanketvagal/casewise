@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: create-online-intake-forms\nArticle: Create and publish digital intake forms for patients\nCustom intake questionnaires streamline the check-in process by letting patients submit information securely before arrival.\n\n### Steps to Create and Publish a Form\n1. Go to **Patient Portal > Form Builder**.\n2. Click **New Form** and select a template type, such as *Medical History* or *Consent*.\n3. Drag and drop desired fields into the layout area. Required fields must have the **Mandatory** toggle enabled.\n4. Click **Save Draft**, then select **Publish to Portal**.\n5. Navigate to **Patient Portal > Settings** to assign the form to specific appointment types.\n\n### Limits and Conditions\n- Forms can only be published if all required field validation checks pass without errors.\n- Patients must have an active portal account to receive and complete assigned questionnaires.\n- Maximum file upload size within a single form is 25 MB.\n\n### Troubleshooting\nIf form fields trigger validation errors upon publication, check for duplicate field IDs or unassigned dropdown options. Clear your browser cache and reload **Form Builder** if changes do not appear on the live patient portal immediately. Contact support if validation errors persist after correcting all flagged items.\n\nTicket:\nTroubles with new online patient intake form setup\n\nHello! I am trying to build a custom medical history questionnaire for patients to fill out online before their appointments, but I keep getting validation errors on some of the required fields. Can someone take a look at why my form fields are not saving properly?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article includes troubleshooting steps for validation errors when creating and publishing intake forms, directly addressing the user's issue.\"\n}",
+  "input_tokens": 564,
+  "output_tokens": 132
+ }
+}

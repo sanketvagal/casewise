@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You classify support tickets for a clinical practice-management product. Choose the one intent that best describes what the ticket asks for, from this list:\n- attach-external-lab-reports: Upload and attach external paper lab reports to charts\n- configure-automated-reminders: Customize and troubleshoot automated appointment reminders\n- configure-critical-lab-alerts: Configure notification rules for critical lab values\n- configure-data-backup-and-compliance: Configure Data Backups and Compliance Archive Settings\n- configure-online-appointment-booking: Set up and manage online appointment booking for patients\n- configure-portal-result-visibility: Manage result release rules and patient portal visibility\n- configure-provider-calendar: Update provider working hours and calendar blocks\n- configure-roles-and-permissions: Assign user roles and configure permission levels\n- create-custom-appointment-types: Configure custom visit types and durations\n- create-custom-lab-panels: Build custom lab order panels and requisition bundles\n- create-online-intake-forms: Create and publish digital intake forms for patients\n- customize-notification-templates: Customize patient notification and message templates\n- generate-and-submit-claims: Generate, review, and submit insurance claims\n- manage-medication-favorites: Create and manage personal medication favorites\n- manage-practice-subscription-billing: Update payment methods for practice subscription invoices\n- post-payments-and-remittances: Post payments and insurance remittances to accounts\n- process-medication-renewal-requests: Review and process pharmacy medication renewal requests\n- process-portal-patient-payments: Process online patient payments through the portal\n- query-medication-history: Query external medication history and prescription monitoring\n- review-and-sign-lab-results: Review, sign off, and annotate incoming lab results\n- schedule-recurring-visits: Set up a series of recurring appointments\n- search-update-pharmacy-directory: Search the pharmacy directory and update patient favorites\n- troubleshoot-lab-interface: Troubleshoot lab interface connections and missing feeds\n- update-practice-settings-and-locations: Update practice details, locations, and provider identifiers\n- verify-insurance-eligibility: Check real-time patient insurance eligibility\n- other: anything none of the above covers\nSet confidence to your probability, from 0 to 1, that the intent is right.\n\nReply with only a JSON object and no other text.\nOutput: intent.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"What the ticket asks for. Labels are the knowledge-base article ids plus\\n``other``, until the topic taxonomy replaces them (see :func:`intent_labels`).\", \"properties\": {\"confidence\": {\"maximum\": 1, \"minimum\": 0, \"title\": \"Confidence\", \"type\": \"number\"}, \"intent\": {\"title\": \"Intent\", \"type\": \"string\"}}, \"required\": [\"intent\", \"confidence\"], \"title\": \"intent\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Inquiry Regarding Online Patient Booking Restrictions\n\nGood morning. We are currently reviewing our web portal configuration and wish to restrict online patient scheduling so that only routine physicals can be booked through the public link. Could you please advise on the proper steps to limit these visit types and exclude certain providers from the web-booking roster? Thank you for your assistance with this matter."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"intent\": \"configure-online-appointment-booking\",\n  \"confidence\": 0.98\n}",
+  "input_tokens": 747,
+  "output_tokens": 93
+ }
+}

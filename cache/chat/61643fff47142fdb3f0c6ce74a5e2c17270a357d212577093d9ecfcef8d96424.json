@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. If the ticket asks for more than one thing, the article must answer all of them: an article that covers only part of the request does not answer it. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: customize-notification-templates\nArticle: Customize patient notification and message templates\nPractice managers can tailor automated patient alerts to match clinic branding. Only administrators and designated managers have permission to edit these settings.\n\n1. Navigate to **Settings > Communications > Templates**.\n2. Select the category tab, such as **Appointment Confirmations** or **Billing Notices**.\n3. Choose the template you wish to modify and click **Edit**.\n4. Draft your message using available placeholder tags from the sidebar (e.g., `{{patient_first_name}}`, `{{appointment_date}}`).\n5. Click **Preview** to review the rendered text, then select **Save Changes**.\n\n### Limits and Conditions\n* Templates cannot exceed 480 characters to comply with standard SMS gateway limits.\n* Custom HTML styling is supported only in email templates.\n\n### Troubleshooting\nIf placeholder tags fail to populate when sent, verify that the tag syntax matches the exact spelling in the sidebar glossary. Unmatched brackets (like missing the closing `}}`) will trigger a syntax validation error and prevent saving. If emails fail to deliver after updating, check that your sender domain authentication remains active under **Settings > Communications > Domain Setup**.\n\nTicket:\nConfused about customizing waiting room columns\n\nHi there, I was looking at our check-in screen this morning and I am a bit confused about how to change the columns in the waiting room view. I clicked around the settings gear near the top right, but I could not figure out where we customize the arrival and rooming status headers. Could you let me know how to update those display fields?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": false,\n  \"reason\": \"The article explains how to customize patient notification templates, which does not address how to change waiting room view columns or status headers.\"\n}",
+  "input_tokens": 610,
+  "output_tokens": 123
+ }
+}

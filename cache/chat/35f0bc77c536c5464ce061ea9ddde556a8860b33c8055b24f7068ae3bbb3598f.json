@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: review-and-sign-lab-results\nArticle: Review, sign off, and annotate incoming lab results\nPhysicians can review, annotate, and sign off on incoming diagnostics efficiently by following the steps below. Only users with clinical provider roles may sign results.\n\n1. Navigate to **Clinical > Lab Queue**.\n2. Select the pending result from the unreviewed list to open the viewer.\n3. Type any necessary clinical notes into the **Annotations** text box.\n4. To route an abnormal finding to a covering physician, click **Delegate**, select the covering provider from the dropdown, and click **Send**.\n5. Click **Sign Off** to finalize the review and automatically file the report into the patient chart.\n\n**Limits & Conditions**\nResults marked critical cannot be signed off without an added annotation. Delegated results remain locked for the original ordering physician until the covering provider completes the review.\n\n**Troubleshooting**\nIf the **Sign Off** button appears grayed out, verify that all mandatory annotation fields are complete. If a covering provider does not appear in the delegation list, check **Settings > Staff** to ensure their active coverage schedule is correctly configured.\n\nTicket:\nRouting abnormal lab results\n\nHow do we route abnormal lab results to a covering provider when the primary doctor is out? Please provide instructions.\n\nAuto-reply:\n1. Go to **Clinical > Lab Queue**.\n2. Open the abnormal result from the unreviewed list.\n3. Click **Delegate**, choose the covering physician from the dropdown, and press **Send**.\nThe result will be locked for the original ordering doctor until the covering provider reviews it.\n\nSource: Review, sign off, and annotate incoming lab results (review-and-sign-lab-results)"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately provides the steps from the knowledge-base article for routing an abnormal finding to a covering physician without adding unsupported facts.\"}",
+  "input_tokens": 566,
+  "output_tokens": 40
+ }
+}

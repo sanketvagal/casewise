@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. If the ticket asks for more than one thing, the article must answer all of them: an article that covers only part of the request does not answer it. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: query-medication-history\nArticle: Query external medication history and prescription monitoring\nClinicians can retrieve a patient's multi-pharmacy fill history and state prescription monitoring program (PMP) data directly from the clinical workspace. Users must have active prescribing credentials and completed identity proofing.\n\n1. Open the patient chart and navigate to **Clinical > Medications**.\n2. Click **Query External History** in the toolbar.\n3. Review the identity verification prompt and select **Authorize & Submit**.\n4. View the consolidated report detailing prior fills and controlled substance data.\n\n### Limits and Conditions\nQueries depend on state database availability and patient consent where required by local regulations. Historical data is restricted to the preceding twelve months.\n\n### Troubleshooting\nIf the query fails or returns an access error, verify that the clinician's National Provider Identifier (NPI) and Drug Enforcement Administration (DEA) numbers are correctly entered under **Settings > Provider Profile**. If the state PMP gateway is offline, a notification banner will appear; wait fifteen minutes before retrying.\n\nTicket:\nConcerns regarding potential data visibility issue in patient portal\n\nHello, I am reaching out because we had an alarming situation happen today regarding patient portal accounts. While assisting a patient with a password reset, I noticed that their profile seemed to display information belonging to an entirely different individual. I am very concerned that data may have crossed over or been visible to the wrong person. Could your technical team investigate this right away to see if there was a data mix-up or a security issue with the portal linking?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": false,\n  \"reason\": \"The article explains how to query external medication history, which does not address the portal data mix\u2011up or security investigation requested in the ticket.\"\n}",
+  "input_tokens": 597,
+  "output_tokens": 136
+ }
+}

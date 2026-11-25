@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Assign user roles and configure permission levels\nProtect sensitive clinical and financial data by tailoring access for your staff. Only practice managers and primary administrators can modify security credentials.\n\n1. Go to **Settings > Practice Staff > Roles & Permissions**.\n2. Click **Create New Role** or select an existing title from the directory.\n3. Toggle permissions across categories, including *Billing*, *Patient Charts*, and *System Settings*.\n4. Click **Assign Users**, select the staff members who require this profile, and click **Save Changes**.\n\n**Limits & Conditions:** Every active user profile must be assigned to at least one role. Direct permission overrides on individual accounts are not permitted; all restrictions must flow through the assigned role.\n\n**Troubleshooting:** If a staff member cannot view a restricted menu after saving, verify their account status is active and have them clear their browser cache before logging back in.\n\nTicket:\nConfigure custom security roles and permission levels\n\nHello, I am reviewing our current security posture for our solo practice and need guidance on configuring advanced role-based access permissions. I want to ensure that any future billing staff or temporary helpers have strictly limited visibility into sensitive financial reports while keeping clinical charts accessible. Could you provide documentation or a step-by-step walkthrough for tailoring custom permission levels in our enterprise tier environment?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hello,\\n\\nThank you for reaching out about configuring custom security roles and permission levels for your practice. A member of our support team is reviewing your request and will be in touch.\\n\\nIn the meantime, you can set up and adjust role\u2011based access using the following steps:\\n\\n1. Navigate to **Settings > Practice Staff > Roles & Permissions**.\\n2. Click **Create New Role** or select an existing role from the directory.\\n3. Toggle the permissions you want to grant across categories such as *Billing*, *Patient Charts*, and *System Settings*.\\n4. Click **Assign Users**, choose the staff members who should have this role, and then click **Save Changes**.\\n\\n**Important notes:**\\n- Every active user must be assigned to at least one role; direct permission overrides on individual accounts are not allowed.\\n- If a staff member cannot see a menu after saving, confirm their account is active and have them clear their browser cache before logging in again.\\n\\nIf you have any further questions or need additional assistance, please let us know.\\n\\nBest regards,\\nSupport Team\"\n}",
+  "input_tokens": 549,
+  "output_tokens": 415
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a support agent for a clinical practice-management product. Answer the customer's ticket using only the knowledge-base article provided. Be brief and concrete. Do not add steps or facts that are not in the article. Put the reply in reply and the article's id in cited_article_id.\n\nReply with only a JSON object and no other text.\nOutput: draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"An auto-reply and the article it is based on.\", \"properties\": {\"cited_article_id\": {\"title\": \"Cited Article Id\", \"type\": \"string\"}, \"reply\": {\"minLength\": 1, \"title\": \"Reply\", \"type\": \"string\"}}, \"required\": [\"reply\", \"cited_article_id\"], \"title\": \"draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: generate-and-submit-claims\nArticle: Generate, review, and submit insurance claims\nFollow these steps to process and submit electronic claims to your clearinghouse:\n\n1. Navigate to **Billing > Claim Center** and select the **Ready to Batch** tab.\n2. Filter by payer or date range, then click **Generate Claims** to compile all finalized encounters.\n3. Review the generated list on the **Validation Queue** tab. Claims with missing modifiers, invalid subscriber IDs, or unmapped diagnosis codes will display a red error icon.\n4. Click any flagged claim to open the editor, correct the highlighted errors, and click **Save & Re-validate**.\n5. Select the validated claims and click **Batch & Submit** to transmit them to the clearinghouse.\n\n### Limits and Conditions\n- Claims must be generated within 90 days of the service date.\n- Batch sizes cannot exceed 500 claims per transmission.\n\n### Troubleshooting\nIf a claim repeatedly fails validation despite correct data entry, go to **Billing > Payer Rules** to verify that the specific payer's current electronic format requirements are up to date. If transmission errors persist after a successful batch, check the **Clearinghouse Log** under **Reports** for specific rejection codes.\n\nTicket:\nClaim generation and validation check\n\nHi there, we are getting ready to batch our insurance claims for the clearinghouse today and wanted to know the quickest way to check for validation errors beforehand. Thanks."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"cited_article_id\": \"generate-and-submit-claims\",\n  \"reply\": \"After you click **Generate Claims**, open the **Validation Queue** tab. It lists all generated claims and flags any with missing modifiers, invalid subscriber IDs, or unmapped diagnosis codes with a red error icon, letting you see validation errors before batching.\"\n}",
+  "input_tokens": 542,
+  "output_tokens": 169
+ }
+}

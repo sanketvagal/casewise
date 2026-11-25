@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a support agent for a clinical practice-management product. Answer the customer's ticket using only the knowledge-base article provided. Be brief and concrete. Do not add steps or facts that are not in the article. Put the reply in reply and the article's id in cited_article_id.\n\nReply with only a JSON object and no other text.\nOutput: draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"An auto-reply and the article it is based on.\", \"properties\": {\"cited_article_id\": {\"title\": \"Cited Article Id\", \"type\": \"string\"}, \"reply\": {\"minLength\": 1, \"title\": \"Reply\", \"type\": \"string\"}}, \"required\": [\"reply\", \"cited_article_id\"], \"title\": \"draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: troubleshoot-lab-interface\nArticle: Troubleshoot lab interface connections and missing feeds\nWhen electronic diagnostic results stop populating, clinic staff can resolve most interface disruptions using the administrative console.\n\n### Steps to Restart the Feed\n1. Navigate to **Admin > Interfaces > Lab Connectivity**.\n2. Locate the affected vendor in the active connections list.\n3. Click **Diagnostics** to run a live ping test.\n4. If the status reads offline, click **Action > Restart Service**.\n5. Wait three minutes for the queue to flush and refresh the dashboard.\n\n### Limits and Conditions\nOnly users with the *System Administrator* role can restart interface services. The system processes up to 500 queued results per batch; backlog clearing for extended outages may take up to thirty minutes.\n\n### Troubleshooting\nIf the connection status remains red after a manual restart, verify that your local firewall permits outbound traffic on port 443 to the designated gateway IP. Should results still fail to appear, document the error code displayed in the event log and submit a support ticket with the specimen requisition numbers for the missing labs.\n\nTicket:\nMissing lab feed connection\n\nHello support, I noticed this morning that my lab results feed seems to have stopped updating. I checked the connection settings in the diagnostic module, but everything looks correct on my end. Could someone take a look at our interface to see why incoming feeds are missing today?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"cited_article_id\": \"troubleshoot-lab-interface\",\n  \"reply\": \"Please have a System Administrator open Admin\u202f>\u202fInterfaces\u202f>\u202fLab Connectivity, run the Diagnostics ping, and if the status is offline click Action\u202f>\u202fRestart Service. Wait three minutes for the queue to flush and refresh the dashboard. If the status remains red, confirm that your firewall allows outbound traffic on port\u202f443 to the gateway IP, then capture the error code from the event log and include the specimen requisition numbers in a support ticket.\"\n}",
+  "input_tokens": 531,
+  "output_tokens": 195
+ }
+}

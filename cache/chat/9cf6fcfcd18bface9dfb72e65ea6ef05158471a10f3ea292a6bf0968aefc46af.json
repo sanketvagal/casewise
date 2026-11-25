@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: create-custom-appointment-types\nArticle: Configure custom visit types and durations\nAdministrators and scheduling coordinators can create tailored visit categories to streamline patient intake.\n\n1. Navigate to **Settings > Scheduling > Appointment Types**.\n2. Click **New Type** in the top right corner.\n3. Enter the display name, default duration in minutes, and select a calendar color code.\n4. Check the box for **Require Intake Form** if patients must complete pre-visit paperwork.\n5. Click **Save**.\n\n### Limits and Conditions\nCustom types require a minimum duration of 5 minutes and a maximum of 480 minutes. Deactivating a type preserves historical calendar data but removes it from future booking options.\n\n### Troubleshooting\nIf a newly created visit type does not appear on the patient booking screen, check **Settings > Scheduling > Locations** to ensure the type is enabled for that specific facility. If issues persist, verify that your user role includes the `Manage Appointment Types` permission under **Settings > Staff > Roles**.\n\nTicket:\nWaiting room queue status columns and check-in time display\n\nHi support, we are trying to get our front desk waiting room queue configured properly, but I am a bit confused by how the check-in timestamps are displaying. When a patient arrives and we mark them as checked in, the column sometimes shows the arrival time and sometimes shows the appointment time, and I cannot figure out which button or setting controls this view. Also, is there a way to add a custom status column for triage? I tried clicking around the settings menu under front desk options, but nothing seemed to change the layout on our main dashboard. Could you walk me through how to customize these columns correctly?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": false,\n  \"reason\": \"The article explains how to create custom appointment types, which does not address configuring waiting room queue columns, check-in timestamps, or adding custom status columns.\"\n}",
+  "input_tokens": 600,
+  "output_tokens": 139
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Search the pharmacy directory and update patient favorites\nTo update a patient's preferred pharmacy or add a custom entry, navigate to **Patients > Chart > Demographics** and select the **Pharmacy** tab. \n\n1. Click **Search Directory** to query the national e-prescribing database using the pharmacy name, NPI, or zip code.\n2. Select the correct facility from the results list and click **Set as Preferred** to update the patient's record.\n3. If a newly opened location is missing from the database, click **Add Custom Pharmacy**, complete the required fields (Name, Address, Phone, and Fax), and click **Save Entry**.\n\n**Limits & Conditions:** \nCustom pharmacies are restricted to your clinic's database and cannot receive electronic prescriptions until verified by network administrators. Only staff with Medical Assistant or Provider roles can modify pharmacy favorites.\n\n**Troubleshooting:** \nIf a pharmacy search yields no results, verify the zip code or try searching by phone number alone. If an added custom pharmacy fails to appear in the drop-down menu when prescribing, refresh your browser cache using `Ctrl+F5` (`Cmd+Shift+R` on Mac) and ensure all mandatory address fields were completed.\n\nTicket:\nQuestion regarding e-prescribing setup for a new local pharmacy\n\nHello, I am just reaching out to make sure our system has the most up-to-date routing info for a local pharmacy we frequently use. Could you confirm how we verify that our electronic prescription transmissions are going to the correct address?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for reaching out. I understand you want to confirm that electronic prescription transmissions are being sent to the correct address for your frequently used local pharmacy. A member of our support team is reviewing your request.\\n\\nIn the meantime, you can verify and, if needed, update the pharmacy information in the system by following these steps:\\n\\n1. Navigate to **Patients > Chart > Demographics** and select the **Pharmacy** tab.\\n2. Click **Search Directory** and query the national e\u2011prescribing database using the pharmacy name, NPI, or zip code.\\n3. Locate the correct pharmacy in the results list and click **Set as Preferred** to ensure it is the one used for e\u2011prescriptions.\\n4. If the pharmacy does not appear in the search results, click **Add Custom Pharmacy**, fill in the required fields (Name, Address, Phone, and Fax), and click **Save Entry**. Note that custom pharmacies are limited to your clinic\u2019s database and cannot receive electronic prescriptions until they are verified by network administrators.\\n5. After adding or updating a pharmacy, you may need to refresh your browser cache (Ctrl+F5 on Windows or Cmd+Shift+R on Mac) to see the changes when prescribing.\\n\\nIf you encounter any issues during this process or need further assistance, please let us know and we\u2019ll be happy to help.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 591,
+  "output_tokens": 612
+ }
+}

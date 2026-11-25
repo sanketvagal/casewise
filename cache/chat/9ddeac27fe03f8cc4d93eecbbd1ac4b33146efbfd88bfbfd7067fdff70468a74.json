@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Troubleshoot lab interface connections and missing feeds\nWhen electronic diagnostic results stop populating, clinic staff can resolve most interface disruptions using the administrative console.\n\n### Steps to Restart the Feed\n1. Navigate to **Admin > Interfaces > Lab Connectivity**.\n2. Locate the affected vendor in the active connections list.\n3. Click **Diagnostics** to run a live ping test.\n4. If the status reads offline, click **Action > Restart Service**.\n5. Wait three minutes for the queue to flush and refresh the dashboard.\n\n### Limits and Conditions\nOnly users with the *System Administrator* role can restart interface services. The system processes up to 500 queued results per batch; backlog clearing for extended outages may take up to thirty minutes.\n\n### Troubleshooting\nIf the connection status remains red after a manual restart, verify that your local firewall permits outbound traffic on port 443 to the designated gateway IP. Should results still fail to appear, document the error code displayed in the event log and submit a support ticket with the specimen requisition numbers for the missing labs.\n\nTicket:\nMissing lab feeds and connection check\n\nHello, we noticed that some incoming electronic lab results from our main reference laboratory haven't been populating in our patient charts since yesterday morning, and we also want to make sure no confidential feeds were misrouted to another facility. Could someone please check our interface connection?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for contacting us. I understand you\u2019re seeing missing electronic lab results in patient charts and want to verify that the interface connection is functioning correctly. A member of our support team is reviewing your request.\\n\\nIn the meantime, you can use the administrative console to check the lab interface and restart the feed if needed:\\n\\n1. Navigate to **Admin > Interfaces > Lab Connectivity**.\\n2. Locate the affected vendor in the active connections list.\\n3. Click **Diagnostics** to run a live ping test.\\n4. If the status reads *offline*, select **Action > Restart Service**.\\n5. Wait three minutes for the queue to flush, then refresh the dashboard.\\n\\nIf the connection status remains red after a manual restart, please verify that your local firewall permits outbound traffic on port\u202f443 to the designated gateway IP. Should results still fail to appear, note the error code shown in the event log and be prepared to provide the specimen requisition numbers for the missing labs when we follow up.\\n\\nWe\u2019ll investigate further and keep you updated.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 563,
+  "output_tokens": 479
+ }
+}

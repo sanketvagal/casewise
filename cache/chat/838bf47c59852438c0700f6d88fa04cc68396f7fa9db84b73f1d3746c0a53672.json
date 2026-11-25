@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human. (also matched: urgent_clinician) Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Query external medication history and prescription monitoring\nClinicians can retrieve a patient's multi-pharmacy fill history and state prescription monitoring program (PMP) data directly from the clinical workspace. Users must have active prescribing credentials and completed identity proofing.\n\n1. Open the patient chart and navigate to **Clinical > Medications**.\n2. Click **Query External History** in the toolbar.\n3. Review the identity verification prompt and select **Authorize & Submit**.\n4. View the consolidated report detailing prior fills and controlled substance data.\n\n### Limits and Conditions\nQueries depend on state database availability and patient consent where required by local regulations. Historical data is restricted to the preceding twelve months.\n\n### Troubleshooting\nIf the query fails or returns an access error, verify that the clinician's National Provider Identifier (NPI) and Drug Enforcement Administration (DEA) numbers are correctly entered under **Settings > Provider Profile**. If the state PMP gateway is offline, a notification banner will appear; wait fifteen minutes before retrying.\n\nTicket:\nSo sorry - urgent need to access security audit logs with patients waiting\n\nI am terribly sorry to drop this on you right now while my waiting room is completely full, but I desperately need to pull the security audit logs to see who accessed a specific patient chart this morning. Patients are waiting and I am under immense pressure. Could you please walk me through exporting these logs immediately? So sorry for the rush."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for reaching out. I understand you need to access the security audit logs for a patient chart and that this is urgent. A member of our support team is reviewing your request and will be in touch shortly.\\n\\nWe appreciate your patience while we investigate this matter.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 580,
+  "output_tokens": 158
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: customize-notification-templates\nArticle: Customize patient notification and message templates\nPractice managers can tailor automated patient alerts to match clinic branding. Only administrators and designated managers have permission to edit these settings.\n\n1. Navigate to **Settings > Communications > Templates**.\n2. Select the category tab, such as **Appointment Confirmations** or **Billing Notices**.\n3. Choose the template you wish to modify and click **Edit**.\n4. Draft your message using available placeholder tags from the sidebar (e.g., `{{patient_first_name}}`, `{{appointment_date}}`).\n5. Click **Preview** to review the rendered text, then select **Save Changes**.\n\n### Limits and Conditions\n* Templates cannot exceed 480 characters to comply with standard SMS gateway limits.\n* Custom HTML styling is supported only in email templates.\n\n### Troubleshooting\nIf placeholder tags fail to populate when sent, verify that the tag syntax matches the exact spelling in the sidebar glossary. Unmatched brackets (like missing the closing `}}`) will trigger a syntax validation error and prevent saving. If emails fail to deliver after updating, check that your sender domain authentication remains active under **Settings > Communications > Domain Setup**.\n\nTicket:\nConfused about notification template syntax and formatting\n\nI am completely turned around trying to fix our automated appointment reminders and billing notice texts. I went into the messaging setup area and tried tweaking the template text, but now the syntax tags look completely broken and I keep getting error messages when I try to save. Also, I am not sure how the variables map anymore. Could someone please walk me through how to format these templates properly?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article explains how to edit notification templates, use correct placeholder syntax, and troubleshoot tag errors, directly addressing the user's confusion about formatting and saving templates.\"\n}",
+  "input_tokens": 584,
+  "output_tokens": 131
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: generate-and-submit-claims\nArticle: Generate, review, and submit insurance claims\nFollow these steps to process and submit electronic claims to your clearinghouse:\n\n1. Navigate to **Billing > Claim Center** and select the **Ready to Batch** tab.\n2. Filter by payer or date range, then click **Generate Claims** to compile all finalized encounters.\n3. Review the generated list on the **Validation Queue** tab. Claims with missing modifiers, invalid subscriber IDs, or unmapped diagnosis codes will display a red error icon.\n4. Click any flagged claim to open the editor, correct the highlighted errors, and click **Save & Re-validate**.\n5. Select the validated claims and click **Batch & Submit** to transmit them to the clearinghouse.\n\n### Limits and Conditions\n- Claims must be generated within 90 days of the service date.\n- Batch sizes cannot exceed 500 claims per transmission.\n\n### Troubleshooting\nIf a claim repeatedly fails validation despite correct data entry, go to **Billing > Payer Rules** to verify that the specific payer's current electronic format requirements are up to date. If transmission errors persist after a successful batch, check the **Clearinghouse Log** under **Reports** for specific rejection codes.\n\nTicket:\nQuestion regarding batch insurance claim generation and clearinghouse errors\n\nHello, I am sorry to reach out about this, but I am having some trouble getting our daily insurance claims to batch correctly for electronic submission. Every time I try to generate the file, the system stops and gives me an unhandled validation error that I haven't seen before. I tried clearing my browser cache and restarting the billing module, but the same message keeps appearing. Could someone please help me figure out what is causing this so I can get our claims sent out today? Thank you.\n\nAuto-reply:\nPlease open the **Validation Queue** tab in Claim Center and review the flagged claims. Correct any highlighted errors (missing modifiers, invalid subscriber IDs, unmapped diagnosis codes) and click **Save & Re\u2011validate**. Ensure the claims are within 90 days of service and that you are not exceeding the 500\u2011claim batch limit. If the validation error persists even after correcting the data, go to **Billing > Payer Rules** to confirm the payer\u2019s current electronic format requirements, and then check the **Clearinghouse Log** under **Reports** for any rejection codes that may indicate the cause.\n\nSource: Generate, review, and submit insurance claims (generate-and-submit-claims)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately addresses the validation error described in the ticket by providing the troubleshooting and correction steps outlined in the article without adding any unsupported facts or promises.\"}\n```",
+  "input_tokens": 731,
+  "output_tokens": 49
+ }
+}

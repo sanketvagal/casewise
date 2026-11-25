@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a support agent for a clinical practice-management product. Answer the customer's ticket using only the knowledge-base article provided. Be brief and concrete. Do not add steps or facts that are not in the article. Put the reply in reply and the article's id in cited_article_id.\n\nReply with only a JSON object and no other text.\nOutput: draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"An auto-reply and the article it is based on.\", \"properties\": {\"cited_article_id\": {\"title\": \"Cited Article Id\", \"type\": \"string\"}, \"reply\": {\"minLength\": 1, \"title\": \"Reply\", \"type\": \"string\"}}, \"required\": [\"reply\", \"cited_article_id\"], \"title\": \"draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: create-custom-appointment-types\nArticle: Configure custom visit types and durations\nAdministrators and scheduling coordinators can create tailored visit categories to streamline patient intake.\n\n1. Navigate to **Settings > Scheduling > Appointment Types**.\n2. Click **New Type** in the top right corner.\n3. Enter the display name, default duration in minutes, and select a calendar color code.\n4. Check the box for **Require Intake Form** if patients must complete pre-visit paperwork.\n5. Click **Save**.\n\n### Limits and Conditions\nCustom types require a minimum duration of 5 minutes and a maximum of 480 minutes. Deactivating a type preserves historical calendar data but removes it from future booking options.\n\n### Troubleshooting\nIf a newly created visit type does not appear on the patient booking screen, check **Settings > Scheduling > Locations** to ensure the type is enabled for that specific facility. If issues persist, verify that your user role includes the `Manage Appointment Types` permission under **Settings > Staff > Roles**.\n\nTicket:\nCustom appointment types not showing on booking screen\n\nHello support, I am trying to set up some new appointment categories for our schedule here at the clinic, but I am running into a snag. I went into the settings and created a custom visit type with its own duration and color coding, but when I look at the main booking screen, it is completely missing. I already checked the provider scheduling templates to make sure it was enabled there, but it still will not show up for us to select. Could you let me know what I am missing in the configuration menu so we can start using these new types?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"cited_article_id\": \"create-custom-appointment-types\",\n  \"reply\": \"Make sure the new type is enabled for the facility under **Settings > Scheduling > Locations**. If it\u2019s still missing, confirm that your user role has the **Manage Appointment Types** permission (Settings > Staff > Roles).\"\n}",
+  "input_tokens": 581,
+  "output_tokens": 174
+ }
+}

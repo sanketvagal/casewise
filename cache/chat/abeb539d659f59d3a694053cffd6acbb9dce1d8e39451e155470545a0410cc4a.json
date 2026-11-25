@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-online-appointment-booking\nArticle: Set up and manage online appointment booking for patients\nEnable patients to schedule routine visits directly through the web and mobile portal by configuring your scheduling rules. Only providers with active schedules and visit types marked as 'Online Eligible' will appear to patients.\n\n1. Go to **Settings > Patient Portal > Booking Rules**.\n2. Toggle on **Allow Online Appointment Booking**.\n3. Navigate to **Scheduling > Visit Types**, select a visit type, and check the box for **Available Online**.\n4. Under **Settings > Schedule > Provider Availability**, designate which staff members accept online requests.\n\n**Limits & Conditions:**\nPatients can only book appointments between 24 hours and 60 days in advance. Urgent visit types cannot be made available online.\n\n**Troubleshooting:**\nIf a provider does not appear for booking, verify their schedule template is published and that their assigned rooms are active under **Settings > Facility > Rooms**.\n\nTicket:\nQuestion regarding online appointment booking restrictions for specific visit types\n\nHello, I am writing to ask for some guidance on setting up our online patient portal booking options. We recently enabled web booking so patients can schedule their routine check-ups directly, but we noticed that specialty consults and certain urgent follow-up visits are also showing up as available online. I tried navigating through the scheduling template configuration menus to restrict online booking to specific provider types and visit categories, but I couldn't find where those filters live. Could you please provide some detailed steps on how to properly configure these online scheduling restrictions? Thank you so much for your assistance.\n\nAuto-reply:\nTo limit online booking to only the visit types you choose, follow these steps:\n1. Go to **Settings > Patient Portal > Booking Rules** and make sure **Allow Online Appointment Booking** is enabled.\n2. Open **Scheduling > Visit Types**. For each visit type you want patients to book online, select it and check **Available Online**. Leave this box unchecked for specialty consults, urgent follow\u2011up visits, or any other categories you do not want available.\n3. Verify that only the providers who should accept online requests are marked in **Settings > Schedule > Provider Availability**.\nNote: Urgent visit types cannot be made online\u2011eligible, so ensure they remain unchecked. After saving, only the selected visit types and providers will appear in the patient portal booking screen.\n\nSource: Set up and manage online appointment booking for patients (configure-online-appointment-booking)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply directly addresses how to restrict online booking to specific visit types by following the exact steps and conditions outlined in the knowledge base article without adding unsupported facts.\"}\n```",
+  "input_tokens": 716,
+  "output_tokens": 50
+ }
+}

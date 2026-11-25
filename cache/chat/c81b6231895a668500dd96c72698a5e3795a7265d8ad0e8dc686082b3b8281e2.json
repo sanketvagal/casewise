@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-automated-reminders\nArticle: Customize and troubleshoot automated appointment reminders\nConfigure your patient notifications by navigating to **Settings > Communications > Reminders**. Here, you can adjust SMS and email templates and set the dispatch window from 24 to 72 hours before the visit.\n\n### Conditions and Limits\n* Patients must have a verified mobile number or email address.\n* SMS messages are capped at 160 characters; longer texts will split into multiple segments.\n* Reminders will not send if the appointment status is marked as 'Cancelled' or 'Arrived'.\n\n### Step-by-Step Setup\n1. Go to **Settings > Communications > Reminders**.\n2. Select **Edit** next to the desired channel (SMS or Email).\n3. Use allowed merge tags like `[PatientName]` and `[AppointmentTime]` to personalize the content.\n4. Click **Save Changes** to apply.\n\n### Troubleshooting\nIf a patient does not receive a reminder, first check the patient profile to ensure communication opt-in is enabled. Next, review **Reports > Message Log** to check delivery status. If the log shows a 'Failed' status due to carrier blocking, verify the phone number supports SMS. For persistent delivery failures, contact support with the affected patient ID and timestamp.\n\nTicket:\nFix automated reminders\n\nThe text message reminders are not sending out properly for my clinic. I checked the settings page and the schedule, but patients are still saying they get nothing. Adjust the timing and fix the delivery failure right away."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article provides steps to adjust reminder timing and detailed troubleshooting for SMS delivery failures, directly addressing the issue described in the ticket.\"\n}",
+  "input_tokens": 562,
+  "output_tokens": 191
+ }
+}

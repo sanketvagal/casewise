@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: grounding_check: article 'schedule-recurring-visits' does not answer the ticket: The article describes setting up recurring appointments, which does not address the error encountered when dragging and rescheduling a patient visit. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nError when rescheduling patient visits\n\nEvery time I try to drag a patient's visit to a different doctor or time slot, the system throws an error code and wipes out the attached clinical notes. This is happening multiple times a day and slowing down our front desk completely. Please fix this bug immediately."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for bringing this issue to our attention. I\u2019m sorry you\u2019re experiencing errors and loss of clinical notes when trying to reschedule patient visits. I\u2019ve escalated this to a member of our support team, and they are now looking into the problem.\\n\\nWe\u2019ll keep you updated as we investigate further.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 373,
+  "output_tokens": 146
+ }
+}

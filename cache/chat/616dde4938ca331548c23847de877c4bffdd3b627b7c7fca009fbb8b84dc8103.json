@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:billing_dispute: Billing disputes always go to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Update payment methods for practice subscription invoices\nPractice managers can update the credit card used for monthly software subscription fees and review past billing statements directly within the account portal. \n\n### Update Payment Details\n1. Navigate to **Billing > Subscription Settings**.\n2. Select the **Payment Methods** tab.\n3. Click **Add New Card** or select **Edit** next to your current card.\n4. Enter the updated billing address and card details, then click **Save Changes**.\n\n### Review Invoices\n1. Go to **Billing > Invoice History**.\n2. Click any invoice number to download the PDF statement.\n\n### Limits and Conditions\n* Only users with the Practice Manager role can access subscription billing settings.\n* Accepted payment methods include Visa, Mastercard, and American Express.\n* Changes take effect immediately for the next billing cycle.\n\n### Troubleshooting\nIf a payment update fails, verify that the billing ZIP code matches your bank records exactly. If charges are declined despite correct details, contact your financial institution to authorize recurring software subscription charges before trying again in **Billing > Subscription Settings**.\n\nTicket:\nIncorrect monthly charge on our account - need refund\n\nHello, I'm checking our latest invoice and realized we were charged an incorrect amount for our software tier this month. We need this corrected and our account credited immediately as this is the second time this has happened."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for reaching out and letting us know about the incorrect charge on your account. I\u2019m sorry you\u2019ve experienced this issue again. A member of our support team is reviewing your case and will be in touch to help resolve it.\\n\\nWe appreciate your patience while we look into this.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 555,
+  "output_tokens": 184
+ }
+}

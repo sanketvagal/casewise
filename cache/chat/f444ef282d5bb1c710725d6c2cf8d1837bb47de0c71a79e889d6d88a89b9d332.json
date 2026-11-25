@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-automated-reminders\nArticle: Customize and troubleshoot automated appointment reminders\nConfigure your patient notifications by navigating to **Settings > Communications > Reminders**. Here, you can adjust SMS and email templates and set the dispatch window from 24 to 72 hours before the visit.\n\n### Conditions and Limits\n* Patients must have a verified mobile number or email address.\n* SMS messages are capped at 160 characters; longer texts will split into multiple segments.\n* Reminders will not send if the appointment status is marked as 'Cancelled' or 'Arrived'.\n\n### Step-by-Step Setup\n1. Go to **Settings > Communications > Reminders**.\n2. Select **Edit** next to the desired channel (SMS or Email).\n3. Use allowed merge tags like `[PatientName]` and `[AppointmentTime]` to personalize the content.\n4. Click **Save Changes** to apply.\n\n### Troubleshooting\nIf a patient does not receive a reminder, first check the patient profile to ensure communication opt-in is enabled. Next, review **Reports > Message Log** to check delivery status. If the log shows a 'Failed' status due to carrier blocking, verify the phone number supports SMS. For persistent delivery failures, contact support with the affected patient ID and timestamp.\n\nTicket:\nAdjusting text message reminder timing for patients\n\nHello, we are hoping to tweak when our automated appointment reminder texts go out to patients ahead of their visits. Right now they seem to go out 24 hours prior, but we would like to test pushing that to 48 hours with a slightly different wording. Could you let me know where in the settings we can modify both the schedule and the content template for these messages?\n\nAuto-reply:\nGo to **Settings > Communications > Reminders**, click **Edit** next to the SMS channel, change the dispatch window to 48 hours, update the text using the allowed merge tags, and then click **Save Changes**.\n\nSource: Customize and troubleshoot automated appointment reminders (configure-automated-reminders)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately answers how to modify both the schedule and the content template for appointment reminders using only information from the article.\"}\n```",
+  "input_tokens": 631,
+  "output_tokens": 43
+ }
+}

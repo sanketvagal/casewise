@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: grounding_check: article 'create-custom-lab-panels' does not answer the ticket: The article explains how to create custom lab panels, which does not address fixing ICD-10 code mismatches or re\u2011transmitting rejected electronic lab orders. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nLab order rejections and diagnosis codes\n\nWe keep getting rejections on electronic lab orders due to ICD-10 code mismatches. How do we quickly fix and re-transmit these orders without rebuilding the entire test panel from scratch? Please advise."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for reaching out about the ICD\u201110 code mismatches causing your electronic lab order rejections. I understand how frustrating this can be. A member of our support team is reviewing your case and will be in touch shortly to help resolve the issue.\\n\\nWe appreciate your patience while we look into this.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 371,
+  "output_tokens": 163
+ }
+}

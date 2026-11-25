@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: grounding_check: article 'generate-and-submit-claims' does not answer the ticket: The article explains how to generate and submit claims, but does not address pulling denial reason code reports or linking clinical notes to appeal forms as requested in the ticket. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nHelp with tracking insurance claim denials and pulling reports\n\nHi team, I am looking at our denial management tools and I am a bit lost. We are trying to figure out how to pull reports on specific denial reason codes so we can address recurring billing issues with a few major payers, but the reporting dashboard has so many filters that I'm not sure which ones apply to appeals. Also, when we attach clinical notes to a denied claim, is there a way to make sure it links directly to the appeal form? Any screenshots or simple steps would be great."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for reaching out and sharing the details about the challenges you\u2019re experiencing with denial reason code reporting and linking clinical notes to appeal forms. I understand how important it is to have clear visibility into denials and to streamline the appeal process.\\n\\nI\u2019ve escalated this to a member of our support team who will review your request and get back to you with the appropriate guidance.\\n\\nWe appreciate your patience while we look into this.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 434,
+  "output_tokens": 209
+ }
+}

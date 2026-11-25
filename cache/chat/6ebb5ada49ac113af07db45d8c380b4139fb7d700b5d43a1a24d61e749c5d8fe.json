@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-data-backup-and-compliance\nArticle: Configure Data Backups and Compliance Archive Settings\nProtect sensitive patient records and maintain regulatory compliance by setting up automated system backups and executing your required Business Associate Agreement (BAA).\n\n### Requirements and Limits\n* Only users with the **Administrator** role can modify backup and compliance settings.\n* Automated backups occur daily at midnight UTC and are retained for 90 days.\n* You must execute a digital BAA before enabling external cloud storage sync.\n\n### Configuration Steps\n1. Go to **Settings > Security > Compliance**. \n2. Review the BAA text and click **Accept and Sign**.\n3. Navigate to **Settings > Data Management > Backups**.\n4. Toggle on **Automated Daily Backups**.\n5. Select your retention tier (**90-Day Standard** or **1-Year Extended**).\n6. Click **Save Changes**.\n\n### Troubleshooting\nIf backup generation fails or your export link returns an error, verify that your storage bucket permissions allow write access from the application IP whitelist. If historical data exports do not appear within 24 hours, contact support to manually trigger the retrieval queue.\n\nTicket:\nInquiry regarding compliance archives and backup configurations\n\nPlease provide the necessary documentation and instructions for configuring our automated data backup schedules and establishing compliance archive settings under our current tier.\n\nAuto-reply:\nOnly Administrators can change these settings. To configure backups and compliance archives: 1) Go to Settings\u202f>\u202fSecurity\u202f>\u202fCompliance, review the BAA text and click **Accept and Sign**. 2) Go to Settings\u202f>\u202fData Management\u202f>\u202fBackups, toggle **Automated Daily Backups** on, choose the retention tier (90\u2011Day Standard or 1\u2011Year Extended), and click **Save Changes**. Backups run daily at midnight UTC and are kept for 90 days. Ensure you have signed the digital BAA before enabling any external cloud storage sync.\n\nSource: Configure Data Backups and Compliance Archive Settings (configure-data-backup-and-compliance)"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\"verdict\": \"incorrect\", \"reason\": \"The auto-reply contradicts the article by stating backups are kept for 90 days right after allowing the user to select a 1-Year Extended retention tier.\"}",
+  "input_tokens": 650,
+  "output_tokens": 45
+ }
+}

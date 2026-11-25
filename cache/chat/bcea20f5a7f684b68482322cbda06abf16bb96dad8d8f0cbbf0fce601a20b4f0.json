@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. If the ticket asks for more than one thing, the article must answer all of them: an article that covers only part of the request does not answer it. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-provider-calendar\nArticle: Update provider working hours and calendar blocks\nTo keep appointment slots accurate, you can update regular working hours and add one-time calendar blocks for meetings or time off. \n\n1. Go to **Settings > Scheduling > Provider Hours**.\n2. Select the target clinician from the **Provider** dropdown menu.\n3. Adjust the weekly schedule by entering start and end times, or check **Day Off** for non-working days.\n4. To block specific dates, click **Add Block**, choose your start and end timestamps, and select a reason from the category list.\n5. Click **Save Changes** at the bottom of the page.\n\n### Limits and Conditions\nChanges apply immediately to future scheduling slots. Past appointments remain unaffected, and you cannot overlap a working-hours shift with an existing confirmed appointment.\n\n### Troubleshooting\nIf the calendar still displays incorrect availability, clear your browser cache and verify that no conflicting group-schedule overrides are active under **Settings > Scheduling > Facility Hours**. If issues persist, ensure the provider's primary time zone matches your clinic's main location setting.\n\nTicket:\nRequest to update provider working hours\n\nPlease update the provider scheduling module to reflect the correct working hours and calendar blocks for our clinical staff starting next month."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article provides step-by-step instructions to update provider working hours and add calendar blocks, directly addressing the request to reflect correct scheduling for staff.\"\n}",
+  "input_tokens": 541,
+  "output_tokens": 177
+ }
+}

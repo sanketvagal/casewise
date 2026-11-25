@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-data-backup-and-compliance\nArticle: Configure Data Backups and Compliance Archive Settings\nProtect sensitive patient records and maintain regulatory compliance by setting up automated system backups and executing your required Business Associate Agreement (BAA).\n\n### Requirements and Limits\n* Only users with the **Administrator** role can modify backup and compliance settings.\n* Automated backups occur daily at midnight UTC and are retained for 90 days.\n* You must execute a digital BAA before enabling external cloud storage sync.\n\n### Configuration Steps\n1. Go to **Settings > Security > Compliance**. \n2. Review the BAA text and click **Accept and Sign**.\n3. Navigate to **Settings > Data Management > Backups**.\n4. Toggle on **Automated Daily Backups**.\n5. Select your retention tier (**90-Day Standard** or **1-Year Extended**).\n6. Click **Save Changes**.\n\n### Troubleshooting\nIf backup generation fails or your export link returns an error, verify that your storage bucket permissions allow write access from the application IP whitelist. If historical data exports do not appear within 24 hours, contact support to manually trigger the retrieval queue.\n\nTicket:\nCompliance archive and backup settings help\n\nWe need to update our automated data backup schedule and verify compliance settings for our practice. I checked the administration tab but could not find where to adjust the archive frequency. Please provide instructions on how to configure this."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": false,\n  \"reason\": \"The article only explains enabling daily automated backups and setting retention, but does not provide instructions for changing the backup schedule or archive frequency as requested.\"\n}",
+  "input_tokens": 540,
+  "output_tokens": 238
+ }
+}

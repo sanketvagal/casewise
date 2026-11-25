@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a support agent for a clinical practice-management product. Answer the customer's ticket using only the knowledge-base article provided. Be brief and concrete. Do not add steps or facts that are not in the article. Put the reply in reply and the article's id in cited_article_id.\n\nReply with only a JSON object and no other text.\nOutput: draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"An auto-reply and the article it is based on.\", \"properties\": {\"cited_article_id\": {\"title\": \"Cited Article Id\", \"type\": \"string\"}, \"reply\": {\"minLength\": 1, \"title\": \"Reply\", \"type\": \"string\"}}, \"required\": [\"reply\", \"cited_article_id\"], \"title\": \"draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: review-and-sign-lab-results\nArticle: Review, sign off, and annotate incoming lab results\nPhysicians can review, annotate, and sign off on incoming diagnostics efficiently by following the steps below. Only users with clinical provider roles may sign results.\n\n1. Navigate to **Clinical > Lab Queue**.\n2. Select the pending result from the unreviewed list to open the viewer.\n3. Type any necessary clinical notes into the **Annotations** text box.\n4. To route an abnormal finding to a covering physician, click **Delegate**, select the covering provider from the dropdown, and click **Send**.\n5. Click **Sign Off** to finalize the review and automatically file the report into the patient chart.\n\n**Limits & Conditions**\nResults marked critical cannot be signed off without an added annotation. Delegated results remain locked for the original ordering physician until the covering provider completes the review.\n\n**Troubleshooting**\nIf the **Sign Off** button appears grayed out, verify that all mandatory annotation fields are complete. If a covering provider does not appear in the delegation list, check **Settings > Staff** to ensure their active coverage schedule is correctly configured.\n\nTicket:\nInquiry regarding lab result sign-off workflow\n\nPlease provide documentation on how physicians review and sign incoming lab results."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"cited_article_id\": \"review-and-sign-lab-results\",\n  \"reply\": \"Physicians review and sign lab results by going to **Clinical > Lab Queue**, selecting the pending result, adding any needed notes in the **Annotations** box, optionally delegating abnormal findings via **Delegate**, and then clicking **Sign Off**. Critical results must have an annotation before they can be signed. If the **Sign Off** button is grayed out, make sure all required annotation fields are completed. Ensure covering providers appear in the delegation list by checking **Settings > Staff** for an active coverage schedule.\"\n}",
+  "input_tokens": 507,
+  "output_tokens": 272
+ }
+}

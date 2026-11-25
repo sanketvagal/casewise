@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-portal-result-visibility\nArticle: Manage result release rules and patient portal visibility\nYou can configure automated release timers so sensitive lab reports and diagnostic results appear in the patient portal only after clinical review. \n\n### Configuration Steps\n\n1. Go to **Settings > Patient Portal > Result Rules**.\n2. Click **Add Rule** to create a new category mapping.\n3. Select the target lab category (e.g., *Pathology* or *Imaging*).\n4. Enter the desired delay in hours under **Hold Period**.\n5. Toggle **Auto-Release** to active, then click **Save**.\n\n### Limits and Conditions\n\n* Delay timers apply to all clinicians unless an override is set on the individual order.\n* The maximum hold period is 168 hours (7 days).\n* Critical-flagged results bypass the hold period and require manual provider sign-off.\n\n### Troubleshooting\n\nIf results fail to appear after the timer expires, check **Reports > Portal Log** to confirm the auto-release job ran. If the entry shows an error, verify that the patient has an active portal account and valid contact preferences, then select **Resend to Portal** from the patient's chart.\n\nTicket:\nRequest for documentation on test result portal release delay configuration\n\nDear Support Team, we are writing to request standard configuration instructions for adjusting the automated delay timers on diagnostic test results and lab reports prior to patient portal visibility. Please advise on the administrative path required to modify these release rules."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article directly provides the configuration steps and settings needed to adjust automated delay timers for test result portal release.\"\n}",
+  "input_tokens": 555,
+  "output_tokens": 119
+ }
+}
