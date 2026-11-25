@@ -98,8 +98,11 @@ def _eval(args: argparse.Namespace) -> int:
     except (CacheMiss, LiveUnavailable) as problem:
         print(f"casewise: {problem}", file=sys.stderr)
         return 1
+    # The record reads the git state before the results are written: eval/results/latest.*
+    # are tracked, so rewriting them first would mark every run dirty.
+    record = run_record(results, settings=settings, tickets=args.tickets)
     write_results(results, args.out)
-    append_history(run_record(results, settings=settings, tickets=args.tickets), args.out)
+    append_history(record, args.out)
     print(summary_markdown(results))
     return 0
 

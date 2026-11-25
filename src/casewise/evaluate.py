@@ -363,10 +363,12 @@ def append_history(record: RunRecord, out_dir: Path) -> None:
 
 
 def _git_state() -> tuple[str | None, bool | None]:
+    # Run git beside the package, so the state is the repo's whatever the working directory.
     def git(*args: str) -> str:
         return subprocess.run(
-            ["git", *args], capture_output=True, text=True, check=True
-        ).stdout.strip()
+            ["git", *args], capture_output=True, text=True, check=True,
+            cwd=Path(__file__).resolve().parent,
+        ).stdout.strip()  # fmt: skip
 
     try:
         return git("rev-parse", "HEAD"), bool(git("status", "--porcelain", "--untracked-files=no"))

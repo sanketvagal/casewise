@@ -159,10 +159,14 @@ def _point(threshold: float, metrics) -> SweepPoint:
 
 
 def _refuse_held_out(labeled_tickets: Sequence[LabeledTicket]) -> None:
+    # A timestamp with no time zone can't be placed on either side of the split, so it
+    # is refused like an undated one.
     refused = [
         t.id
         for t in labeled_tickets
-        if t.ticket.timestamp is None or t.ticket.timestamp >= HELD_OUT_START
+        if t.ticket.timestamp is None
+        or t.ticket.timestamp.tzinfo is None
+        or t.ticket.timestamp >= HELD_OUT_START
     ]
     if refused:
         shown = ", ".join(refused[:5]) + (
@@ -170,7 +174,7 @@ def _refuse_held_out(labeled_tickets: Sequence[LabeledTicket]) -> None:
         )
         raise HeldOutTickets(
             f"Tuning only uses weeks 1-2 tickets (before {HELD_OUT_START:%Y-%m-%d}). "
-            f"These are undated or held out: {shown}"
+            f"These are undated, naive (no time zone) or held out: {shown}"
         )
 
 

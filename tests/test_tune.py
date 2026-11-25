@@ -85,6 +85,16 @@ def test_tuning_refuses_a_ticket_with_no_timestamp(tmp_path):
         )  # fmt: skip
 
 
+def test_tuning_refuses_a_timestamp_with_no_time_zone_as_undated(tmp_path):
+    no_model = ScriptedGateway()
+
+    with pytest.raises(HeldOutTickets, match="naive"):
+        tune(
+            [labeled("naive", timestamp="2026-10-06T09:00:00")],
+            gateway=no_model, judge_gateway=no_model, settings=_settings(tmp_path),
+        )  # fmt: skip
+
+
 def test_the_held_out_split_starts_where_the_generated_weeks_3_4_start():
     weeks_3_4 = (ROOT / "data" / "tickets" / "weeks-3-4.jsonl").read_text().splitlines()
     weeks_1_2 = (ROOT / "data" / "tickets" / "weeks-1-2.jsonl").read_text().splitlines()

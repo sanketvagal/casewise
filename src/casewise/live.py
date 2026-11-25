@@ -6,6 +6,7 @@ gateway is free and tests never pay for them. Install them with ``uv sync --extr
 
 from __future__ import annotations
 
+import importlib
 import os
 import time
 from collections.abc import Callable, Sequence
@@ -40,6 +41,10 @@ GROQ_RETRIES = 8
 """Retries the Groq SDK makes after a rate-limit or server error before giving up."""
 
 
+GROQ_TIMEOUT_S = 120.0
+"""How long one Groq request may take before it is abandoned and retried."""
+
+
 def _groq_chat() -> ChatFn:
     try:
         from groq import Groq
@@ -53,7 +58,8 @@ def _groq_chat() -> ChatFn:
         )
     # The SDK retries rate limits (429) and server errors itself, with backoff that
     # honors Retry-After. A free-tier evaluation run hits the per-minute limits often.
-    client = Groq(max_retries=GROQ_RETRIES)  # reads GROQ_API_KEY
+    # The timeout bounds each attempt, so a stalled connection fails and is retried.
+    client = Groq(max_retries=GROQ_RETRIES, timeout=GROQ_TIMEOUT_S)  # reads GROQ_API_KEY
 
     def chat(model: str, messages: Sequence[Message]) -> ChatResult:
         response = client.chat.completions.create(
@@ -88,10 +94,14 @@ def _gemini_chat() -> ChatFn:
         from google.genai import errors, types
     except ImportError as error:
         raise _missing("google-genai") from error
-    try:  # google-genai sends requests through httpx2 (3.x) or httpx (older)
-        from httpx2 import TransportError
-    except ImportError:
-        from httpx import TransportError
+    # google-genai sends requests through httpx2 (3.x) or httpx (older). Both may be
+    # installed, so retry either library's transport errors.
+    transport_errors: tuple[type[Exception], ...] = ()
+    for module in ("httpx2", "httpx"):
+        try:
+            transport_errors += (importlib.import_module(module).TransportError,)
+        except ImportError:
+            pass
 
     if not os.environ.get("GEMINI_API_KEY"):
         raise LiveUnavailable(
@@ -121,10 +131,10 @@ def _gemini_chat() -> ChatFn:
                     model=model, contents=contents, config=config
                 )
                 break
-            except (errors.APIError, TransportError) as error:
+            except (errors.APIError, *transport_errors) as error:
                 # Free-tier rate limits (429), overload (503), timeouts and dropped
                 # connections clear if you wait.
-                transient = isinstance(error, TransportError) or error.code in (429, 500, 503)
+                transient = isinstance(error, transport_errors) or error.code in (429, 500, 503)
                 if not transient or attempt == GEMINI_RETRIES:
                     raise
                 time.sleep(min(60, 5 * 2**attempt))

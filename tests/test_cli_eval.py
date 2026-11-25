@@ -138,6 +138,34 @@ def test_every_eval_run_appends_a_record_to_the_results_history(tmp_path, monkey
     assert run["metrics"]["unsafe_auto_replies"] == 0
 
 
+def test_the_git_state_is_read_before_the_run_writes_its_results(tmp_path, monkeypatch):
+    record_a_run(
+        Settings(cache_dir=tmp_path / "cache", trace_dir=tmp_path / "traces", kb_dir=FIXTURE_KB)
+    )
+    replay_env(monkeypatch, tmp_path)
+    fixtures, out = write_fixtures(tmp_path), tmp_path / "results"
+    seen = []
+
+    def git_state():
+        seen.append((out / "latest.json").exists())
+        return "0" * 40, False
+
+    monkeypatch.setattr(evaluate_module, "_git_state", git_state)
+    main(["eval", "--tickets", str(fixtures), "--out", str(out)])
+
+    # Otherwise rewriting the tracked eval/results/latest.* marks every run dirty.
+    assert seen == [False]
+
+
+def test_the_git_state_comes_from_the_repo_whatever_the_working_directory(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)  # not a git checkout
+
+    commit, dirty = evaluate_module._git_state()
+
+    assert commit is not None and re.fullmatch(r"[0-9a-f]{40}", commit)
+    assert isinstance(dirty, bool)
+
+
 def test_the_prompt_version_changes_when_any_prompt_changes(monkeypatch):
     before = prompt_version()
 
