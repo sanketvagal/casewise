@@ -4,6 +4,7 @@ import pytest
 
 import replies as say
 from casewise import ScriptedGateway, Settings, Ticket, triage
+from paths import FIXTURE_KB
 
 # Any ticket mentioning an appointment embeds right on top of the reschedule article,
 # so without safety rules the fake gateway would happily auto-reply to it.
@@ -16,7 +17,7 @@ EMBEDDINGS = {
 
 @pytest.fixture
 def settings(tmp_path):
-    return Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache")
+    return Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache", kb_dir=FIXTURE_KB)
 
 
 def willing_gateway() -> ScriptedGateway:
@@ -138,7 +139,10 @@ rules:
 """
     )
     custom = Settings(
-        trace_dir=settings.trace_dir, cache_dir=settings.cache_dir, rules_path=rules_file
+        trace_dir=settings.trace_dir,
+        cache_dir=settings.cache_dir,
+        kb_dir=FIXTURE_KB,
+        rules_path=rules_file,
     )
     ticket = Ticket(subject="Appointment sync", body="Fix this or you will hear from our lawyers.")
 
@@ -153,7 +157,10 @@ def test_a_rules_file_with_a_repeated_id_is_rejected(settings, tmp_path):
     rule = "  - {id: twin, description: d, phrases: [x], next_step: n}\n"
     rules_file.write_text("rules:\n" + rule + rule)
     custom = Settings(
-        trace_dir=settings.trace_dir, cache_dir=settings.cache_dir, rules_path=rules_file
+        trace_dir=settings.trace_dir,
+        cache_dir=settings.cache_dir,
+        kb_dir=FIXTURE_KB,
+        rules_path=rules_file,
     )
 
     with pytest.raises(ValueError, match="twin"):

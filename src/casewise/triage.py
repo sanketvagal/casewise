@@ -41,7 +41,9 @@ GROUNDING_SYSTEM_PROMPT = (
     "practice-management product. Set answers_ticket to true only if following the "
     "article would resolve what the ticket actually asks. An article about a related "
     "task does not answer it: an article on placing an order does not answer a question "
-    "about cancelling one. Give the reason in one sentence."
+    "about cancelling one. If the ticket asks for more than one thing, the article must "
+    "answer all of them: an article that covers only part of the request does not answer "
+    "it. Give the reason in one sentence."
 )
 
 DRAFT_SYSTEM_PROMPT = (
@@ -185,6 +187,8 @@ class TriageResult(BaseModel):
     """The grounding verdict, or ``None`` when the grounding check did not run."""
     handoff: HandoffPacket | None = None
     """Present on every escalation, absent on every auto-reply."""
+    top_articles: list[RetrievedArticle] = []
+    """The closest knowledge-base articles, best first, whatever the decision."""
     run_id: str
     trace_path: Path
 
@@ -238,6 +242,7 @@ def triage(
     )
     escalation = final["escalation"]
     common = {
+        "top_articles": _retrieved(final["matches"]),
         "intent": final.get("intent"),
         "grounding": final.get("grounding"),
         "run_id": trace.run_id,
@@ -479,10 +484,7 @@ class _Steps:
                 reason=escalation.reason,
                 triggered_rules=[match.rule.id for match in state["fired"]],
                 detected_intent=intent.intent if intent else None,
-                top_articles=[
-                    RetrievedArticle(id=m.article.id, title=m.article.title, distance=m.distance)
-                    for m in matches
-                ],
+                top_articles=_retrieved(matches),
                 suggested_draft=suggested_draft,
                 next_step=escalation.next_step,
             )
@@ -517,6 +519,13 @@ def _article_and_ticket(article: Article, ticket_text: str) -> str:
         f"Article id: {article.id}\nArticle: {article.title}\n{article.body}\n\n"
         f"Ticket:\n{ticket_text}"
     )
+
+
+def _retrieved(matches: list[Match]) -> list[RetrievedArticle]:
+    return [
+        RetrievedArticle(id=m.article.id, title=m.article.title, distance=m.distance)
+        for m in matches
+    ]
 
 
 def _source_line(article: Article) -> str:

@@ -7,9 +7,14 @@ says it is correct. Deflection counts only correct auto-replies.
 
 from __future__ import annotations
 
+import hashlib
+import importlib
+import subprocess
 from collections.abc import Sequence
+from dataclasses import asdict
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, computed_field
 
@@ -60,6 +65,9 @@ class TicketOutcome(BaseModel):
     judge: JudgeOutcome | None = None
     """The judge's verdict, or ``None`` when the judge was not called."""
     judge_reason: str | None = None
+    best_distance: float | None = None
+    """Cosine distance from the ticket to its best-matching article. Lets a threshold
+    sweep rescore the run at any threshold without calling a model again (ADR 7)."""
 
     @computed_field
     @property
@@ -232,6 +240,7 @@ def _outcome(labeled: LabeledTicket, result: TriageResult) -> TicketOutcome:
         cited_article=result.cited_article.id if result.cited_article else None,
         escalation_reason=result.escalation_reason,
         predicted_intent=result.intent.intent if result.intent else None,
+        best_distance=result.top_articles[0].distance if result.top_articles else None,
     )
 
 
@@ -287,6 +296,84 @@ def write_results(results: EvalResults, out_dir: Path) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "latest.json").write_text(results.model_dump_json(indent=2) + "\n", "utf-8")
     (out_dir / "latest.md").write_text(summary_markdown(results), encoding="utf-8")
+
+
+HISTORY_FILE = "history.jsonl"
+
+_PROMPTS = (
+    "INTENT_SYSTEM_PROMPT",
+    "GROUNDING_SYSTEM_PROMPT",
+    "DRAFT_SYSTEM_PROMPT",
+    "REVIEW_DRAFT_SYSTEM_PROMPT",
+)
+
+
+def prompt_version() -> str:
+    """A short hash of every prompt that shapes a result: the four triage prompts and
+    the judge's. Any wording change gives a new version."""
+    # The package re-exports the triage() function under the module's name, so look the
+    # module up directly. Reading it at call time picks up any change to a prompt.
+    steps = importlib.import_module("casewise.triage")
+    texts = [getattr(steps, name) for name in _PROMPTS] + [JUDGE_SYSTEM_PROMPT]
+    return hashlib.sha256("\x00".join(texts).encode("utf-8")).hexdigest()[:12]
+
+
+class RunRecord(BaseModel):
+    """One line of the results history: what was run, on what, and how it scored."""
+
+    recorded_at: datetime
+    git_commit: str | None
+    """``None`` outside a git checkout."""
+    git_dirty: bool | None
+    """True when tracked files had uncommitted changes, so the commit alone doesn't
+    reproduce the run."""
+    prompt_version: str
+    tickets: str
+    """The labeled-ticket file the run scored."""
+    settings: dict[str, Any]
+    """Every setting, so the triage provider and model, judge, threshold and knowledge
+    base are all on record."""
+    chat_model: str
+    judge_model: str
+    distance_threshold: float
+    metrics: Metrics
+
+
+def run_record(results: EvalResults, *, settings: Settings, tickets: Path) -> RunRecord:
+    commit, dirty = _git_state()
+    return RunRecord(
+        recorded_at=datetime.now(UTC),
+        git_commit=commit,
+        git_dirty=dirty,
+        prompt_version=prompt_version(),
+        tickets=str(tickets),
+        settings={k: str(v) if isinstance(v, Path) else v for k, v in asdict(settings).items()},
+        chat_model=settings.chat_model,
+        judge_model=settings.judge_model,
+        distance_threshold=settings.distance_threshold,
+        metrics=results.metrics,
+    )
+
+
+def append_history(record: RunRecord, out_dir: Path) -> None:
+    """Append one run to ``history.jsonl`` in ``out_dir``. Earlier runs are never rewritten."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    with (out_dir / HISTORY_FILE).open("a", encoding="utf-8") as history:
+        history.write(record.model_dump_json() + "\n")
+
+
+def _git_state() -> tuple[str | None, bool | None]:
+    # Run git beside the package, so the state is the repo's whatever the working directory.
+    def git(*args: str) -> str:
+        return subprocess.run(
+            ["git", *args], capture_output=True, text=True, check=True,
+            cwd=Path(__file__).resolve().parent,
+        ).stdout.strip()  # fmt: skip
+
+    try:
+        return git("rev-parse", "HEAD"), bool(git("status", "--porcelain", "--untracked-files=no"))
+    except (OSError, subprocess.CalledProcessError):
+        return None, None
 
 
 def summary_markdown(results: EvalResults) -> str:

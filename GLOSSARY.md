@@ -64,6 +64,18 @@ An auto-reply on a must-escalate ticket. The target count is zero.
 **Escalation recall**:
 Escalations on must-escalate tickets divided by all must-escalate tickets, whatever path caused the escalation. The target is 100%.
 
+**Threshold sweep**:
+Scoring every candidate retrieval threshold from one triage run with no distance cut-off. A threshold only decides whether a ticket reaches the grounding check, so each candidate's results can be worked out from that run with no further model calls. It runs on weeks 1–2 only.
+
+**Baseline**:
+The evaluation of the tuned system on the held-out weeks 3–4. Later changes are measured against it.
+
+**Results history**:
+`eval/results/history.jsonl`: one line per evaluation run, with the git commit, prompt version, settings and metrics. Lines are appended, never rewritten.
+
+**Prompt version**:
+A short hash of the triage and judge prompts. Any change to their wording gives a new version.
+
 ## Data generation
 
 **Topic**:

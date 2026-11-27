@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-roles-and-permissions\nArticle: Assign user roles and configure permission levels\nProtect sensitive clinical and financial data by tailoring access for your staff. Only practice managers and primary administrators can modify security credentials.\n\n1. Go to **Settings > Practice Staff > Roles & Permissions**.\n2. Click **Create New Role** or select an existing title from the directory.\n3. Toggle permissions across categories, including *Billing*, *Patient Charts*, and *System Settings*.\n4. Click **Assign Users**, select the staff members who require this profile, and click **Save Changes**.\n\n**Limits & Conditions:** Every active user profile must be assigned to at least one role. Direct permission overrides on individual accounts are not permitted; all restrictions must flow through the assigned role.\n\n**Troubleshooting:** If a staff member cannot view a restricted menu after saving, verify their account status is active and have them clear their browser cache before logging back in.\n\nTicket:\nQuestion regarding user role adjustments and permissions audit\n\nHello support team, I am terribly sorry to bother you with this administrative task, but we are currently reviewing our internal security setup across our large provider network. I need to restrict access to certain sensitive financial ledgers and make sure our billing staff only see what is necessary. Could someone please guide me through auditing our custom permission levels and updating the user roles accordingly? Thank you so much for your time and assistance."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article explains how to audit and modify custom permission levels and update user roles to restrict access to financial data, directly addressing the ticket's request.\"\n}",
+  "input_tokens": 539,
+  "output_tokens": 173
+ }
+}

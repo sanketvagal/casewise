@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a support agent for a clinical practice-management product. Answer the customer's ticket using only the knowledge-base article provided. Be brief and concrete. Do not add steps or facts that are not in the article. Put the reply in reply and the article's id in cited_article_id.\n\nReply with only a JSON object and no other text.\nOutput: draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"An auto-reply and the article it is based on.\", \"properties\": {\"cited_article_id\": {\"title\": \"Cited Article Id\", \"type\": \"string\"}, \"reply\": {\"minLength\": 1, \"title\": \"Reply\", \"type\": \"string\"}}, \"required\": [\"reply\", \"cited_article_id\"], \"title\": \"draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-online-appointment-booking\nArticle: Set up and manage online appointment booking for patients\nEnable patients to schedule routine visits directly through the web and mobile portal by configuring your scheduling rules. Only providers with active schedules and visit types marked as 'Online Eligible' will appear to patients.\n\n1. Go to **Settings > Patient Portal > Booking Rules**.\n2. Toggle on **Allow Online Appointment Booking**.\n3. Navigate to **Scheduling > Visit Types**, select a visit type, and check the box for **Available Online**.\n4. Under **Settings > Schedule > Provider Availability**, designate which staff members accept online requests.\n\n**Limits & Conditions:**\nPatients can only book appointments between 24 hours and 60 days in advance. Urgent visit types cannot be made available online.\n\n**Troubleshooting:**\nIf a provider does not appear for booking, verify their schedule template is published and that their assigned rooms are active under **Settings > Facility > Rooms**.\n\nTicket:\nRestrict online booking options\n\nHow do we restrict online booking in the portal so patients can only schedule certain visit types with specific providers? Need this changed ASAP."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"cited_article_id\": \"configure-online-appointment-booking\",\n  \"reply\": \"To limit online booking to specific visit types and providers, enable online booking (Settings\u202f>\u202fPatient Portal\u202f>\u202fBooking Rules\u202f>\u202fAllow Online Appointment Booking), then:\\n1. In Settings\u202f>\u202fSchedule\u202f>\u202fProvider Availability, select only the staff members who should accept online requests.\\n2. In Scheduling\u202f>\u202fVisit Types, open each visit type you want available and check **Available Online**; leave the box unchecked for all other visit types.\\nOnly the providers you selected and the visit types marked \u201cAvailable Online\u201d will appear to patients in the portal.\"\n}",
+  "input_tokens": 480,
+  "output_tokens": 260
+ }
+}

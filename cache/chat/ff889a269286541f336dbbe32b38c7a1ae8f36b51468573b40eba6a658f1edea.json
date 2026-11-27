@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: grounding_check: article 'generate-and-submit-claims' does not answer the ticket: The article only explains claim generation, submission steps, and troubleshooting specific validation or transmission errors, not how to investigate or resolve a system-wide clearinghouse module failure. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nUrgent: Electronic insurance claim submission failure\n\nTo whom it may concern, our billing department is currently unable to batch and submit insurance claims due to a system-wide failure affecting the clearinghouse submission module. Kindly investigate this service disruption as a matter of urgency."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hello,\\n\\nThank you for reaching out and letting us know about the system-wide issue affecting the clearinghouse submission module. I understand how critical timely claim submissions are for your billing operations.\\n\\nI want to assure you that a member of our support team has been assigned to investigate this disruption. We will look into the root cause and work on a resolution as quickly as possible.\\n\\nIf you have any additional details or logs that might help us diagnose the problem, please feel free to share them.\\n\\nThank you for your patience.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 373,
+  "output_tokens": 186
+ }
+}

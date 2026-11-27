@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [x] Gemini implementation added to the model gateway
 - [x] The product spec covers scheduling, e-prescribing, lab orders and results, billing, and the patient portal for a fictional, unbranded product

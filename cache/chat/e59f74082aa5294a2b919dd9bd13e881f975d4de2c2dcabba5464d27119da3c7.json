@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: review-and-sign-lab-results\nArticle: Review, sign off, and annotate incoming lab results\nPhysicians can review, annotate, and sign off on incoming diagnostics efficiently by following the steps below. Only users with clinical provider roles may sign results.\n\n1. Navigate to **Clinical > Lab Queue**.\n2. Select the pending result from the unreviewed list to open the viewer.\n3. Type any necessary clinical notes into the **Annotations** text box.\n4. To route an abnormal finding to a covering physician, click **Delegate**, select the covering provider from the dropdown, and click **Send**.\n5. Click **Sign Off** to finalize the review and automatically file the report into the patient chart.\n\n**Limits & Conditions**\nResults marked critical cannot be signed off without an added annotation. Delegated results remain locked for the original ordering physician until the covering provider completes the review.\n\n**Troubleshooting**\nIf the **Sign Off** button appears grayed out, verify that all mandatory annotation fields are complete. If a covering provider does not appear in the delegation list, check **Settings > Staff** to ensure their active coverage schedule is correctly configured.\n\nTicket:\nRouting lab results to covering physicians\n\nCan someone finally tell me how to forward specific lab baskets to a covering physician when doctors are out of office? The documentation is useless and this is slowing us down tremendously."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article explains how to delegate lab results to a covering physician using the Delegate function, directly addressing the request to forward lab baskets.\"\n}",
+  "input_tokens": 533,
+  "output_tokens": 141
+ }
+}

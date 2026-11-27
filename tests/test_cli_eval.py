@@ -1,11 +1,17 @@
 """The `casewise eval` command: offline replay of a recorded run, and its output files."""
 
+import importlib
 import json
+import re
 
 import replies as say
 from casewise import CachedGateway, ScriptedGateway, Settings
+from casewise import evaluate as evaluate_module
 from casewise.cli import main
-from casewise.evaluate import LabeledTicket, evaluate
+from casewise.evaluate import LabeledTicket, evaluate, prompt_version
+from paths import FIXTURE_KB
+
+triage_module = importlib.import_module("casewise.triage")
 
 LABELED = [
     {
@@ -52,6 +58,7 @@ def record_a_run(settings: Settings) -> None:
 def replay_env(monkeypatch, tmp_path):
     monkeypatch.setenv("CASEWISE_GATEWAY_MODE", "replay")
     monkeypatch.setenv("CASEWISE_CACHE_DIR", str(tmp_path / "cache"))
+    monkeypatch.setenv("CASEWISE_KB_DIR", str(FIXTURE_KB))
     monkeypatch.setenv("CASEWISE_TRACE_DIR", str(tmp_path / "traces"))
 
 
@@ -64,7 +71,9 @@ def write_fixtures(tmp_path):
 def test_eval_replays_a_recorded_run_offline_and_writes_json_and_markdown_results(
     tmp_path, monkeypatch, capsys
 ):
-    record_a_run(Settings(cache_dir=tmp_path / "cache", trace_dir=tmp_path / "traces"))
+    record_a_run(
+        Settings(cache_dir=tmp_path / "cache", trace_dir=tmp_path / "traces", kb_dir=FIXTURE_KB)
+    )
     replay_env(monkeypatch, tmp_path)
     out = tmp_path / "results"
 
@@ -103,3 +112,66 @@ def test_the_judge_has_its_own_provider_and_model_settings():
     assert settings.judge_provider == "groq"
     assert settings.judge_model == "some-judge"
     assert Settings().judge_provider != Settings().provider  # a different family by default
+
+
+def test_every_eval_run_appends_a_record_to_the_results_history(tmp_path, monkeypatch):
+    record_a_run(
+        Settings(cache_dir=tmp_path / "cache", trace_dir=tmp_path / "traces", kb_dir=FIXTURE_KB)
+    )
+    replay_env(monkeypatch, tmp_path)
+    fixtures, out = write_fixtures(tmp_path), tmp_path / "results"
+
+    main(["eval", "--tickets", str(fixtures), "--out", str(out)])
+    main(["eval", "--tickets", str(fixtures), "--out", str(out)])
+
+    runs = [json.loads(line) for line in (out / "history.jsonl").read_text().splitlines()]
+    assert len(runs) == 2
+    run = runs[0]
+    assert re.fullmatch(r"[0-9a-f]{40}", run["git_commit"])
+    assert isinstance(run["git_dirty"], bool)
+    assert run["prompt_version"] == prompt_version()
+    assert run["chat_model"] == Settings().chat_model
+    assert run["judge_model"] == Settings().judge_model
+    assert run["distance_threshold"] == Settings().distance_threshold
+    assert run["tickets"] == str(fixtures)
+    assert run["metrics"]["deflection_rate"] == 0.5
+    assert run["metrics"]["unsafe_auto_replies"] == 0
+
+
+def test_the_git_state_is_read_before_the_run_writes_its_results(tmp_path, monkeypatch):
+    record_a_run(
+        Settings(cache_dir=tmp_path / "cache", trace_dir=tmp_path / "traces", kb_dir=FIXTURE_KB)
+    )
+    replay_env(monkeypatch, tmp_path)
+    fixtures, out = write_fixtures(tmp_path), tmp_path / "results"
+    seen = []
+
+    def git_state():
+        seen.append((out / "latest.json").exists())
+        return "0" * 40, False
+
+    monkeypatch.setattr(evaluate_module, "_git_state", git_state)
+    main(["eval", "--tickets", str(fixtures), "--out", str(out)])
+
+    # Otherwise rewriting the tracked eval/results/latest.* marks every run dirty.
+    assert seen == [False]
+
+
+def test_the_git_state_comes_from_the_repo_whatever_the_working_directory(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)  # not a git checkout
+
+    commit, dirty = evaluate_module._git_state()
+
+    assert commit is not None and re.fullmatch(r"[0-9a-f]{40}", commit)
+    assert isinstance(dirty, bool)
+
+
+def test_the_prompt_version_changes_when_any_prompt_changes(monkeypatch):
+    before = prompt_version()
+
+    monkeypatch.setattr(triage_module, "GROUNDING_SYSTEM_PROMPT", "Be lenient.")
+    after_triage_change = prompt_version()
+    monkeypatch.setattr(evaluate_module, "JUDGE_SYSTEM_PROMPT", "Be lenient too.")
+
+    assert after_triage_change != before
+    assert prompt_version() not in (before, after_triage_change)

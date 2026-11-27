@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You classify support tickets for a clinical practice-management product. Choose the one intent that best describes what the ticket asks for, from this list:\n- attach-external-lab-reports: Upload and attach external paper lab reports to charts\n- configure-automated-reminders: Customize and troubleshoot automated appointment reminders\n- configure-critical-lab-alerts: Configure notification rules for critical lab values\n- configure-data-backup-and-compliance: Configure Data Backups and Compliance Archive Settings\n- configure-online-appointment-booking: Set up and manage online appointment booking for patients\n- configure-portal-result-visibility: Manage result release rules and patient portal visibility\n- configure-provider-calendar: Update provider working hours and calendar blocks\n- configure-roles-and-permissions: Assign user roles and configure permission levels\n- create-custom-appointment-types: Configure custom visit types and durations\n- create-custom-lab-panels: Build custom lab order panels and requisition bundles\n- create-online-intake-forms: Create and publish digital intake forms for patients\n- customize-notification-templates: Customize patient notification and message templates\n- generate-and-submit-claims: Generate, review, and submit insurance claims\n- manage-medication-favorites: Create and manage personal medication favorites\n- manage-practice-subscription-billing: Update payment methods for practice subscription invoices\n- post-payments-and-remittances: Post payments and insurance remittances to accounts\n- process-medication-renewal-requests: Review and process pharmacy medication renewal requests\n- process-portal-patient-payments: Process online patient payments through the portal\n- query-medication-history: Query external medication history and prescription monitoring\n- review-and-sign-lab-results: Review, sign off, and annotate incoming lab results\n- schedule-recurring-visits: Set up a series of recurring appointments\n- search-update-pharmacy-directory: Search the pharmacy directory and update patient favorites\n- troubleshoot-lab-interface: Troubleshoot lab interface connections and missing feeds\n- update-practice-settings-and-locations: Update practice details, locations, and provider identifiers\n- verify-insurance-eligibility: Check real-time patient insurance eligibility\n- other: anything none of the above covers\nSet confidence to your probability, from 0 to 1, that the intent is right.\n\nReply with only a JSON object and no other text.\nOutput: intent.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"What the ticket asks for. Labels are the knowledge-base article ids plus\\n``other``, until the topic taxonomy replaces them (see :func:`intent_labels`).\", \"properties\": {\"confidence\": {\"maximum\": 1, \"minimum\": 0, \"title\": \"Confidence\", \"type\": \"number\"}, \"intent\": {\"title\": \"Intent\", \"type\": \"string\"}}, \"required\": [\"intent\", \"confidence\"], \"title\": \"intent\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Assistance Required for Updating Pharmacy Out-of-Stock Notification Preferences\n\nDear Support Team,\n\nI am writing to request guidance on managing medication substitution workflows and out-of-stock alerts within our patient management system. Earlier today, one of our physicians attempted to switch an unavailable prescription to an alternative agent, but the notification flags did not route properly to the designated pharmacy.\n\nWe have checked the provider settings and ensured that our local pharmacy directory is up to date, but the substitution messaging tabs appear greyed out on certain patient profiles. Could you please provide instructions on how our front desk and clinical staff can correctly configure these alert pathways so future notifications transmit without error?\n\nThank you for your time and assistance.\n\nSincerely,\nFront Office Coordinator"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"intent\": \"customize-notification-templates\",\n  \"confidence\": 0.55\n}",
+  "input_tokens": 817,
+  "output_tokens": 575
+ }
+}

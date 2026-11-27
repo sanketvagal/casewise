@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-roles-and-permissions\nArticle: Assign user roles and configure permission levels\nProtect sensitive clinical and financial data by tailoring access for your staff. Only practice managers and primary administrators can modify security credentials.\n\n1. Go to **Settings > Practice Staff > Roles & Permissions**.\n2. Click **Create New Role** or select an existing title from the directory.\n3. Toggle permissions across categories, including *Billing*, *Patient Charts*, and *System Settings*.\n4. Click **Assign Users**, select the staff members who require this profile, and click **Save Changes**.\n\n**Limits & Conditions:** Every active user profile must be assigned to at least one role. Direct permission overrides on individual accounts are not permitted; all restrictions must flow through the assigned role.\n\n**Troubleshooting:** If a staff member cannot view a restricted menu after saving, verify their account status is active and have them clear their browser cache before logging back in.\n\nTicket:\nQuestion regarding user role adjustments and permissions audit\n\nHello support team, I am terribly sorry to bother you with this administrative task, but we are currently reviewing our internal security setup across our large provider network. I need to restrict access to certain sensitive financial ledgers and make sure our billing staff only see what is necessary. Could someone please guide me through auditing our custom permission levels and updating the user roles accordingly? Thank you so much for your time and assistance.\n\nAuto-reply:\nTo audit and adjust permissions, go to **Settings > Practice Staff > Roles & Permissions**. Select the role used by your billing staff (or create a new role with **Create New Role**). Use the toggles to enable only the necessary **Billing** permissions and disable any financial ledger access. After adjusting, click **Assign Users**, ensure the correct staff are linked to the role, and press **Save Changes**. Verify each user\u2019s account is active; if a menu still doesn\u2019t appear, have the user clear their browser cache and log in again.\n\nSource: Assign user roles and configure permission levels (configure-roles-and-permissions)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately follows the steps and troubleshooting advice from the knowledge base without introducing unsupported facts.\"}\n```",
+  "input_tokens": 628,
+  "output_tokens": 37
+ }
+}

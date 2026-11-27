@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-online-appointment-booking\nArticle: Set up and manage online appointment booking for patients\nEnable patients to schedule routine visits directly through the web and mobile portal by configuring your scheduling rules. Only providers with active schedules and visit types marked as 'Online Eligible' will appear to patients.\n\n1. Go to **Settings > Patient Portal > Booking Rules**.\n2. Toggle on **Allow Online Appointment Booking**.\n3. Navigate to **Scheduling > Visit Types**, select a visit type, and check the box for **Available Online**.\n4. Under **Settings > Schedule > Provider Availability**, designate which staff members accept online requests.\n\n**Limits & Conditions:**\nPatients can only book appointments between 24 hours and 60 days in advance. Urgent visit types cannot be made available online.\n\n**Troubleshooting:**\nIf a provider does not appear for booking, verify their schedule template is published and that their assigned rooms are active under **Settings > Facility > Rooms**.\n\nTicket:\nPatient portal online booking confusion\n\nHello, I was looking through our settings and got a bit turned around trying to figure out how patients book appointments online. Could you explain how to limit what visit types show up on the web portal? I am not entirely sure where that configuration lives."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article details where to configure visit types for online eligibility, directly addressing how to limit which visit types appear in the patient portal.\"\n}",
+  "input_tokens": 510,
+  "output_tokens": 156
+ }
+}

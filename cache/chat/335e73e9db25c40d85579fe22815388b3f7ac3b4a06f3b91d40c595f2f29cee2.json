@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a support agent for a clinical practice-management product. Answer the customer's ticket using only the knowledge-base article provided. Be brief and concrete. Do not add steps or facts that are not in the article. Put the reply in reply and the article's id in cited_article_id.\n\nReply with only a JSON object and no other text.\nOutput: draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"An auto-reply and the article it is based on.\", \"properties\": {\"cited_article_id\": {\"title\": \"Cited Article Id\", \"type\": \"string\"}, \"reply\": {\"minLength\": 1, \"title\": \"Reply\", \"type\": \"string\"}}, \"required\": [\"reply\", \"cited_article_id\"], \"title\": \"draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: process-portal-patient-payments\nArticle: Process online patient payments through the portal\nPatients can securely pay copays and outstanding balances online before or after their visits. Staff can review these transactions in real time.\n\n### Steps to Process and Verify Payments\n1. Go to **Billing > Portal Transactions** to view incoming online payments.\n2. Locate the patient's name and check the status column for confirmation.\n3. Click **Process Receipt** to post the funds directly to the patient ledger.\n\n### Limits and Conditions\n- The maximum single online payment is $2,500.00.\n- Accepted payment methods include Visa, Mastercard, Discover, and HSA/FSA debit cards.\n- Transactions initiated after 8:00 PM EST post to the ledger on the next business day.\n\n### Troubleshooting\nIf a patient reports a card decline, verify that their billing address matches the card issuer's file exactly. For persistent gateway errors, navigate to **Settings > Payment Gateway** and click **Test Connection** to reset the merchant API sync. If the gateway remains offline, contact merchant support and instruct the patient to pay via the front desk terminal.\n\nTicket:\nPortal credit card payments failing\n\nPatients are complaining that their credit card copay payments are failing on the portal checkout page. Fix this error now."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"cited_article_id\": \"process-portal-patient-payments\",\n  \"reply\": \"First verify that each patient\u2019s billing address exactly matches the card issuer\u2019s records. Next, go to Settings\u202f>\u202fPayment Gateway and click\u202fTest Connection to reset the gateway sync. If payments still fail, contact your merchant support and have patients pay at the front\u2011desk terminal.\"\n}",
+  "input_tokens": 510,
+  "output_tokens": 277
+ }
+}

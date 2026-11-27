@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: manage-practice-subscription-billing\nArticle: Update payment methods for practice subscription invoices\nPractice managers can update the credit card used for monthly software subscription fees and review past billing statements directly within the account portal. \n\n### Update Payment Details\n1. Navigate to **Billing > Subscription Settings**.\n2. Select the **Payment Methods** tab.\n3. Click **Add New Card** or select **Edit** next to your current card.\n4. Enter the updated billing address and card details, then click **Save Changes**.\n\n### Review Invoices\n1. Go to **Billing > Invoice History**.\n2. Click any invoice number to download the PDF statement.\n\n### Limits and Conditions\n* Only users with the Practice Manager role can access subscription billing settings.\n* Accepted payment methods include Visa, Mastercard, and American Express.\n* Changes take effect immediately for the next billing cycle.\n\n### Troubleshooting\nIf a payment update fails, verify that the billing ZIP code matches your bank records exactly. If charges are declined despite correct details, contact your financial institution to authorize recurring software subscription charges before trying again in **Billing > Subscription Settings**.\n\nTicket:\nUpdating credit card and checking monthly software invoice\n\nHello, I am hoping to get some assistance with our account billing when you have a moment. We need to swap out the credit card currently tied to our monthly software subscription, and I also wanted to check last month's statement for a minor discrepancy. I tried looking under the main settings tab earlier today, but I couldn't locate the payment profile section. Could you point me in the right direction or let me know what steps to take?\n\nAuto-reply:\nTo change the credit card, go to **Billing > Subscription Settings**, open the **Payment Methods** tab, and click **Add New Card** or **Edit** next to the current card. Enter the new card and billing address, then click **Save Changes**. To view last month\u2019s invoice, go to **Billing > Invoice History** and click the invoice number to download the PDF. Only users with the Practice Manager role can access these settings.\n\nSource: Update payment methods for practice subscription invoices (manage-practice-subscription-billing)"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately provides the steps to update the credit card and view invoices as outlined in the knowledge-base article without introducing any unsupported claims.\"}",
+  "input_tokens": 655,
+  "output_tokens": 42
+ }
+}

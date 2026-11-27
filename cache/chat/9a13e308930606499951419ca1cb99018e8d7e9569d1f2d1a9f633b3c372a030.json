@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Review, sign off, and annotate incoming lab results\nPhysicians can review, annotate, and sign off on incoming diagnostics efficiently by following the steps below. Only users with clinical provider roles may sign results.\n\n1. Navigate to **Clinical > Lab Queue**.\n2. Select the pending result from the unreviewed list to open the viewer.\n3. Type any necessary clinical notes into the **Annotations** text box.\n4. To route an abnormal finding to a covering physician, click **Delegate**, select the covering provider from the dropdown, and click **Send**.\n5. Click **Sign Off** to finalize the review and automatically file the report into the patient chart.\n\n**Limits & Conditions**\nResults marked critical cannot be signed off without an added annotation. Delegated results remain locked for the original ordering physician until the covering provider completes the review.\n\n**Troubleshooting**\nIf the **Sign Off** button appears grayed out, verify that all mandatory annotation fields are complete. If a covering provider does not appear in the delegation list, check **Settings > Staff** to ensure their active coverage schedule is correctly configured.\n\nTicket:\nURGENT: Potential cross-patient data exposure during lab order transmission\n\nTo Support,\n\nI am writing to report a serious privacy concern regarding an electronic lab order sent out this morning. During the transmission process for patient J.D., the interface appeared to briefly display demographic and diagnostic details belonging to a completely different individual from an afternoon slot. Given the strict nature of data privacy regulations, we are quite concerned about this breach of confidentiality and require an immediate investigation into how this crossover occurred.\n\nRegards,\nPractice Administrator"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hello,\\n\\nThank you for bringing this serious privacy concern to our attention. I understand how important patient confidentiality is, and I want to assure you that a member of our support team is now handling this investigation.\\n\\nWe will keep you updated as we look into the issue.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 613,
+  "output_tokens": 153
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. If the ticket asks for more than one thing, the article must answer all of them: an article that covers only part of the request does not answer it. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: create-custom-lab-panels\nArticle: Build custom lab order panels and requisition bundles\nStreamline frequent lab orders by grouping multiple tests into a single reusable panel. Only users with clinical administrator roles can create and publish shared panels for the practice.\n\n1. Navigate to **Clinical Setup > Lab Management > Order Panels**.\n2. Click **Create New Panel** in the top right corner.\n3. Enter a descriptive **Panel Name** and select the applicable clinical specialty.\n4. Use the search bar to locate and add individual tests from the master catalog.\n5. Click **Save and Publish** to make the bundle available to your provider group.\n\n### Limits and Conditions\n* Panels are limited to a maximum of 25 individual tests.\n* Custom panels cannot override specific external reference laboratory coding requirements.\n\n### Troubleshooting\nIf providers cannot view the new panel in their order menu, verify that the panel's sharing permissions are assigned to their specific department under **Settings > Permissions > Lab Access**.\n\nTicket:\nFix rejected electronic lab requisition order\n\nHello, I am so sorry to bother support with this, but I am struggling with an electronic lab order for a patient. I went into the diagnostic orders section, selected the test panel, and entered the ICD-10 codes, but the system keeps kicking back a validation error before I can transmit it to the reference lab. I tried clearing my browser cache and re-entering the diagnosis code, but it still fails. Could you please help me figure out what is causing this rejection so I can get it sent over?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": false,\n  \"reason\": \"The article explains how to create and publish custom lab panels, but does not address validation errors or rejection of electronic lab requisition orders.\"\n}",
+  "input_tokens": 602,
+  "output_tokens": 184
+ }
+}

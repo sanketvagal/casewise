@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-portal-result-visibility\nArticle: Manage result release rules and patient portal visibility\nYou can configure automated release timers so sensitive lab reports and diagnostic results appear in the patient portal only after clinical review. \n\n### Configuration Steps\n\n1. Go to **Settings > Patient Portal > Result Rules**.\n2. Click **Add Rule** to create a new category mapping.\n3. Select the target lab category (e.g., *Pathology* or *Imaging*).\n4. Enter the desired delay in hours under **Hold Period**.\n5. Toggle **Auto-Release** to active, then click **Save**.\n\n### Limits and Conditions\n\n* Delay timers apply to all clinicians unless an override is set on the individual order.\n* The maximum hold period is 168 hours (7 days).\n* Critical-flagged results bypass the hold period and require manual provider sign-off.\n\n### Troubleshooting\n\nIf results fail to appear after the timer expires, check **Reports > Portal Log** to confirm the auto-release job ran. If the entry shows an error, verify that the patient has an active portal account and valid contact preferences, then select **Resend to Portal** from the patient's chart.\n\nTicket:\nQuestion about setting up delayed release for patient portal results\n\nHello support, I am trying to figure out how we can adjust our portal settings so that patients don't see sensitive diagnostic results immediately. We want to set up a delayed release timer, maybe a 48 or 72-hour hold, especially for things like pathology or imaging reports, so our provider has a chance to review them with the patient first. I looked under the settings tab and found the patient portal section, but I couldn't see any obvious options for automated delays. Could you point me in the right direction or let me know if this requires changing global rules?\n\nAuto-reply:\nTo set a delayed release, go to **Settings > Patient Portal > Result Rules**, click **Add Rule**, choose the lab category (e.g., Pathology or Imaging), enter the hold period (e.g., 48 or 72 hours) in the **Hold Period** field, enable **Auto-Release**, and then **Save**. The hold period can be up to 168 hours, and critical\u2011flagged results will bypass the timer.\n\nSource: Manage result release rules and patient portal visibility (configure-portal-result-visibility)"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately follows the configuration steps and limits outlined in the knowledge-base article to answer the customer's question without adding unsupported information.\"}",
+  "input_tokens": 712,
+  "output_tokens": 42
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:suspected_outage: Suspected outages always go to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Process online patient payments through the portal\nPatients can securely pay copays and outstanding balances online before or after their visits. Staff can review these transactions in real time.\n\n### Steps to Process and Verify Payments\n1. Go to **Billing > Portal Transactions** to view incoming online payments.\n2. Locate the patient's name and check the status column for confirmation.\n3. Click **Process Receipt** to post the funds directly to the patient ledger.\n\n### Limits and Conditions\n- The maximum single online payment is $2,500.00.\n- Accepted payment methods include Visa, Mastercard, Discover, and HSA/FSA debit cards.\n- Transactions initiated after 8:00 PM EST post to the ledger on the next business day.\n\n### Troubleshooting\nIf a patient reports a card decline, verify that their billing address matches the card issuer's file exactly. For persistent gateway errors, navigate to **Settings > Payment Gateway** and click **Test Connection** to reset the merchant API sync. If the gateway remains offline, contact merchant support and instruct the patient to pay via the front desk terminal.\n\nTicket:\nPortal credit card processing is down\n\nThe online payment screen on the portal is completely broken right now and none of our patients can pay their balances. Please fix this outage immediately so we can process transactions again."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for letting us know about the issue with the portal credit card processing. A member of our support team is aware of the problem and is currently investigating it.\\n\\nWe\u2019ll keep you posted as we work on a resolution.\\n\\nThank you for your patience.\"\n}",
+  "input_tokens": 547,
+  "output_tokens": 358
+ }
+}

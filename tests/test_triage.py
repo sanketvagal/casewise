@@ -6,6 +6,7 @@ import pytest
 
 import replies as say
 from casewise import ScriptedGateway, Settings, Ticket, triage
+from paths import FIXTURE_KB
 
 # Embedding directions the fake hands out. Texts mentioning a keyword point along
 # that axis; anything else points along a fourth axis, far from every article.
@@ -19,7 +20,7 @@ UNRELATED = [0.0, 0.0, 0.0, 1.0]
 
 @pytest.fixture
 def settings(tmp_path):
-    return Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache")
+    return Settings(trace_dir=tmp_path / "traces", cache_dir=tmp_path / "cache", kb_dir=FIXTURE_KB)
 
 
 def fake_gateway(**replies) -> ScriptedGateway:

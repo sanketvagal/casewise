@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-critical-lab-alerts\nArticle: Configure notification rules for critical lab values\nEnsure urgent patient results are addressed immediately by setting up automated threshold alerts for your clinical team.\n\n### Steps to Configure\n1. Navigate to **Clinical > Lab Settings > Critical Alerts**.\n2. Click **Add Rule** in the top right corner.\n3. Select the target lab test from the dropdown menu (e.g., *Serum Potassium*).\n4. Enter the numerical low and high boundaries in the **Threshold Parameters** fields.\n5. Check the box for **Instant Staff Notification** and assign the alert to **Role: On-Call Nurse** or specific provider queues.\n6. Click **Save Rule**.\n\n### Limits and Conditions\n* Rules apply only to incoming electronic lab feeds (HL7/FHIR).\n* Manual lab entry will not trigger these automated threshold flags.\n* Staff must have the *Manage Lab Settings* permission enabled in **Settings > Staff** to edit rules.\n\n### Troubleshooting\nIf alerts are not routing to the designated staff, verify that the user profile notifications are enabled under **My Profile > Notifications**, and ensure the lab vendor's LOINC code matches the parameter configuration exactly.\n\nTicket:\nWhere are critical lab alert settings?\n\nI'm trying to figure out where we set up automatic alerts for urgent lab values, but nothing in the admin menu makes sense. Can someone point me to the right settings screen?\n\nAuto-reply:\nGo to **Clinical > Lab Settings > Critical Alerts** in the admin menu to set up automatic alerts for urgent lab values.\n\nSource: Configure notification rules for critical lab values (configure-critical-lab-alerts)"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately points to the exact navigation path specified in the knowledge-base article to find the critical lab alert settings.\"}",
+  "input_tokens": 552,
+  "output_tokens": 38
+ }
+}

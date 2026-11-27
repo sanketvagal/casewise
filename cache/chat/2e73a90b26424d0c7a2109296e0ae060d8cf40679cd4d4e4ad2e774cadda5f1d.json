@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. If the ticket asks for more than one thing, the article must answer all of them: an article that covers only part of the request does not answer it. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: reschedule-appointment\nArticle: Reschedule a patient appointment\nFront-desk staff can move an existing appointment without cancelling it.\n\n1. Open **Schedule** and find the appointment on the calendar.\n2. Select the appointment, then choose **Reschedule**.\n3. Pick a new date, time and provider, then select **Save**.\n\nThe patient receives an updated confirmation by their preferred contact method. The original slot is released immediately so it can be booked by someone else. Rescheduling keeps the appointment's notes and visit reason.\n\nTicket:\nDifferent provider, same day\n\nHow do I move an existing appointment to a different provider on the same day?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\"answers_ticket\": true, \"reason\": \"The article details how to reschedule an appointment, including selecting a new provider, which directly answers the request to move the appointment to a different provider on the same day.\"}",
+  "input_tokens": 421,
+  "output_tokens": 158
+ }
+}

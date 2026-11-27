@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human. (also matched: prescription_error) Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Review and process pharmacy medication renewal requests\nElectronic renewal requests sent from pharmacies require prompt clinical review. To process these submissions and link them to patient charts, follow the steps below.\n\n1. Go to **Clinical > Pharmacy Queue**.\n2. Select the **Renewal Requests** tab to view pending items.\n3. Click the patient's name to open the request and review the proposed medication against their active chart.\n4. Click **Approve**, **Deny**, or **Modify**. Approving automatically updates the patient's active medication list.\n\n### Limits and Conditions\n* Only users with prescribing or clinical oversight roles can process renewals.\n* Requests expire automatically after 14 days if left unaddressed.\n\n### Troubleshooting\nIf an approved renewal does not appear on the active medication list, verify that the pharmacy transmission completed successfully in **Reports > Audit Trail**. If the status shows an error, manually add the medication via **Charts > Medications** and contact support if the queue remains out of sync.\n\nTicket:\nFrustrated with medication out-of-stock alert workflow\n\nHi team, I am getting really frustrated trying to figure out these out-of-stock medication notices. Every time a pharmacy flags a drug, the system just loops me back to the main chart instead of letting me swap the prescription smoothly. Can someone please explain what I am missing here?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for reaching out and letting us know about the difficulty you\u2019re experiencing with the out\u2011of\u2011stock medication alerts. I understand how frustrating that can be. A member of our support team is reviewing your case and will be in touch to help resolve the issue.\\n\\nWe appreciate your patience while we look into this.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 564,
+  "output_tokens": 217
+ }
+}

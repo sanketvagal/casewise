@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. If the ticket asks for more than one thing, the article must answer all of them: an article that covers only part of the request does not answer it. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-online-appointment-booking\nArticle: Set up and manage online appointment booking for patients\nEnable patients to schedule routine visits directly through the web and mobile portal by configuring your scheduling rules. Only providers with active schedules and visit types marked as 'Online Eligible' will appear to patients.\n\n1. Go to **Settings > Patient Portal > Booking Rules**.\n2. Toggle on **Allow Online Appointment Booking**.\n3. Navigate to **Scheduling > Visit Types**, select a visit type, and check the box for **Available Online**.\n4. Under **Settings > Schedule > Provider Availability**, designate which staff members accept online requests.\n\n**Limits & Conditions:**\nPatients can only book appointments between 24 hours and 60 days in advance. Urgent visit types cannot be made available online.\n\n**Troubleshooting:**\nIf a provider does not appear for booking, verify their schedule template is published and that their assigned rooms are active under **Settings > Facility > Rooms**.\n\nTicket:\nSorry to ask - online booking provider restrictions\n\nI'm so sorry to bother support with this, but we are trying to set up our online booking portal and want to restrict certain visit types. Could you please send over a quick walkthrough on how to limit bookings to specific providers?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\"answers_ticket\": true, \"reason\": \"The article includes step-by-step instructions for designating specific providers and marking visit types as online eligible, directly addressing the request to limit bookings to certain providers and visit types.\"}",
+  "input_tokens": 540,
+  "output_tokens": 274
+ }
+}

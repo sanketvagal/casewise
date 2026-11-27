@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-automated-reminders\nArticle: Customize and troubleshoot automated appointment reminders\nConfigure your patient notifications by navigating to **Settings > Communications > Reminders**. Here, you can adjust SMS and email templates and set the dispatch window from 24 to 72 hours before the visit.\n\n### Conditions and Limits\n* Patients must have a verified mobile number or email address.\n* SMS messages are capped at 160 characters; longer texts will split into multiple segments.\n* Reminders will not send if the appointment status is marked as 'Cancelled' or 'Arrived'.\n\n### Step-by-Step Setup\n1. Go to **Settings > Communications > Reminders**.\n2. Select **Edit** next to the desired channel (SMS or Email).\n3. Use allowed merge tags like `[PatientName]` and `[AppointmentTime]` to personalize the content.\n4. Click **Save Changes** to apply.\n\n### Troubleshooting\nIf a patient does not receive a reminder, first check the patient profile to ensure communication opt-in is enabled. Next, review **Reports > Message Log** to check delivery status. If the log shows a 'Failed' status due to carrier blocking, verify the phone number supports SMS. For persistent delivery failures, contact support with the affected patient ID and timestamp.\n\nTicket:\nInquiry Regarding Automated Appointment Reminder Delivery and Customization\n\nDear Support Team, We are writing to request assistance with our automated appointment notifications. Several patients have informed our front desk staff that they are no longer receiving text message or email reminders prior to their visits. Additionally, we would like to update the wording and timing of these messages to better suit our clinic's protocols. Please advise on how we can verify why these messages are failing to deliver and how to access the template settings. Sincerely, Front Desk Team\n\nAuto-reply:\nTo troubleshoot missing reminders, first open each patient\u2019s profile and confirm the communication opt\u2011in is enabled. Then go to **Reports > Message Log** and look for a \u2018Failed\u2019 status; if it\u2019s due to carrier blocking, verify the phone number supports SMS. For persistent failures, provide the patient ID and timestamp to support. To update wording and timing, navigate to **Settings > Communications > Reminders**, select **Edit** next to SMS or Email, modify the template using allowed merge tags (e.g., [PatientName], [AppointmentTime]), set the dispatch window between 24\u201172 hours before the visit, and click **Save Changes**.\n\nSource: Customize and troubleshoot automated appointment reminders (configure-automated-reminders)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately addresses both the troubleshooting steps for missing reminders and the instructions for updating template wording and timing as outlined in the article, without adding any unsupported facts.\"}\n```",
+  "input_tokens": 737,
+  "output_tokens": 51
+ }
+}

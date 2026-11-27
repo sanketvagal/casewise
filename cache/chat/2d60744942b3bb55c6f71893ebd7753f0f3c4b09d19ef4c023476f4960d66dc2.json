@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human. (also matched: prescription_error) Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Search the pharmacy directory and update patient favorites\nTo update a patient's preferred pharmacy or add a custom entry, navigate to **Patients > Chart > Demographics** and select the **Pharmacy** tab. \n\n1. Click **Search Directory** to query the national e-prescribing database using the pharmacy name, NPI, or zip code.\n2. Select the correct facility from the results list and click **Set as Preferred** to update the patient's record.\n3. If a newly opened location is missing from the database, click **Add Custom Pharmacy**, complete the required fields (Name, Address, Phone, and Fax), and click **Save Entry**.\n\n**Limits & Conditions:** \nCustom pharmacies are restricted to your clinic's database and cannot receive electronic prescriptions until verified by network administrators. Only staff with Medical Assistant or Provider roles can modify pharmacy favorites.\n\n**Troubleshooting:** \nIf a pharmacy search yields no results, verify the zip code or try searching by phone number alone. If an added custom pharmacy fails to appear in the drop-down menu when prescribing, refresh your browser cache using `Ctrl+F5` (`Cmd+Shift+R` on Mac) and ensure all mandatory address fields were completed.\n\nTicket:\nCONCERN: Patient saw wrong pharmacy/location data in directory\n\nI am extremely frustrated right now because it looks like a patient might have seen another person's pharmacy preferences or location notes due to some strange glitch in the directory search. When we tried updating a local pharmacy entry that recently closed, the screen refreshed and displayed a different patient's saved profile details for a few seconds. This is a huge privacy worry for our clinic, and I need to know immediately how this happened and how to prevent it from ever occurring again."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for bringing this serious issue to our attention. I understand how concerning it must be to see another patient\u2019s pharmacy information displayed, and I\u2019m sorry for the frustration this has caused.\\n\\nI have escalated your concern to a member of our support team who specializes in privacy and data security. They will investigate the incident and work with you to determine the cause and appropriate safeguards.\\n\\nWe appreciate your patience while we look into this matter. If you have any additional details or screenshots that might help with the investigation, please feel free to share them.\\n\\nBest regards,\\n[Your Name]\\nSupport Team\"\n}",
+  "input_tokens": 641,
+  "output_tokens": 259
+ }
+}

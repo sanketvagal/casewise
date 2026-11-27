@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Upload and attach external paper lab reports to charts\nTo integrate outside paper reports or external PDF imaging into a patient's record, clinic staff must follow the secure ingestion workflow.\n\n### Steps to Upload\n1. Scan the paper document or save the external file as a standard PDF. Ensure the file size does not exceed 25 MB.\n2. Navigate to **Patients > Chart Search** and locate the correct individual.\n3. Open the chart and go to **Documents > Lab Reports**.\n4. Click **Upload New**, select your file, and choose the matching lab order from the dropdown list to link them.\n5. Click **Save and Verify** to complete the attachment.\n\n### Limits & Conditions\nOnly PDF, JPG, and PNG formats are accepted. Files over 25 MB will fail to process.\n\n### Troubleshooting\nIf the upload fails or the target lab order does not appear in the dropdown, verify that the lab order was previously created in **Labs > Active Orders**. For persistent upload errors, compress your PDF using the internal document toolkit or contact IT support with the error code.\n\nTicket:\nError uploading scanned paper lab report\n\nHi there, I tried to scan an outside paper lab report into a patient's chart this morning, but the system gave me an error message about the file format being too large. I tried shrinking the PDF down using a compression tool, but it's still not attaching correctly when I click the upload button in the documents tab. Can you let me know what size limit we are supposed to be using?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi [Customer Name],\\n\\nThank you for reaching out. I\u2019m sorry you\u2019re encountering an error while trying to upload the scanned lab report. A member of our support team is reviewing your case.\\n\\nFor reference, the system accepts PDF, JPG, and PNG files up to **25\u202fMB** in size. If the file exceeds this limit, the upload will fail. After confirming the file size is within the limit, please follow these steps to attach the report:\\n\\n1. Scan the document or save the external file as a PDF (or JPG/PNG) ensuring it is \u2264\u202f25\u202fMB.\\n2. Go to **Patients > Chart Search** and locate the patient\u2019s chart.\\n3. Open the chart and select **Documents > Lab Reports**.\\n4. Click **Upload New**, choose the file, and select the appropriate lab order from the dropdown list.\\n5. Click **Save and Verify** to complete the attachment.\\n\\nIf the lab order does not appear in the dropdown, verify that the order was created under **Labs > Active Orders**. Should the upload continue to fail after confirming the size and order, please let us know and we\u2019ll investigate further.\\n\\nWe appreciate your patience while we look into this.\\n\\nBest regards,\\n[Your Name]\\nSupport Team\"\n}",
+  "input_tokens": 593,
+  "output_tokens": 446
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:urgent_clinician: An upset or urgent clinician always goes to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Post payments and insurance remittances to accounts\nRecording patient payments and electronic remittance advices (ERAs) ensures accurate ledger balances. Only users with the Billing Specialist role can apply or adjust remittance entries.\n\n1. Go to **Billing > Payment Processing**.\n2. Select the **Unposted Remittances** tab and choose the desired ERA or paper check batch.\n3. Click **Match Invoices** to auto-allocate funds, or manually enter amounts against specific service lines.\n4. Review the remaining balance and click **Post & Close** to finalize.\n\n**Limits:** Adjustments cannot exceed the original invoice line balance. Fully closed billing periods will reject new postings.\n\n**Troubleshooting:** If a payment is misapplied to the wrong invoice line, navigate to **Billing > Ledger History**, locate the transaction, and click **Reverse Allocation**. You can then reapply the funds using the steps above.\n\nTicket:\nURGENT HELP NEEDED: Payments applied to wrong accounts while patients waiting!\n\nI am standing here with patients waiting in the hallway and my billing ledger is a complete mess! I tried to post a check remittance from a major insurer for J.D. and somehow it applied half the money to an entirely different family's account, and when I clicked undo it split the rest across four closed invoice lines instead of letting me clear it out. I have no idea what buttons to click anymore and I need someone to call me right this second to help me fix these line items before I can see my next appointment."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nI\u2019m sorry to hear about the trouble you\u2019re experiencing with the payment allocations and the impact it\u2019s having on your patients. A member of our support team is reviewing your case and will be in touch shortly.\\n\\nIn the meantime, you can try the following steps to correct the mis\u2011applied payments:\\n\\n1. Navigate to **Billing > Ledger History**.\\n2. Locate the transaction that was posted incorrectly.\\n3. Click **Reverse Allocation** to undo the current allocation.\\n4. Return to **Billing > Payment Processing**, select the appropriate ERA or check batch, and use **Match Invoices** (or manually enter amounts) to re\u2011apply the funds to the correct invoice lines.\\n5. After confirming the balances are correct, click **Post & Close** to finalize the posting.\\n\\nIf you encounter any issues while performing these steps, please let us know and we\u2019ll assist you further.\\n\\nThank you for your patience.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 596,
+  "output_tokens": 355
+ }
+}

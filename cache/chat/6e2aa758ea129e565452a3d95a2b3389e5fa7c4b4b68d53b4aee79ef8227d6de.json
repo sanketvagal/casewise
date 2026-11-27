@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: retrieval_threshold: best match 'process-portal-patient-payments' is at cosine distance 0.519, beyond the threshold of 0.3 Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nFrustrated with patient portal password reset and account unlocking issues\n\nGood grief, I am at my wits' end trying to deal with the patient portal accounts today. Patients constantly call my desk because they are locked out or cannot remember their passwords, and the tool to reset or unlock their access is buried under three different menus. I tried walking an elderly patient through the password recovery link this morning, but the verification email never arrived in their inbox even after I clicked resend three times, which completely stalled our check-in flow. Can you please explain why these reset links are failing and how I am actually supposed to clear out these locked portal accounts quickly without wasting twenty minutes per person?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for reaching out and letting us know about the difficulties you\u2019re experiencing with patient portal password resets and account unlocks. I\u2019m sorry to hear how much this is impacting your workflow and the experience for your patients.\\n\\nI want to assure you that a member of our support team is now reviewing the issue you described, including the failed verification emails and the navigation challenges you\u2019ve encountered. We\u2019ll investigate the root cause and work on a solution.\\n\\nWe\u2019ll be in touch as soon as we have more information.\\n\\nThank you for your patience,\\n[Your Name]\\nSupport Team\"\n}",
+  "input_tokens": 440,
+  "output_tokens": 260
+ }
+}

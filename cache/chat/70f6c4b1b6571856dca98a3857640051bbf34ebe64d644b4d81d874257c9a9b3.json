@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human. (also matched: urgent_clinician) Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Search the pharmacy directory and update patient favorites\nTo update a patient's preferred pharmacy or add a custom entry, navigate to **Patients > Chart > Demographics** and select the **Pharmacy** tab. \n\n1. Click **Search Directory** to query the national e-prescribing database using the pharmacy name, NPI, or zip code.\n2. Select the correct facility from the results list and click **Set as Preferred** to update the patient's record.\n3. If a newly opened location is missing from the database, click **Add Custom Pharmacy**, complete the required fields (Name, Address, Phone, and Fax), and click **Save Entry**.\n\n**Limits & Conditions:** \nCustom pharmacies are restricted to your clinic's database and cannot receive electronic prescriptions until verified by network administrators. Only staff with Medical Assistant or Provider roles can modify pharmacy favorites.\n\n**Troubleshooting:** \nIf a pharmacy search yields no results, verify the zip code or try searching by phone number alone. If an added custom pharmacy fails to appear in the drop-down menu when prescribing, refresh your browser cache using `Ctrl+F5` (`Cmd+Shift+R` on Mac) and ensure all mandatory address fields were completed.\n\nTicket:\nMissing pharmacy directory listings and custom entry error\n\nWe need to update patient pharmacy preferences during intake, but several local pharmacies have recently closed or moved and do not appear when searching the directory. Furthermore, the system will not let us manually save a custom pharmacy entry with the correct local address and fax details. We need this resolved immediately to send out prescriptions properly."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for reaching out. I understand you\u2019re encountering issues with pharmacy directory listings and adding custom pharmacy entries. A member of our support team is reviewing this for you.\\n\\nIn the meantime, you can try the following steps from our knowledge base:\\n\\n1. Navigate to **Patients > Chart > Demographics** and select the **Pharmacy** tab.\\n2. Click **Search Directory** and query the national e\u2011prescribing database using the pharmacy name, NPI, or zip code.\\n3. If the pharmacy does not appear, verify the zip code or try searching by phone number alone.\\n4. To add a custom pharmacy, click **Add Custom Pharmacy**, complete the required fields (Name, Address, Phone, and Fax), and click **Save Entry**.\\n5. If the custom pharmacy does not appear in the drop\u2011down menu when prescribing, refresh your browser cache using **Ctrl+F5** (or **Cmd+Shift+R** on Mac) and ensure all mandatory address fields were completed.\\n\\nWe\u2019ll continue to investigate the issue and will follow up with you.\\n\\nBest regards,\\nSupport Team\"\n}",
+  "input_tokens": 613,
+  "output_tokens": 624
+ }
+}

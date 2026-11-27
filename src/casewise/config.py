@@ -22,13 +22,13 @@ class Settings:
     gateway_mode: str = "record"
     """``live`` (no cache), ``record`` (cache, calling the provider on a miss) or
     ``replay`` (cache only, never calls a provider)."""
-    distance_threshold: float = 0.5
+    distance_threshold: float = 0.3
     """Largest cosine distance at which the best article still counts as a match.
-    A placeholder until it is tuned on weeks 1-2."""
+    Tuned on weeks 1-2 only by ``casewise tune`` (ADR 7); see ``eval/tuning/``."""
     structured_output_retries: int = 2
     """How many times a model step is re-asked after output that fails validation.
     When every attempt fails, the ticket escalates."""
-    kb_dir: Path = Path("kb")
+    kb_dir: Path = Path("data/kb")
     rules_path: Path = Path("safety_rules.yaml")
     """The safety rules: tickets that always escalate, whatever a model says."""
     cache_dir: Path = Path("cache")

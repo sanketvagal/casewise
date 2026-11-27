@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:patient_data_exposure: Patient-data access or exposure always goes to a human. (also matched: prescription_error, suspected_outage) Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Search the pharmacy directory and update patient favorites\nTo update a patient's preferred pharmacy or add a custom entry, navigate to **Patients > Chart > Demographics** and select the **Pharmacy** tab. \n\n1. Click **Search Directory** to query the national e-prescribing database using the pharmacy name, NPI, or zip code.\n2. Select the correct facility from the results list and click **Set as Preferred** to update the patient's record.\n3. If a newly opened location is missing from the database, click **Add Custom Pharmacy**, complete the required fields (Name, Address, Phone, and Fax), and click **Save Entry**.\n\n**Limits & Conditions:** \nCustom pharmacies are restricted to your clinic's database and cannot receive electronic prescriptions until verified by network administrators. Only staff with Medical Assistant or Provider roles can modify pharmacy favorites.\n\n**Troubleshooting:** \nIf a pharmacy search yields no results, verify the zip code or try searching by phone number alone. If an added custom pharmacy fails to appear in the drop-down menu when prescribing, refresh your browser cache using `Ctrl+F5` (`Cmd+Shift+R` on Mac) and ensure all mandatory address fields were completed.\n\nTicket:\nCritical workflow breakdown regarding medication substitution alerts and out-of-stock messages\n\nOur providers are completely blocked by how the system handles pharmacy alerts for unavailable medications. When an out-of-stock notification arrives in our inbox, clicking the substitution link often leads to a blank screen or a generic error code instead of opening the alternative drug menu. We have tried clearing our browser cache, restarting workstations, and navigating through the main chart instead of the task center, but nothing works. This is causing massive delays in getting maintenance medications to our patients, and we urgently need someone to look into why these messaging pathways are failing."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for reaching out and letting us know about the issues you\u2019re experiencing with medication substitution alerts and out\u2011of\u2011stock notifications. I understand how critical this is for your workflow and patient care.\\n\\nI\u2019ve escalated this to a member of our support team who will investigate the problem further. They will be in touch with you as soon as they have more information.\\n\\nWe appreciate your patience while we look into this.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 662,
+  "output_tokens": 197
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human. (also matched: suspected_outage) Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Review and process pharmacy medication renewal requests\nElectronic renewal requests sent from pharmacies require prompt clinical review. To process these submissions and link them to patient charts, follow the steps below.\n\n1. Go to **Clinical > Pharmacy Queue**.\n2. Select the **Renewal Requests** tab to view pending items.\n3. Click the patient's name to open the request and review the proposed medication against their active chart.\n4. Click **Approve**, **Deny**, or **Modify**. Approving automatically updates the patient's active medication list.\n\n### Limits and Conditions\n* Only users with prescribing or clinical oversight roles can process renewals.\n* Requests expire automatically after 14 days if left unaddressed.\n\n### Troubleshooting\nIf an approved renewal does not appear on the active medication list, verify that the pharmacy transmission completed successfully in **Reports > Audit Trail**. If the status shows an error, manually add the medication via **Charts > Medications** and contact support if the queue remains out of sync.\n\nTicket:\nAssistance Needed with Pharmacy Substitution Messaging and Out-of-Stock Protocols\n\nHello Support, our clinical team is encountering several out-of-stock notices from local pharmacies and we need guidance on how to properly execute therapeutic alternative switches within the software. Specifically, when we receive a pharmacy notification stating a drug is unavailable, we attempt to navigate to the prescribing module to select an alternative agent, but the messaging workflow for substitution does not seem to transmit our instructions correctly back to the pharmacist. We have tried cancelling and re-issuing the electronic order using standard dropdowns, yet the pharmacy continues to report receiving ambiguous status codes. Could you please provide detailed instructions or documentation on the correct sequence for handling these substitution alerts so our providers can clear their pending queues efficiently?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hello,\\n\\nThank you for reaching out and letting us know about the challenges you\u2019re experiencing with pharmacy substitution messaging and out\u2011of\u2011stock notifications. I\u2019ve escalated this issue to a member of our support team who will review the details and work with you to investigate the problem.\\n\\nWe appreciate your patience while we look into this. If we need any additional information, we\u2019ll be in touch.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 649,
+  "output_tokens": 230
+ }
+}

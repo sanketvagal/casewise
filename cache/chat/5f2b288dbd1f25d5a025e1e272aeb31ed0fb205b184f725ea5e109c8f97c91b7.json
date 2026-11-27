@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: retrieval_threshold: best match 'process-portal-patient-payments' is at cosine distance 0.566, beyond the threshold of 0.3 Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: none\n\nTicket:\nPortal password lock out assistance\n\nI'm a bit lost trying to figure out how to unlock a patient's portal account after too many failed password attempts. Where is the setting for resetting their access?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi there,\\n\\nThank you for reaching out about the locked patient portal account. I understand how frustrating that can be. A member of our support team is looking into this for you.\\n\\nWe\u2019ll be in touch soon with an update.\\n\\nBest regards,\\n[Your Support Team]\"\n}",
+  "input_tokens": 341,
+  "output_tokens": 176
+ }
+}

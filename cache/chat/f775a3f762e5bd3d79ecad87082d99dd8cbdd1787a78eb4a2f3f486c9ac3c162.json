@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Query external medication history and prescription monitoring\nClinicians can retrieve a patient's multi-pharmacy fill history and state prescription monitoring program (PMP) data directly from the clinical workspace. Users must have active prescribing credentials and completed identity proofing.\n\n1. Open the patient chart and navigate to **Clinical > Medications**.\n2. Click **Query External History** in the toolbar.\n3. Review the identity verification prompt and select **Authorize & Submit**.\n4. View the consolidated report detailing prior fills and controlled substance data.\n\n### Limits and Conditions\nQueries depend on state database availability and patient consent where required by local regulations. Historical data is restricted to the preceding twelve months.\n\n### Troubleshooting\nIf the query fails or returns an access error, verify that the clinician's National Provider Identifier (NPI) and Drug Enforcement Administration (DEA) numbers are correctly entered under **Settings > Provider Profile**. If the state PMP gateway is offline, a notification banner will appear; wait fifteen minutes before retrying.\n\nTicket:\nError accessing external prescription monitoring history\n\nI am terribly sorry to reach out about this, but I've been encountering an error when trying to query external medication history and state prescription monitoring data for a few of our patients this morning. I've tried logging out and back in, clearing my browser cache, and verifying my provider credentials, but every time I click the database query button, it fails with a timeout error code. Could you please look into our account permissions when you get a chance? I apologize for any inconvenience."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for reaching out and letting us know about the error you\u2019re encountering when querying external medication history and prescription monitoring data. I\u2019m sorry you\u2019re experiencing this issue.\\n\\nA member of our support team is reviewing your account and will investigate the problem further.\\n\\nIn the meantime, you might try the following steps from our knowledge\u2011base article on querying external medication history:\\n\\n1. Open the patient chart and go to **Clinical > Medications**.\\n2. Click **Query External History** in the toolbar.\\n3. When the identity verification prompt appears, select **Authorize & Submit**.\\n4. If the query fails, double\u2011check that your National Provider Identifier (NPI) and DEA numbers are correctly entered under **Settings > Provider Profile**.\\n5. Look for a notification banner indicating that the state PMP gateway is offline; if you see one, wait about fifteen minutes before retrying the query.\\n\\nIf the issue persists after these checks, our support team will continue to investigate.\\n\\nThank you for your patience.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 592,
+  "output_tokens": 460
+ }
+}

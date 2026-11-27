@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [x] A labeled ticket format: intent, answering article (or none), must-escalate, escalation reason, metadata
 - [x] Deflection rate = correct auto-replies ÷ all tickets; a wrong auto-reply is not counted as a deflection

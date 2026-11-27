@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-roles-and-permissions\nArticle: Assign user roles and configure permission levels\nProtect sensitive clinical and financial data by tailoring access for your staff. Only practice managers and primary administrators can modify security credentials.\n\n1. Go to **Settings > Practice Staff > Roles & Permissions**.\n2. Click **Create New Role** or select an existing title from the directory.\n3. Toggle permissions across categories, including *Billing*, *Patient Charts*, and *System Settings*.\n4. Click **Assign Users**, select the staff members who require this profile, and click **Save Changes**.\n\n**Limits & Conditions:** Every active user profile must be assigned to at least one role. Direct permission overrides on individual accounts are not permitted; all restrictions must flow through the assigned role.\n\n**Troubleshooting:** If a staff member cannot view a restricted menu after saving, verify their account status is active and have them clear their browser cache before logging back in.\n\nTicket:\nPassword reset policies and staff account lockout issues\n\nGood morning, I am writing because I am a bit confused about how our practice is supposed to handle staff password resets and overall security policies. Yesterday, two of our part-time staff members got locked out of their accounts after trying to log in, and when I went to the admin panel to reset their credentials, I couldn't find where to adjust the lockout duration or complexity requirements. We are on the essentials plan, and I want to make sure we are compliant without making it impossible for everyone to sign in. Could someone please explain where these settings are hidden and how I can update our practice-wide policy?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": false,\n  \"reason\": \"The article explains how to assign roles and configure permissions, but does not address password reset policies or account lockout settings requested in the ticket.\"\n}",
+  "input_tokens": 579,
+  "output_tokens": 135
+ }
+}

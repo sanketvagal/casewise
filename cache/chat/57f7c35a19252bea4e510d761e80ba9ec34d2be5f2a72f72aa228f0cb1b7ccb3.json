@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: post-payments-and-remittances\nArticle: Post payments and insurance remittances to accounts\nRecording patient payments and electronic remittance advices (ERAs) ensures accurate ledger balances. Only users with the Billing Specialist role can apply or adjust remittance entries.\n\n1. Go to **Billing > Payment Processing**.\n2. Select the **Unposted Remittances** tab and choose the desired ERA or paper check batch.\n3. Click **Match Invoices** to auto-allocate funds, or manually enter amounts against specific service lines.\n4. Review the remaining balance and click **Post & Close** to finalize.\n\n**Limits:** Adjustments cannot exceed the original invoice line balance. Fully closed billing periods will reject new postings.\n\n**Troubleshooting:** If a payment is misapplied to the wrong invoice line, navigate to **Billing > Ledger History**, locate the transaction, and click **Reverse Allocation**. You can then reapply the funds using the steps above.\n\nTicket:\nCorrecting misapplied payments across invoice lines\n\nNeed instructions on how to correct a misapplied insurance payment that spans multiple invoice lines.\n\nAuto-reply:\nTo fix the misapplied insurance payment, open **Billing > Ledger History**, find the transaction and click **Reverse Allocation**. Then return to **Billing > Payment Processing**, select the **Unposted Remittances** tab, and reapply the funds to the correct invoice lines using **Match Invoices** (or manual entry) and finally click **Post & Close**.\n\nSource: Post payments and insurance remittances to accounts (post-payments-and-remittances)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately reflects the troubleshooting steps provided in the article for correcting misapplied payments.\"}\n```",
+  "input_tokens": 524,
+  "output_tokens": 36
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. If the ticket asks for more than one thing, the article must answer all of them: an article that covers only part of the request does not answer it. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: troubleshoot-lab-interface\nArticle: Troubleshoot lab interface connections and missing feeds\nWhen electronic diagnostic results stop populating, clinic staff can resolve most interface disruptions using the administrative console.\n\n### Steps to Restart the Feed\n1. Navigate to **Admin > Interfaces > Lab Connectivity**.\n2. Locate the affected vendor in the active connections list.\n3. Click **Diagnostics** to run a live ping test.\n4. If the status reads offline, click **Action > Restart Service**.\n5. Wait three minutes for the queue to flush and refresh the dashboard.\n\n### Limits and Conditions\nOnly users with the *System Administrator* role can restart interface services. The system processes up to 500 queued results per batch; backlog clearing for extended outages may take up to thirty minutes.\n\n### Troubleshooting\nIf the connection status remains red after a manual restart, verify that your local firewall permits outbound traffic on port 443 to the designated gateway IP. Should results still fail to appear, document the error code displayed in the event log and submit a support ticket with the specimen requisition numbers for the missing labs.\n\nTicket:\nMissing lab feed connection\n\nOur lab feed from Quest has stopped populating as of this morning. Please check the interface connection."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article provides steps to verify and restart the lab interface connection, directly addressing the missing Quest feed issue.\"\n}",
+  "input_tokens": 536,
+  "output_tokens": 159
+ }
+}

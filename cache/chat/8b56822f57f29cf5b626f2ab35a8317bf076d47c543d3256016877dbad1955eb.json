@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a support agent for a clinical practice-management product. Answer the customer's ticket using only the knowledge-base article provided. Be brief and concrete. Do not add steps or facts that are not in the article. Put the reply in reply and the article's id in cited_article_id.\n\nReply with only a JSON object and no other text.\nOutput: draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"An auto-reply and the article it is based on.\", \"properties\": {\"cited_article_id\": {\"title\": \"Cited Article Id\", \"type\": \"string\"}, \"reply\": {\"minLength\": 1, \"title\": \"Reply\", \"type\": \"string\"}}, \"required\": [\"reply\", \"cited_article_id\"], \"title\": \"draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: configure-roles-and-permissions\nArticle: Assign user roles and configure permission levels\nProtect sensitive clinical and financial data by tailoring access for your staff. Only practice managers and primary administrators can modify security credentials.\n\n1. Go to **Settings > Practice Staff > Roles & Permissions**.\n2. Click **Create New Role** or select an existing title from the directory.\n3. Toggle permissions across categories, including *Billing*, *Patient Charts*, and *System Settings*.\n4. Click **Assign Users**, select the staff members who require this profile, and click **Save Changes**.\n\n**Limits & Conditions:** Every active user profile must be assigned to at least one role. Direct permission overrides on individual accounts are not permitted; all restrictions must flow through the assigned role.\n\n**Troubleshooting:** If a staff member cannot view a restricted menu after saving, verify their account status is active and have them clear their browser cache before logging back in.\n\nTicket:\nAdjusting staff permission tiers for financial data\n\nHello, I am reviewing our current user access settings and would like to set up some custom security roles for our administrative team. We need to make sure that front desk staff cannot view sensitive payroll and financial records while still retaining scheduling access. Could someone walk me through the best way to structure these permission levels in our enterprise account? Thank you."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"cited_article_id\": \"configure-roles-and-permissions\",\n  \"reply\": \"To restrict front\u2011desk staff from payroll and financial records while keeping scheduling access, go to **Settings > Practice Staff > Roles & Permissions**. Create a new role (or edit an existing one) and toggle the permissions: enable the scheduling-related options and disable any *Billing* or *Financial* categories. Then click **Assign Users**, select the front\u2011desk team members, and **Save Changes**. Ensure each user\u2019s account is active; if they still can\u2019t see the correct menus, have them clear their browser cache and log in again.\"\n}",
+  "input_tokens": 519,
+  "output_tokens": 205
+ }
+}

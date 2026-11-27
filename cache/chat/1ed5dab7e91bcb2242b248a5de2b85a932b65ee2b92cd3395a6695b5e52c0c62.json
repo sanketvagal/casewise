@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are drafting a reply for a human support agent at a clinical practice-management product. The agent will review and edit it before anything is sent. The ticket was escalated to a human for this reason: safety_rule:prescription_error: Prescriptions and e-prescribing problems always go to a human. Acknowledge the customer's problem and say a member of the support team is handling it. Do not promise an outcome or a timeline. Give product steps only if a knowledge-base article is provided and it answers the ticket, and take them only from that article. Put the reply in draft.\n\nReply with only a JSON object and no other text.\nOutput: review_draft.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"A suggested reply for the human agent who takes an escalation.\", \"properties\": {\"draft\": {\"minLength\": 1, \"title\": \"Draft\", \"type\": \"string\"}}, \"required\": [\"draft\"], \"title\": \"review_draft\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article: Generate, review, and submit insurance claims\nFollow these steps to process and submit electronic claims to your clearinghouse:\n\n1. Navigate to **Billing > Claim Center** and select the **Ready to Batch** tab.\n2. Filter by payer or date range, then click **Generate Claims** to compile all finalized encounters.\n3. Review the generated list on the **Validation Queue** tab. Claims with missing modifiers, invalid subscriber IDs, or unmapped diagnosis codes will display a red error icon.\n4. Click any flagged claim to open the editor, correct the highlighted errors, and click **Save & Re-validate**.\n5. Select the validated claims and click **Batch & Submit** to transmit them to the clearinghouse.\n\n### Limits and Conditions\n- Claims must be generated within 90 days of the service date.\n- Batch sizes cannot exceed 500 claims per transmission.\n\n### Troubleshooting\nIf a claim repeatedly fails validation despite correct data entry, go to **Billing > Payer Rules** to verify that the specific payer's current electronic format requirements are up to date. If transmission errors persist after a successful batch, check the **Clearinghouse Log** under **Reports** for specific rejection codes.\n\nTicket:\nEPCS token authentication failure\n\nMy two-factor authentication token keeps failing when I try to sign controlled substance prescriptions. I completed identity proofing last week, but now the signing window errors out every time. Please resolve this so I can finish my queue."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"draft\": \"Hi,\\n\\nThank you for reaching out and letting us know about the issue you\u2019re experiencing with your EPCS token authentication. I understand how important it is to be able to sign controlled substance prescriptions without interruption.\\n\\nI\u2019ve escalated this to a member of our support team, and they will be reviewing the details of your case shortly. We\u2019ll be in touch as soon as we have more information.\\n\\nThank you for your patience.\\n\\nBest regards,\\n[Support Team]\"\n}",
+  "input_tokens": 583,
+  "output_tokens": 219
+ }
+}

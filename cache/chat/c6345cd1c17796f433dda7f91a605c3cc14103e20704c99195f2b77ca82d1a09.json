@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "gemini-3.5-flash-lite",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You grade a support auto-reply for a clinical practice-management product against the knowledge-base article that answers the ticket. Mark it correct only if all of these hold: it answers what the ticket actually asks; it agrees with the article; and it adds no steps, facts or promises that the article does not support. Otherwise mark it incorrect. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: judge.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"The judge's grade for one auto-reply.\", \"properties\": {\"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}, \"verdict\": {\"enum\": [\"correct\", \"incorrect\"], \"title\": \"Verdict\", \"type\": \"string\"}}, \"required\": [\"verdict\", \"reason\"], \"title\": \"judge\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: troubleshoot-lab-interface\nArticle: Troubleshoot lab interface connections and missing feeds\nWhen electronic diagnostic results stop populating, clinic staff can resolve most interface disruptions using the administrative console.\n\n### Steps to Restart the Feed\n1. Navigate to **Admin > Interfaces > Lab Connectivity**.\n2. Locate the affected vendor in the active connections list.\n3. Click **Diagnostics** to run a live ping test.\n4. If the status reads offline, click **Action > Restart Service**.\n5. Wait three minutes for the queue to flush and refresh the dashboard.\n\n### Limits and Conditions\nOnly users with the *System Administrator* role can restart interface services. The system processes up to 500 queued results per batch; backlog clearing for extended outages may take up to thirty minutes.\n\n### Troubleshooting\nIf the connection status remains red after a manual restart, verify that your local firewall permits outbound traffic on port 443 to the designated gateway IP. Should results still fail to appear, document the error code displayed in the event log and submit a support ticket with the specimen requisition numbers for the missing labs.\n\nTicket:\nDiagnostic Interface Feed Disruption\n\nHello Support Team, we have noticed that diagnostic results from our primary reference laboratory have stopped populating in our incoming queues as of this morning. The system interface dashboard shows an active connection, but no new pathology files are being received. Please investigate this feed interruption at your earliest convenience.\n\nAuto-reply:\nOpen Admin\u202f>\u202fInterfaces\u202f>\u202fLab Connectivity, select the vendor and click **Diagnostics** to run a live ping. If the test shows the connection offline, use **Action\u202f>\u202fRestart Service** and wait three minutes for the queue to flush. If the status stays red or results still do not appear, confirm your firewall allows outbound traffic on port\u202f443 to the gateway IP. Should the problem persist, record the event\u2011log error code and include the specimen requisition numbers when you submit a support ticket.\n\nSource: Troubleshoot lab interface connections and missing feeds (troubleshoot-lab-interface)"
+   }
+  ]
+ },
+ "value": {
+  "text": "```json\n{\"verdict\": \"correct\", \"reason\": \"The auto-reply accurately follows the troubleshooting steps and conditions outlined in the knowledge-base article without adding any unsupported steps or promises.\"}\n```",
+  "input_tokens": 644,
+  "output_tokens": 43
+ }
+}

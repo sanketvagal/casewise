@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: create-custom-lab-panels\nArticle: Build custom lab order panels and requisition bundles\nStreamline frequent lab orders by grouping multiple tests into a single reusable panel. Only users with clinical administrator roles can create and publish shared panels for the practice.\n\n1. Navigate to **Clinical Setup > Lab Management > Order Panels**.\n2. Click **Create New Panel** in the top right corner.\n3. Enter a descriptive **Panel Name** and select the applicable clinical specialty.\n4. Use the search bar to locate and add individual tests from the master catalog.\n5. Click **Save and Publish** to make the bundle available to your provider group.\n\n### Limits and Conditions\n* Panels are limited to a maximum of 25 individual tests.\n* Custom panels cannot override specific external reference laboratory coding requirements.\n\n### Troubleshooting\nIf providers cannot view the new panel in their order menu, verify that the panel's sharing permissions are assigned to their specific department under **Settings > Permissions > Lab Access**.\n\nTicket:\nCreating a standard lab panel bundle\n\nGood morning. We are trying to group several of our routine blood tests together into a single requisition bundle for our annual wellness exams. Could you please let us know how to set up this custom panel so all of our providers can easily select it from their order menus?"
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article provides step\u2011by\u2011step instructions for creating and publishing a custom lab panel and ensuring provider access, directly addressing the request to set up a routine test bundle.\"\n}",
+  "input_tokens": 519,
+  "output_tokens": 133
+ }
+}

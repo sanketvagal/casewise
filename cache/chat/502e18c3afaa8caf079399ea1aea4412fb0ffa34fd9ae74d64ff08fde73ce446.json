@@ -1,0 +1,21 @@
+{
+ "key": {
+  "kind": "chat",
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You check whether a knowledge-base article answers a support ticket for a clinical practice-management product. Set answers_ticket to true only if following the article would resolve what the ticket actually asks. An article about a related task does not answer it: an article on placing an order does not answer a question about cancelling one. If the ticket asks for more than one thing, the article must answer all of them: an article that covers only part of the request does not answer it. Give the reason in one sentence.\n\nReply with only a JSON object and no other text.\nOutput: grounding.\nThe JSON object must match this JSON schema:\n{\"additionalProperties\": false, \"description\": \"Whether the best-matching article actually answers the ticket.\", \"properties\": {\"answers_ticket\": {\"title\": \"Answers Ticket\", \"type\": \"boolean\"}, \"reason\": {\"minLength\": 1, \"title\": \"Reason\", \"type\": \"string\"}}, \"required\": [\"answers_ticket\", \"reason\"], \"title\": \"grounding\", \"type\": \"object\"}"
+   },
+   {
+    "role": "user",
+    "content": "Article id: post-payments-and-remittances\nArticle: Post payments and insurance remittances to accounts\nRecording patient payments and electronic remittance advices (ERAs) ensures accurate ledger balances. Only users with the Billing Specialist role can apply or adjust remittance entries.\n\n1. Go to **Billing > Payment Processing**.\n2. Select the **Unposted Remittances** tab and choose the desired ERA or paper check batch.\n3. Click **Match Invoices** to auto-allocate funds, or manually enter amounts against specific service lines.\n4. Review the remaining balance and click **Post & Close** to finalize.\n\n**Limits:** Adjustments cannot exceed the original invoice line balance. Fully closed billing periods will reject new postings.\n\n**Troubleshooting:** If a payment is misapplied to the wrong invoice line, navigate to **Billing > Ledger History**, locate the transaction, and click **Reverse Allocation**. You can then reapply the funds using the steps above.\n\nTicket:\nHelp with misapplied insurance remittance payments\n\nHello, I am so sorry to reach out with a billing issue, but I made a mistake while posting an electronic remittance advice batch this morning and accidentally applied a large insurance payment across the wrong invoice lines for a couple of accounts. Could someone please help me figure out the proper way to back out these misapplied entries and redistribute the funds correctly without messing up our end-of-month reconciliation reports? I really appreciate your patience and guidance."
+   }
+  ]
+ },
+ "value": {
+  "text": "{\n  \"answers_ticket\": true,\n  \"reason\": \"The article includes troubleshooting steps to reverse misapplied remittance entries and reapply the funds, directly addressing the ticket's request.\"\n}",
+  "input_tokens": 585,
+  "output_tokens": 133
+ }
+}

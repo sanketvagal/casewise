@@ -11,10 +11,18 @@ from dotenv import load_dotenv
 
 from casewise.cache import CacheMiss
 from casewise.config import Settings
-from casewise.evaluate import evaluate, load_labeled_tickets, summary_markdown, write_results
+from casewise.evaluate import (
+    append_history,
+    evaluate,
+    load_labeled_tickets,
+    run_record,
+    summary_markdown,
+    write_results,
+)
 from casewise.generate import DEFAULT_SEED, GenerationError, generate
 from casewise.live import LiveUnavailable, build_gateway
 from casewise.triage import Ticket, triage
+from casewise.tune import HeldOutTickets, tune, write_tuning
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -36,12 +44,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         "eval", help="Evaluate triage on labeled tickets and write the results."
     )
     eval_cmd.add_argument(
-        "--fixtures", type=Path, default=Path("eval/fixtures.jsonl"),
-        help="JSONL file of labeled tickets",
+        "--tickets", "--fixtures", type=Path, default=Path("data/tickets/weeks-3-4.jsonl"),
+        help="JSONL file of labeled tickets (default: the held-out weeks 3-4)",
     )  # fmt: skip
     eval_cmd.add_argument(
         "--out", type=Path, default=Path("eval/results"),
-        help="Directory for latest.json and latest.md",
+        help="Directory for latest.json, latest.md and the history.jsonl it appends to",
+    )  # fmt: skip
+
+    tune_cmd = commands.add_parser(
+        "tune", help="Choose the retrieval distance threshold on weeks 1-2 tickets only."
+    )
+    tune_cmd.add_argument(
+        "--tickets", type=Path, default=Path("data/tickets/weeks-1-2.jsonl"),
+        help="JSONL file of weeks 1-2 labeled tickets; any later ticket is refused",
+    )  # fmt: skip
+    tune_cmd.add_argument(
+        "--out", type=Path, default=Path("eval/tuning"),
+        help="Directory for weeks-1-2.json and weeks-1-2.md",
     )  # fmt: skip
 
     generate_cmd = commands.add_parser(
@@ -60,12 +80,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _eval(args)
     if args.command == "generate":
         return _generate(args)
+    if args.command == "tune":
+        return _tune(args)
     return _triage(parser, args)
 
 
 def _eval(args: argparse.Namespace) -> int:
     settings = Settings.from_env()
-    labeled = load_labeled_tickets(args.fixtures)
+    labeled = load_labeled_tickets(args.tickets)
     try:
         results = evaluate(
             labeled,
@@ -76,8 +98,37 @@ def _eval(args: argparse.Namespace) -> int:
     except (CacheMiss, LiveUnavailable) as problem:
         print(f"casewise: {problem}", file=sys.stderr)
         return 1
+    # The record reads the git state before the results are written: eval/results/latest.*
+    # are tracked, so rewriting them first would mark every run dirty.
+    record = run_record(results, settings=settings, tickets=args.tickets)
     write_results(results, args.out)
+    append_history(record, args.out)
     print(summary_markdown(results))
+    return 0
+
+
+def _tune(args: argparse.Namespace) -> int:
+    settings = Settings.from_env()
+    try:
+        result = tune(
+            load_labeled_tickets(args.tickets),
+            gateway=build_gateway(settings),
+            judge_gateway=build_gateway(settings, provider=settings.judge_provider),
+            settings=settings,
+        )
+    except HeldOutTickets as problem:
+        print(f"casewise: refusing to tune on held out tickets. {problem}", file=sys.stderr)
+        return 1
+    except (CacheMiss, LiveUnavailable) as problem:
+        print(f"casewise: {problem}", file=sys.stderr)
+        return 1
+    write_tuning(result, args.out)
+    print((args.out / "weeks-1-2.md").read_text(encoding="utf-8"))
+    if result.threshold != settings.distance_threshold:
+        print(
+            f"The configured threshold is {settings.distance_threshold}. Set the default "
+            f"distance_threshold in src/casewise/config.py to {result.threshold}."
+        )
     return 0
 
 
