@@ -2,17 +2,18 @@
 
 import types as pytypes
 
-import httpx
-import httpx2
 import pytest
-from google import genai
 
-from casewise import live
+# The live providers are an optional extra that CI does not install.
+genai = pytest.importorskip("google.genai")
+groq = pytest.importorskip("groq")
+httpx = pytest.importorskip("httpx")
+httpx2 = pytest.importorskip("httpx2")
+
+from casewise import live  # noqa: E402
 
 
 def test_the_groq_client_has_a_request_timeout(monkeypatch):
-    import groq
-
     made = {}
 
     class FakeGroq:
